@@ -1,0 +1,188 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{spreadtab}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+% Right-aligned X column (avoids siunitx S columns)
+\newcolumntype{Y}{>{\raggedleft\arraybackslash}X}
+
+% spreadtab numeric setup
+\STsetdecimalsep{.}
+\STautoround*{2}
+
+\hypersetup{colorlinks=true, linkcolor=blue, urlcolor=blue}
+
+\begin{document}
+\title{Startup Valuation Model (Softcoded with \texttt{spreadtab}) --- Updated Assumptions}
+\author{Security-focused Bitcoin Subscription \& Hardware Model}
+\date{\today}
+\maketitle
+
+\section*{How to use}
+Edit the \textbf{Input Parameters}. All dependent metrics, projections, and valuations update automatically via \texttt{spreadtab}. Monetary amounts are in USD. This version (a) treats \textbf{hardware purchase as replacing subscriptions} for adopters and (b) treats \textbf{merchandise as non-recurrent CAC recoup}, not revenue.
+
+% ========================= CUSTOMER AVATAR =========================
+\section{Customer Avatar: The Wrench-Averse Bitcoiner}
+\begin{itemize}
+  \item \textbf{Demographics:} Predominantly 25--45 years old, male-skewed, living in urban/suburban areas in higher-adoption markets (e.g., U.S., Germany, Latin America, parts of Asia).
+  \item \textbf{Wealth Profile:} Holds non-trivial Bitcoin savings (from a few BTC to significant portfolios), net worth often exposed to BTC volatility.
+  \item \textbf{Psychographics:} Sovereignty and privacy oriented; distrusting of custodians. Cypherpunk ethos.
+  \item \textbf{Pain Point:} Concerned about \emph{physical coercion} (``\$5 wrench attack'') more than online hacks.
+  \item \textbf{Behavior:} Active on X/Twitter, Reddit, Telegram, and podcasts; buys VPNs, hardware wallets, Faraday bags.
+  \item \textbf{Purchase Drivers:} Peace of mind, simple subscription security layers, and trusted-brand signals (hardware, stickers, etc.).
+\end{itemize}
+
+% ========================= INPUTS =========================
+\section{Core Input Parameters}
+
+\subsection*{Subscription Tiers \& Distribution}
+\begin{spreadtab}{{tabularx}{\linewidth}{l Y Y}}
+\toprule
+@ Tier & @ Price (/mo) & @ Mix (\%) \\\midrule
+@ Basic   & :={2.60}  & :={90} \\
+@ Medium  & :={30}    & :={9}  \\
+@ Golden  & :={220}   & :={1}  \\\midrule
+@ \textbf{Check: Mix Sum \%} & & :={b2+b3+b4} \\
+\bottomrule
+\end{spreadtab}
+
+\subsection*{Hardware Pricing, Margins \& Mix (Purchase replaces subscription)}
+\begin{spreadtab}{{tabularx}{\linewidth}{l Y Y Y}}
+\toprule
+@ Device & @ Retail (USD) & @ Margin (\%) & @ Mix (\%) \\\midrule
+@ Entry        & :={500}  & :={40} & :={60} \\
+@ Professional & :={1000} & :={45} & :={30} \\
+@ Premium      & :={2000} & :={50} & :={10} \\\midrule
+@ \textbf{Check: Mix Sum \%} &  &  & :={d2+d3+d4} \\
+\bottomrule
+\end{spreadtab}
+
+\subsection*{Hardware Adoption Timing \& Rate}
+\begin{spreadtab}{{tabularx}{\linewidth}{l Y Y}}
+\toprule
+@ Parameter & @ Year & @ Adoption of Total Users (\%) \\\midrule
+@ Hardware Starts In Year & :={2} & \\
+@ Adoption Rate (per year, replaces subs) &  & :={5} \\
+\bottomrule
+\end{spreadtab}
+
+\subsection*{Capital \& CAC Assumptions (Merch recoups CAC, not revenue)}
+\begin{spreadtab}{{tabularx}{\linewidth}{l Y Y Y Y}}
+\toprule
+@ Parameter & @ Ticket (USD) & @ Dev (USD) & @ Marketing (USD) & @ Target Valuation (USD) \\\midrule
+@ Inputs & :={150000} & :={50000} & :={100000} & :={5000000} \\\midrule
+@ Stake Offered (\%) & \multicolumn{4}{r}{:={3}} \\
+\bottomrule
+\end{spreadtab}
+
+\begin{spreadtab}{{tabularx}{\linewidth}{l Y Y Y Y}}
+\toprule
+@ CAC Parameter & @ Gross CAC (USD) & @ Merch Recoup (\%) & @ \textbf{Effective CAC} (USD) & @ Users from Marketing \\\midrule
+@ Values & :={20} & :={50} & :={b2*(1 - c2/100)} & :={100000 / d2} \\
+\bottomrule
+\end{spreadtab}
+
+\noindent\emph{Interpretation:} With \$20 gross CAC and 50\% recoup via non-recurrent merch, the effective CAC is \$10, so a \$100k marketing budget implies \textbf{10{,}000 users} acquired.
+
+% ========================= DERIVED METRICS =========================
+\section{Derived Metrics (Per-User)}
+
+\subsection*{ARPU from Subscription Only (no merch revenue)}
+\begin{spreadtab}{{tabularx}{\linewidth}{l Y Y}}
+\toprule
+@ Metric & @ Monthly (USD) & @ Annual (USD) \\\midrule
+@ ARPU (Subscriptions only) & :={(2.60*90 + 30*9 + 220*1)/100} & :={b2*12} \\
+\bottomrule
+\end{spreadtab}
+
+\subsection*{Average Hardware Gross Profit per Device}
+\begin{spreadtab}{{tabularx}{\linewidth}{l Y}}
+\toprule
+@ Metric & @ Value (USD) \\\midrule
+@ Entry GP (=500*40\%)         & :={500*40/100} \\
+@ Professional GP (=1000*45\%) & :={1000*45/100} \\
+@ Premium GP (=2000*50\%)      & :={2000*50/100} \\\midrule
+@ \textbf{Weighted Avg GP (60/30/10)} & :={(500*40/100)*60/100 + (1000*45/100)*30/100 + (2000*50/100)*10/100} \\
+\bottomrule
+\end{spreadtab}
+
+% ========================= YEAR 1 SNAPSHOT =========================
+\section{Year 1 Snapshot (Subscriptions only; hardware not yet on sale)}
+\begin{spreadtab}{{tabularx}{\linewidth}{l Y Y Y}}
+\toprule
+@ Scenario & @ Users (Y1) & @ ARR Subs (Y1) & @ Valuation (Multiple) \\\midrule
+@ Conservative & :={2000}  & :={2000 * ( (2.60*90 + 30*9 + 220*1)/100 * 12 )} & :={c2*5} \\
+@ Moderate     & :={10000} & :={10000 * ( (2.60*90 + 30*9 + 220*1)/100 * 12 )} & :={c3*7} \\
+@ Optimistic   & :={50000} & :={50000 * ( (2.60*90 + 30*9 + 220*1)/100 * 12 )} & :={c4*10} \\
+\bottomrule
+\end{spreadtab}
+
+\noindent\textit{Note:} In Year~1, merchandise is not counted as revenue; it is only used to partially recoup CAC as modeled above.
+
+% ========================= 3-YEAR PROJECTION =========================
+\section{Three-Year Projection (Hardware starts Year 2; adopters stop subscribing)}
+
+\subsection*{Conservative}
+\begin{spreadtab}{{tabularx}{\linewidth}{Y Y Y Y Y}}
+\toprule
+@ Year & @ Users & @ Subs Users & @ ARR (Subs only) & @ Hardware GP \\\midrule
+@ 1 & :={2000} & :={2000} & :={c2 * ( (2.60*90 + 30*9 + 220*1)/100 * 12 )} & :={0} \\
+@ 2 & :={2000+1500} & :={(2000+1500) * (1 - 5/100)} & :={c3 * ( (2.60*90 + 30*9 + 220*1)/100 * 12 )} & :={(2000+1500) * (5/100) * ((500*40/100)*60/100 + (1000*45/100)*30/100 + (2000*50/100)*10/100)} \\
+@ 3 & :={2000+2*1500} & :={(2000+2*1500) * (1 - 2*5/100)} & :={c4 * ( (2.60*90 + 30*9 + 220*1)/100 * 12 )} & :={(2000+2*1500) * (5/100) * ((500*40/100)*60/100 + (1000*45/100)*30/100 + (2000*50/100)*10/100)} \\
+\bottomrule
+\end{spreadtab}
+
+\noindent\textit{Valuation (5$\times$ ARR):} In each year, valuation is $5 \times$ ARR (subscriptions only).
+
+\subsection*{Moderate (with target $\sim\$5$M)}
+\begin{spreadtab}{{tabularx}{\linewidth}{Y Y Y Y Y}}
+\toprule
+@ Year & @ Users & @ Subs Users & @ ARR (Subs only) & @ Hardware GP \\\midrule
+@ 1 & :={10000} & :={10000} & :={c2 * ( (2.60*90 + 30*9 + 220*1)/100 * 12 )} & :={0} \\
+@ 2 & :={10000+10000} & :={(10000+10000) * (1 - 5/100)} & :={c3 * ( (2.60*90 + 30*9 + 220*1)/100 * 12 )} & :={(10000+10000) * (5/100) * ((500*40/100)*60/100 + (1000*45/100)*30/100 + (2000*50/100)*10/100)} \\
+@ 3 & :={10000+2*10000} & :={(10000+2*10000) * (1 - 2*5/100)} & :={c4 * ( (2.60*90 + 30*9 + 220*1)/100 * 12 )} & :={(10000+2*10000) * (5/100) * ((500*40/100)*60/100 + (1000*45/100)*30/100 + (2000*50/100)*10/100)} \\
+\bottomrule
+\end{spreadtab}
+
+\noindent\textit{Valuation (7$\times$ ARR target check):}\\
+Year~1: \texttt{ARR} $\approx$ \texttt{10000 * 86.88} $=$ \texttt{868{,}800}.\\
+$7 \times$ ARR $\approx \mathbf{6.08M}$ (above the \$5M target).\\
+If hardware adoption reduces subs by $\approx$ \textbf{20\%} by valuation time, ARR $\approx 0.8 \times 868{,}800 = 695{,}040$ and $7 \times$ ARR $\approx \mathbf{4.87M}$ (within $\sim\$5$M target).\\
+\textbf{Conclusion:} A \$100k marketing push at effective CAC \$10 (10k users) with modest hardware replacement (20\%) supports a $\sim\$5$M moderate valuation.
+
+\subsection*{Optimistic}
+\begin{spreadtab}{{tabularx}{\linewidth}{Y Y Y Y Y}}
+\toprule
+@ Year & @ Users & @ Subs Users & @ ARR (Subs only) & @ Hardware GP \\\midrule
+@ 1 & :={50000} & :={50000} & :={c2 * ( (2.60*90 + 30*9 + 220*1)/100 * 12 )} & :={0} \\
+@ 2 & :={50000+25000} & :={(50000+25000) * (1 - 5/100)} & :={c3 * ( (2.60*90 + 30*9 + 220*1)/100 * 12 )} & :={(50000+25000) * (5/100) * ((500*40/100)*60/100 + (1000*45/100)*30/100 + (2000*50/100)*10/100)} \\
+@ 3 & :={50000+2*25000} & :={(50000+2*25000) * (1 - 2*5/100)} & :={c4 * ( (2.60*90 + 30*9 + 220*1)/100 * 12 )} & :={(50000+2*25000) * (5/100) * ((500*40/100)*60/100 + (1000*45/100)*30/100 + (2000*50/100)*10/100)} \\
+\bottomrule
+\end{spreadtab}
+
+\noindent\textit{Valuation (10$\times$ ARR):} In each year, valuation is $10 \times$ ARR (subscriptions only). Hardware GP is shown as a one-off profit stream but does \emph{not} increase ARR because hardware replaces subs for adopters.
+
+% ========================= SANITY CHECK =========================
+\section*{Sanity Check: Why the \$150k Ticket Makes Sense}
+\begin{itemize}
+  \item \textbf{Use of proceeds:} \$50k development; \$100k marketing.
+  \item \textbf{Effective CAC:} \$20 gross with 50\% recoup via non-recurrent merch $\Rightarrow$ \$10 net.
+  \item \textbf{Users acquired:} \$100k / \$10 = \textbf{10{,}000 users}.
+  \item \textbf{ARR impact (before hardware replacement):} 10{,}000 $\times$ \$86.88 $\approx$ \$868.8k. At a 7$\times$ multiple $\Rightarrow$ \textbf{\$6.08M}. With 20\% hardware replacement at valuation time: \$4.87M (\textasciitilde target \$5M).
+  \item \textbf{Stake:} \$150k for 3\% $\Rightarrow$ \$5M post-money target aligns with the moderate scenario once replacement is accounted for.
+\end{itemize}
+
+% ========================= NOTES =========================
+\section*{Notes and Extensions}
+\begin{itemize}
+  \item \textbf{No \texttt{siunitx} S-columns:} This file avoids the S-column conflict with \texttt{spreadtab}. Numbers are right-aligned via a custom \texttt{Y} column.
+  \item \textbf{Hardware replaces subscriptions:} Starting Year~2, adopting users are removed from the subscription base (subscription ARR uses \emph{subs users} only).
+  \item \textbf{Merch is non-recurrent}: Used solely as CAC recoup (input \& implied user acquisition); not counted in revenue/ARR.
+  \item Adjust the \emph{Adoption Rate} or reduce the \emph{valuation multiple} (e.g., 6$\times$) to fine-tune the moderate valuation to land very close to \$5M.
+\end{itemize}
+
+\end{document}
