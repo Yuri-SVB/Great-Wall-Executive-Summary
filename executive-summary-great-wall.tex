@@ -1,10 +1,14 @@
 \documentclass[11pt]{article}
+
 \usepackage[margin=1in]{geometry}
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{array}
 \usepackage{xcolor}
 \usepackage{hyperref}
+\usepackage{amsmath}   % for math symbols like \times
+\usepackage{mathabx}
+\usepackage{tikz}      % ensure TikZ is present
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
 \usepackage{pgfplotstable}
@@ -15,7 +19,7 @@
 \hypersetup{colorlinks=true, linkcolor=blue, urlcolor=blue}
 
 \begin{document}
-\title{Startup Valuation Report — Hardcoded Version}
+\title{Startup Valuation Report — Hardcoded Version (Fixed)}
 \author{Security-focused Bitcoin Subscription \& Hardware Model}
 \date{\today}
 \maketitle
@@ -43,6 +47,7 @@ This document presents a hardcoded valuation model for a security service focuse
 \section{Core Input Parameters}
 
 \subsection*{Subscription Tiers \& Distribution}
+\centering
 \begin{tabularx}{\linewidth}{l Y Y Y}
 \toprule
 Tier & Price (/mo) & Mix (\%) & Monthly revenue / user \\\midrule
@@ -54,6 +59,7 @@ Golden  & 220.00& 1  & 2.20 \\\midrule
 \end{tabularx}
 
 \subsection*{Derived Metrics (Subscriptions Only)}
+\centering
 \begin{tabularx}{\linewidth}{l Y}
 \toprule
 Metric & Value (USD) \\\midrule
@@ -63,6 +69,7 @@ Annual ARPU  & 86.88 \\
 \end{tabularx}
 
 \subsection*{Hardware Pricing, Margins \& Mix}
+\centering
 \begin{tabularx}{\linewidth}{l Y Y Y}
 \toprule
 Device & Retail (USD) & Margin (\%) & Mix (\%) \\\midrule
@@ -74,6 +81,7 @@ Premium      & 2000 & 50 & 10 \\\midrule
 \end{tabularx}
 
 \subsection*{Capital \& CAC (Merch recoups CAC; merch not revenue)}
+\centering
 \begin{tabularx}{\linewidth}{l Y Y Y Y}
 \toprule
 Parameter & Ticket (USD) & Dev (USD) & Marketing (USD) & Target Valuation (USD) \\\midrule
@@ -82,6 +90,7 @@ Stake Offered (\%) & \multicolumn{4}{r}{3} \\
 \bottomrule
 \end{tabularx}
 
+\centering
 \begin{tabularx}{\linewidth}{l Y Y Y Y}
 \toprule
 CAC Param & Gross CAC (USD) & Merch Recoup (\%) & \textbf{Effective CAC} (USD) & Users from \$100k \\\midrule
@@ -90,6 +99,7 @@ Values & 20 & 50 & \textbf{10} & \textbf{10{,}000} \\
 \end{tabularx}
 
 \subsection*{Adoption, Growth, and Valuation Multiples}
+\centering
 \begin{tabularx}{\linewidth}{l Y}
 \toprule
 Parameter & Value \\\midrule
@@ -102,6 +112,7 @@ Valuation Multiples (Conservative / Moderate / Optimistic) & 5x / 7x / 10x \\
 % YEAR 1 SNAPSHOT
 % =========================================================
 \section{Year 1 Snapshot (Subscriptions only; hardware not yet selling)}
+\centering
 \begin{tabularx}{\linewidth}{l Y Y Y}
 \toprule
 Scenario & Users (Y1) & ARR Subs (Y1, USD) & Valuation (Multiple) \\\midrule
@@ -118,6 +129,7 @@ Optimistic   & 50{,}000 & 4{,}344{,}000 & 43{,}440{,}000 (10x) \\
 Assumptions: linear total-user growth per year; hardware sales start in Year 2 and \textbf{replace} subs for adopters (5\% of total users per year).
 
 \subsection*{Total Users and Subscribing Users}
+\centering
 \begin{tabularx}{\linewidth}{l Y Y Y Y Y Y}
 \toprule
  & \multicolumn{3}{c}{Total Users} & \multicolumn{3}{c}{Subscribing Users} \\
@@ -129,6 +141,7 @@ Optimistic (+25{,}000/yr)  & 50{,}000 & 75{,}000 & 100{,}000 & 50{,}000 & 71{,}2
 \end{tabularx}
 
 \subsection*{ARR (Subscriptions Only) and Hardware Gross Profit (One-off)}
+\centering
 \begin{tabularx}{\linewidth}{l Y Y Y Y Y Y}
 \toprule
  & \multicolumn{3}{c}{ARR Subs (USD)} & \multicolumn{3}{c}{Hardware GP (USD)} \\
@@ -140,6 +153,7 @@ Optimistic   & 4{,}344{,}000 & 6{,}190{,}200 & 7{,}819{,}200 & 0 & 1{,}331{,}250
 \end{tabularx}
 
 \subsection*{Valuation (Multiple $\times$ ARR, Subscriptions Only)}
+\centering
 \begin{tabularx}{\linewidth}{l Y Y Y}
 \toprule
 Scenario & Valuation Y1 (USD) & Valuation Y2 (USD) & Valuation Y3 (USD) \\\midrule
@@ -161,6 +175,7 @@ Assumptions changed vs.\ baseline:
 \end{itemize}
 
 \subsection*{Total Users and Subscribing Users (Boost)}
+\centering
 \begin{tabularx}{\linewidth}{l Y Y Y Y Y Y}
 \toprule
  & \multicolumn{3}{c}{Total Users} & \multicolumn{3}{c}{Subscribing Users} \\
@@ -172,6 +187,7 @@ Optimistic (+50{,}000/yr)  & 50{,}000 & 100{,}000 & 150{,}000 & 50{,}000 & 95{,}
 \end{tabularx}
 
 \subsection*{ARR (Subscriptions Only, Boost)}
+\centering
 \begin{tabularx}{\linewidth}{l Y Y Y}
 \toprule
 Scenario & ARR Y1 (USD) & ARR Y2 (USD) & ARR Y3 (USD) \\\midrule
@@ -182,6 +198,7 @@ Optimistic   & 4{,}344{,}000 & 8{,}253{,}600 & 11{,}728{,}800 \\
 \end{tabularx}
 
 \subsection*{Valuation Impact (Boost)}
+\centering
 \begin{tabularx}{\linewidth}{l Y Y Y}
 \toprule
 Scenario & Valuation Y1 (USD) & Valuation Y2 (USD) & Valuation Y3 (USD) \\\midrule
@@ -196,10 +213,10 @@ Optimistic (10x)  & 43{,}440{,}000 & 82{,}536{,}000 & 117{,}288{,}000 \\
 % =========================================================
 \section{Sanity Check: Ticket, CAC, and Target}
 \begin{itemize}
-  \item Ticket \$150k for 3\% \Rightarrow \$5.0M post-money target.
+  \item Ticket of \$ 150k for 3\% $\rightarrow$ \$ 5.0M post-money target.
   \item \$50k dev; \$100k marketing.
-  \item Gross CAC \$20; 50\% merch recoup \Rightarrow effective CAC \$10.
-  \item Users acquired from \$100k at \$10 each \Rightarrow \textbf{10{,}000} users.
+  \item Gross CAC \$20; 50\% merch recoup $\Rightarrow$ effective CAC \$10.
+  \item Users acquired from \$100k at \$10 each $\Rightarrow$ \textbf{10{,}000} users.
   \item ARR impact before replacement: 10{,}000 $\times$ 86.88 = \$868{,}800. At 7$\times$ multiple = \$6.08M. With modest replacement into hardware (still one-off GP, not ARR), practical mid-year valuation \emph{near} \$5M in the moderate case is credible.
 \end{itemize}
 
