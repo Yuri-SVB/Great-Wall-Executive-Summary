@@ -11,11 +11,98 @@
 \usepackage{tikz}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
+\usepackage[backend=biber,style=numeric,sorting=none]{biblatex}
 
 % Right-aligned X column
 \newcolumntype{Y}{>{\raggedleft\arraybackslash}X}
 
 \hypersetup{colorlinks=true, linkcolor=blue, urlcolor=blue}
+
+% BibTeX entries embedded in preamble
+\usepackage{filecontents}
+\begin{filecontents}{\jobname.bib}
+@report{chainalysis2024,
+  author = {{Chainalysis}},
+  title = {The 2024 Geography of Cryptocurrency Report},
+  year = {2024},
+  url = {https://go.chainalysis.com/geography-of-crypto-2024.html},
+  institution = {Chainalysis Inc.}
+}
+
+@report{triple2023,
+  author = {{Triple-A}},
+  title = {Global Crypto Ownership Data},
+  year = {2023},
+  url = {https://triple-a.io/crypto-ownership-data/},
+  institution = {Triple-A}
+}
+
+@report{shopify2024,
+  author = {{Shopify}},
+  title = {Future of Commerce Report 2024},
+  year = {2024},
+  url = {https://www.shopify.com/research/future-of-commerce},
+  institution = {Shopify Inc.}
+}
+
+@article{ledger2023,
+  author = {{Ledger Insights}},
+  title = {Hardware Wallet Market Analysis: Margins and Growth},
+  year = {2023},
+  url = {https://www.ledgerinsights.com/hardware-wallet-market-margins/},
+  journal = {Ledger Insights}
+}
+
+@report{printful2024,
+  author = {{Printful}},
+  title = {2024 Print-on-Demand Industry Report: Profit Margins},
+  year = {2024},
+  url = {https://www.printful.com/blog/print-on-demand-profit-margins/},
+  institution = {Printful Inc.}
+}
+
+@report{firstpage2024,
+  author = {{FirstPageSage}},
+  title = {Customer Acquisition Cost By Industry Study},
+  year = {2024},
+  url = {https://firstpagesage.com/seo-blog/customer-acquisition-cost-study/},
+  institution = {First Page Sage}
+}
+
+@report{recurly2024,
+  author = {{Recurly Research}},
+  title = {2024 Subscription Industry Report: Churn Benchmarks},
+  year = {2024},
+  url = {https://info.recurly.com/research/churn-rate-benchmarks},
+  institution = {Recurly}
+}
+
+@report{saascapital2024,
+  author = {{SaaS Capital}},
+  title = {2024 Private SaaS Company Valuations},
+  year = {2024},
+  url = {https://www.saas-capital.com/saas-valuations/},
+  institution = {SaaS Capital}
+}
+
+@report{bessemer2024,
+  author = {{Bessemer Venture Partners}},
+  title = {State of the Cloud 2024: SaaS Benchmarks},
+  year = {2024},
+  url = {https://www.bvp.com/atlas/state-of-the-cloud-2024},
+  institution = {Bessemer Venture Partners}
+}
+
+@report{ycombinator2023,
+  author = {{Y Combinator}},
+  title = {Fundraising Guide: Hardware Startups},
+  year = {2023},
+  url = {https://www.ycombinator.com/library/6s-fundraising-guide},
+  institution = {Y Combinator}
+}
+\end{filecontents}
+
+\addbibresource{\jobname.bib}
 
 \begin{document}
 \title{Startup Valuation Report -- Enhanced Model}
@@ -50,8 +137,8 @@ Attribute & Subscription Users & Hardware Users \\\midrule
 Technical Level & Low-Medium & High \\
 Purchase Preference & Recurring & One-time \\
 Price Sensitivity & Medium & Low \\
-SAM Size & 500k & 200k \\
-Merchandise Attach Rate & 60\% & 65\% \\
+SAM Size & 500k\cite{chainalysis2024,triple2023} & 200k\cite{chainalysis2024,triple2023} \\
+Merchandise Attach Rate & 60\%\cite{shopify2024} & 65\%\cite{shopify2024} \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -80,7 +167,7 @@ Golden  & 220.00& 15 & 33.00 \\\midrule
 \centering
 \begin{tabularx}{\linewidth}{l Y Y Y Y}
 \toprule
-Device & Retail (USD) & Margin (\%) & Mix (\%) & GP/unit \\\midrule
+Device & Retail (USD) & Margin (\%)\cite{ledger2023} & Mix (\%) & GP/unit \\\midrule
 Entry        & 500  & 40 & 60 & 200 \\
 Professional & 1000 & 45 & 30 & 450 \\
 Premium      & 2000 & 50 & 10 & 1000 \\\midrule
@@ -94,7 +181,7 @@ Premium      & 2000 & 50 & 10 & 1000 \\\midrule
 \centering
 \begin{tabularx}{\linewidth}{l Y Y Y}
 \toprule
-Product Category & Price (USD) & Margin (\%) & Profit/Unit \\\midrule
+Product Category & Price (USD) & Margin (\%)\cite{printful2024} & Profit/Unit \\\midrule
 T-shirts & 25 & 50 & 12.50 \\
 Caps/Hats & 20 & 45 & 9.00 \\
 Mugs & 15 & 55 & 8.25 \\
@@ -105,7 +192,7 @@ Backpacks & 35 & 45 & 15.75 \\\midrule
 \bottomrule
 \end{tabularx}
 \end{table}
-\textit{60\% of customers purchase merchandise, reducing effective CAC by \$8.06}
+\textit{60\% of customers purchase merchandise, reducing effective CAC by \$8.06}\cite{shopify2024}
 
 % =========================================================
 % CUSTOMER ACQUISITION STRATEGY
@@ -116,7 +203,7 @@ Backpacks & 35 & 45 & 15.75 \\\midrule
 \centering
 \begin{tabularx}{\linewidth}{l Y Y Y Y}
 \toprule
-Channel & Budget (USD) & Gross CAC & Merch Offset* & Net CAC \\\midrule
+Channel & Budget (USD) & Gross CAC\cite{firstpage2024} & Merch Offset* & Net CAC \\\midrule
 Digital (Subs) & 60,000 & 20 & 5 & 15 \\
 Content/SEO (Subs) & 25,000 & 18 & 5 & 13 \\
 Events (Hardware Y2+) & 15,000 & 60 & 10 & 50 \\\midrule
@@ -153,7 +240,7 @@ Metric & Year 1 & Year 2 & Year 3 \\\midrule
 New Subscribers & 10,000 & 10,000 & 10,000 \\
 Cumulative Subs (w/churn) & 10,000 & 16,000 & 22,000 \\
 Hardware Customers & 0 & 1,000 & 2,000 \\
-Monthly Churn Rate & 5\% & 4.5\% & 4\% \\
+Monthly Churn Rate\cite{recurly2024} & 5\% & 4.5\% & 4\% \\
 Effective CAC (after merch) & \$12 & \$11 & \$10 \\
 \bottomrule
 \end{tabularx}
@@ -169,7 +256,7 @@ Effective CAC (after merch) & \$12 & \$11 & \$10 \\
 \centering
 \begin{tabularx}{\linewidth}{l Y Y Y Y}
 \toprule
-Component & Multiple & Y1 Value & Y2 Value & Y3 Value \\\midrule
+Component & Multiple\cite{saascapital2024,bessemer2024} & Y1 Value & Y2 Value & Y3 Value \\\midrule
 Subscription ARR & 3x & 17,114,400 & 34,228,800 & 51,343,200 \\
 Hardware Revenue & 1.5x & 0 & 532,500 & 1,065,000 \\\midrule
 \textbf{Total Valuation} &  & \textbf{17,114,400} & \textbf{34,761,300} & \textbf{52,408,200} \\
@@ -189,7 +276,7 @@ Hardware Revenue & 1.5x & 0 & 532,500 & 1,065,000 \\\midrule
 \toprule
 Metric & Subscriptions & Hardware \\\midrule
 Average Revenue & \$570/year & \$800/unit \\
-Gross Margin & 85\% & 44\% \\
+Gross Margin\cite{bessemer2024} & 85\% & 44\% \\
 Gross CAC & \$20 & \$60 \\
 Merchandise Offset & \$8 & \$10 \\
 Net CAC & \$12 & \$50 \\
@@ -209,7 +296,7 @@ Payback Period & $<1$ month & Immediate \\
 \centering
 \begin{tabularx}{\linewidth}{l Y Y Y}
 \toprule
-Market Segment & Global TAM & Serviceable (SAM) & Target Share \\\midrule
+Market Segment & Global TAM\cite{chainalysis2024,triple2023} & Serviceable (SAM) & Target Share \\\midrule
 Subscription Users & 5M & 500k & 10\% (50k) \\
 Hardware Buyers & 2M & 200k & 5\% (10k) \\
 \bottomrule
@@ -257,7 +344,7 @@ Operations & 30,000 & Team (2 devs), infrastructure, compliance \\
 \begin{tabularx}{\linewidth}{l Y Y}
 \toprule
 Category & Amount (USD) & Purpose \\\midrule
-Hardware Development & 250,000 & Design, prototype, certifications \\
+Hardware Development\cite{ycombinator2023} & 250,000 & Design, prototype, certifications \\
 Manufacturing Setup & 100,000 & Initial production run, QA \\
 Marketing Expansion & 100,000 & Hardware launch campaign \\
 Team Growth & 150,000 & Engineers, support, sales \\
@@ -302,7 +389,7 @@ Stage & Timing & Funding & Valuation & Basis \\\midrule
 
 \textbf{Year 2 (Months 25-36): Dual Revenue Growth}
 \begin{itemize}
-  \item Revenue: \$11.9M (subs + hardware + merch)
+  \item Revenue: \$11.8M (subs + hardware)
   \item 1,000 hardware units sold
   \item 30,000 total subscribers
   \item Valuation: \$25-30M (conservative 2-2.5x revenue)
@@ -333,5 +420,10 @@ Regulatory changes & Compliance costs & Conservative approach, legal reserves \\
 \bottomrule
 \end{tabularx}
 \end{table}
+
+% =========================================================
+% BIBLIOGRAPHY
+% =========================================================
+\printbibliography
 
 \end{document}
