@@ -27,30 +27,31 @@
 % EXECUTIVE OVERVIEW
 % =========================================================
 \section*{Executive Overview}
-This document presents a comprehensive valuation model for a Bitcoin security company serving distinct market segments through three revenue streams: recurring subscriptions for managed security, one-time hardware sales for self-sovereign users, and relevant merchandise that enhances brand loyalty and security awareness. The model projects a path to \$20M+ valuation by Year 3.
+This document presents a comprehensive valuation model for a Bitcoin security company serving distinct market segments through three revenue streams: recurring subscriptions for managed security, one-time hardware sales for self-sovereign users, and branded merchandise that enhances brand loyalty and offsets customer acquisition costs. The model requires two funding rounds: a \$200K seed round for subscription platform development, followed by a \$600K Series A for hardware development, projecting a path to \$25-30M valuation by Year 3.
 
 % =========================================================
 % BUSINESS MODEL CLARIFICATION
 % =========================================================
-\section{Business Model: Three Independent Revenue Streams}
+\section{Business Model: Two Revenue Streams + CAC Optimization}
 
 \subsection{Revenue Stream Segmentation}
 \begin{itemize}
   \item \textbf{Subscriptions:} Managed security service for less technical users preferring ongoing protection
   \item \textbf{Hardware:} One-time purchase for technical users wanting self-sovereign security tools
-  \item \textbf{Merchandise:} Branded items (t-shirts, caps, mugs, stickers) that build brand loyalty and partially offset CAC
+  \item \textbf{Merchandise (CAC Offset):} Branded items (t-shirts, caps, mugs) sold at profitable margins to reduce customer acquisition costs
 \end{itemize}
 
 \begin{table}[H]
 \centering
 \caption{Customer Segment Characteristics}
-\begin{tabularx}{\linewidth}{l X X X}
+\begin{tabularx}{\linewidth}{l X X}
 \toprule
-Attribute & Subscription Users & Hardware Users & Merchandise Buyers \\\midrule
-Technical Level & Low-Medium & High & All Levels \\
-Purchase Preference & Recurring & One-time & Impulse/Need-based \\
-Price Sensitivity & Medium & Low & High \\
-TAM Size & 500k & 200k & 700k (overlap) \\
+Attribute & Subscription Users & Hardware Users \\\midrule
+Technical Level & Low-Medium & High \\
+Purchase Preference & Recurring & One-time \\
+Price Sensitivity & Medium & Low \\
+TAM Size & 500k & 200k \\
+Merchandise Attach Rate & 60\% & 65\% \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -58,7 +59,7 @@ TAM Size & 500k & 200k & 700k (overlap) \\
 % =========================================================
 % ENHANCED REVENUE MODEL
 % =========================================================
-\section{Enhanced Revenue Model with Merchandise}
+\section{Enhanced Business Model with CAC Optimization}
 
 \subsection{Subscription Pricing (Revised for Security-Conscious Market)}
 \begin{table}[H]
@@ -88,22 +89,23 @@ Premium      & 2000 & 50 & 10 & 1000 \\\midrule
 \end{tabularx}
 \end{table}
 
-\subsection{Merchandise Economics}
+\subsection{Merchandise Economics (CAC Offset Strategy)}
 \begin{table}[H]
 \centering
-\begin{tabularx}{\linewidth}{l Y Y}
+\begin{tabularx}{\linewidth}{l Y Y Y}
 \toprule
-Product Category & Avg Price (USD) & Margin (\%) \\\midrule
-T-shirts & 25 & 50 \\
-Caps/Hats & 20 & 45 \\
-Mugs & 15 & 55 \\
-Stickers/Decals & 5 & 70 \\
-Hoodies/Coats & 45 & 40 \\
-Backpacks & 35 & 45 \\
-\textbf{Average basket} & \textbf{28} & \textbf{48} \\
+Product Category & Price (USD) & Margin (\%) & Profit/Unit \\\midrule
+T-shirts & 25 & 50 & 12.50 \\
+Caps/Hats & 20 & 45 & 9.00 \\
+Mugs & 15 & 55 & 8.25 \\
+Stickers/Decals & 5 & 70 & 3.50 \\
+Hoodies/Coats & 45 & 40 & 18.00 \\
+Backpacks & 35 & 45 & 15.75 \\\midrule
+\textbf{Average basket} & \textbf{28} & \textbf{48} & \textbf{13.44} \\
 \bottomrule
 \end{tabularx}
 \end{table}
+\textit{60\% of customers purchase merchandise, reducing effective CAC by \$8.06}
 
 % =========================================================
 % CUSTOMER ACQUISITION STRATEGY
@@ -136,13 +138,12 @@ Events (Hardware Y2+) & 15,000 & 60 & 10 & 50 \\\midrule
 \toprule
 Revenue Stream & Year 1 (USD) & Year 2 (USD) & Year 3 (USD) \\\midrule
 Subscriptions & 5,704,800 & 11,409,600 & 17,114,400 \\
-Hardware & 0 & 355,000 & 710,000 \\
-Merchandise* & 50,400 & 98,280 & 145,600 \\\midrule
-\textbf{Total Revenue} & \textbf{5,755,200} & \textbf{11,862,880} & \textbf{17,970,000} \\
+Hardware & 0 & 355,000 & 710,000 \\\midrule
+\textbf{Total Revenue} & \textbf{5,704,800} & \textbf{11,764,600} & \textbf{17,824,400} \\
 \bottomrule
 \end{tabularx}
 \end{table}
-\textit{*Merchandise revenue shown net of COGS; primary purpose is CAC offset}
+\textit{Note: Merchandise sales offset CAC but are not counted as revenue}
 
 \subsection{Customer Metrics with Churn}
 \begin{table}[H]
@@ -153,8 +154,8 @@ Metric & Year 1 & Year 2 & Year 3 \\\midrule
 New Subscribers & 10,000 & 10,000 & 10,000 \\
 Cumulative Subs (w/churn) & 10,000 & 16,000 & 22,000 \\
 Hardware Customers & 0 & 1,000 & 2,000 \\
-Merchandise Buyers & 3,000 & 7,350 & 12,800 \\
 Monthly Churn Rate & 5\% & 4.5\% & 4\% \\
+Effective CAC (after merch) & \$12 & \$11 & \$10 \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -171,13 +172,12 @@ Monthly Churn Rate & 5\% & 4.5\% & 4\% \\
 \toprule
 Component & Multiple & Y1 Value & Y2 Value & Y3 Value \\\midrule
 Subscription ARR & 3x & 17,114,400 & 34,228,800 & 51,343,200 \\
-Hardware Revenue & 1.5x & 0 & 532,500 & 1,065,000 \\
-Merchandise Revenue & 0.5x & 25,200 & 49,140 & 72,800 \\\midrule
-\textbf{Total Valuation} &  & \textbf{17,139,600} & \textbf{34,810,440} & \textbf{52,481,000} \\
+Hardware Revenue & 1.5x & 0 & 532,500 & 1,065,000 \\\midrule
+\textbf{Total Valuation} &  & \textbf{17,114,400} & \textbf{34,761,300} & \textbf{52,408,200} \\
 \bottomrule
 \end{tabularx}
 \end{table}
-\textit{Note: Using conservative multiples appropriate for early-stage company}
+\textit{Note: Merchandise improves unit economics through CAC reduction but is not counted as revenue}
 
 % =========================================================
 % UNIT ECONOMICS
@@ -186,17 +186,21 @@ Merchandise Revenue & 0.5x & 25,200 & 49,140 & 72,800 \\\midrule
 
 \begin{table}[H]
 \centering
-\begin{tabularx}{\linewidth}{l Y Y Y}
+\begin{tabularx}{\linewidth}{l Y Y}
 \toprule
-Metric & Subscriptions & Hardware & Merchandise \\\midrule
-Average Revenue & \$570/year & \$800/unit & \$40/order \\
-Gross Margin & 85\% & 44\% & 68\% \\
-CAC & \$15 & \$50 & \$8 \\
-LTV or Profit/Unit & \$485 & \$305 & \$19 \\
-Payback Period & 1 month & Immediate & Immediate \\
+Metric & Subscriptions & Hardware \\\midrule
+Average Revenue & \$570/year & \$800/unit \\
+Gross Margin & 85\% & 44\% \\
+Gross CAC & \$20 & \$60 \\
+Merchandise Offset & \$8 & \$10 \\
+Net CAC & \$12 & \$50 \\
+LTV or Profit/Unit & \$485 & \$305 \\
+LTV:CAC Ratio & 40:1 & 6:1 \\
+Payback Period & <1 month & Immediate \\
 \bottomrule
 \end{tabularx}
 \end{table}
+\textit{Note: Merchandise sales (60\% attach rate, \$13.44 profit) reduce effective CAC}
 
 % =========================================================
 % MARKET OPPORTUNITY
@@ -210,10 +214,10 @@ Payback Period & 1 month & Immediate & Immediate \\
 Market Segment & Global TAM & Serviceable (SAM) & Target Share \\\midrule
 Subscription Users & 5M & 500k & 10\% (50k) \\
 Hardware Buyers & 2M & 200k & 5\% (10k) \\
-Merchandise Market & 7M & 700k & 5\% (35k) \\
 \bottomrule
 \end{tabularx}
 \end{table}
+\textit{Note: Merchandise buyers overlap with primary segments and serve to reduce CAC}
 
 % =========================================================
 % KEY INVESTMENT HIGHLIGHTS
@@ -221,12 +225,12 @@ Merchandise Market & 7M & 700k & 5\% (35k) \\
 \section{Key Investment Highlights}
 
 \begin{enumerate}
-  \item \textbf{Diversified Revenue Model:} Three complementary streams reduce risk
-  \item \textbf{Strong Unit Economics:} LTV:CAC ratios of 32:1 (subs), 6:1 (hardware), 2.4:1 (merch)
-  \item \textbf{Large Combined TAM:} 700k+ potential customers across segments
-  \item \textbf{Capital Efficient Growth:} Profitable by Month 18 with \$150k investment
+  \item \textbf{Dual Revenue Model:} Subscription recurring revenue + high-margin hardware sales
+  \item \textbf{Superior Unit Economics:} LTV:CAC ratios of 40:1 (subs), 6:1 (hardware) after merchandise offset
+  \item \textbf{Large Combined TAM:} 700k potential customers across both segments
+  \item \textbf{Capital Efficient Growth:} Merchandise sales reduce CAC by 40\%, improving cash flow
   \item \textbf{Defensible Position:} Bitcoin-specific security focus with technical moat
-  \item \textbf{Network Effects:} Merchandise buyers convert to subscribers at 25\% rate
+  \item \textbf{Brand Loyalty:} 60\% merchandise attach rate demonstrates strong customer engagement
 \end{enumerate}
 
 % =========================================================
