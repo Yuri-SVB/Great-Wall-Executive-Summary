@@ -14,151 +14,85 @@
 \usepackage[backend=bibtex,style=numeric,sorting=none]{biblatex}
 \addbibresource{executive-summary-great-wall.bib}
 
+% =========================================================
+% VARIABLE DEFINITIONS FOR CONSISTENCY
+% =========================================================
+
+% Subscription Pricing
+\newcommand{\subBasicPrice}{2.60}
+\newcommand{\subBasicMix}{40}
+\newcommand{\subMediumPrice}{30.00}
+\newcommand{\subMediumMix}{45}
+\newcommand{\subGoldenPrice}{220.00}
+\newcommand{\subGoldenMix}{15}
+
+% Hardware Pricing
+\newcommand{\hwEntryPrice}{500}
+\newcommand{\hwEntryMargin}{40}
+\newcommand{\hwEntryMix}{60}
+\newcommand{\hwProfPrice}{1000}
+\newcommand{\hwProfMargin}{45}
+\newcommand{\hwProfMix}{30}
+\newcommand{\hwPremiumPrice}{2000}
+\newcommand{\hwPremiumMargin}{50}
+\newcommand{\hwPremiumMix}{10}
+
+% Merchandise
+\newcommand{\merchAvgPrice}{28}
+\newcommand{\merchAvgMargin}{48}
+\newcommand{\merchAvgProfit}{13.44}
+\newcommand{\merchAttachRate}{60}
+
+% Customer Metrics
+\newcommand{\newSubsYearOne}{10000}
+\newcommand{\newSubsYearTwo}{10000}
+\newcommand{\newSubsYearThree}{10000}
+\newcommand{\totalSubsYearOne}{10000}
+\newcommand{\totalSubsYearTwo}{16000}
+\newcommand{\totalSubsYearThree}{22000}
+\newcommand{\hwCustomersYearTwo}{1000}
+\newcommand{\hwCustomersYearThree}{2000}
+
+% Churn Rates
+\newcommand{\churnYearOne}{5}
+\newcommand{\churnYearTwo}{4.5}
+\newcommand{\churnYearThree}{4}
+
+% CAC Values
+\newcommand{\cacDigital}{20}
+\newcommand{\cacContent}{18}
+\newcommand{\cacEvents}{60}
+\newcommand{\merchOffsetSubs}{5}
+\newcommand{\merchOffsetHw}{10}
+
+% Market Size
+\newcommand{\tamSubsGlobal}{5M}
+\newcommand{\samSubs}{500k}
+\newcommand{\targetShareSubs}{10}
+\newcommand{\tamHwGlobal}{2M}
+\newcommand{\samHw}{200k}
+\newcommand{\targetShareHw}{5}
+
+% Valuation Multiples
+\newcommand{\arrMultiple}{3}
+\newcommand{\hwMultiple}{1.5}
+
+% Funding
+\newcommand{\seedAmount}{200000}
+\newcommand{\seriesAAmount}{600000}
+\newcommand{\seedEquity}{3.5}
+\newcommand{\seriesAEquity}{4}
+
+% Budget Allocation
+\newcommand{\budgetDigital}{60000}
+\newcommand{\budgetContent}{25000}
+\newcommand{\budgetEvents}{15000}
+
 % Right-aligned X column
 \newcolumntype{Y}{>{\raggedleft\arraybackslash}X}
 
 \hypersetup{colorlinks=true, linkcolor=blue, urlcolor=blue}
 
-% BibTeX entries embedded in preamble
-% \usepackage{filecontents}
-% \begin{filecontents}[force]{\jobname.bib}
-% @report{chainalysis2024,
-%   author = {{Chainalysis}},
-%   title = {The 2024 Geography of Cryptocurrency Report},
-%   year = {2024},
-%   url = {https://go.chainalysis.com/geography-of-crypto-2024.html},
-%   institution = {Chainalysis Inc.}
-% }
-% 
-% @misc{authoranalysis2024,
-%   author  = {TODO},
-%   title   = {TODO},
-%   year    = {2024},
-%   url     = {https://example.com},
-%   note    = {Fill in correct bibliographic details. Placeholder to fix undefined citation.}
-% }
-% 
-% @misc{highalpha2024,
-%   author  = {TODO},
-%   title   = {TODO},
-%   year    = {2024},
-%   url     = {https://example.com},
-%   note    = {Fill in correct bibliographic details. Placeholder to fix undefined citation.}
-% }
-% 
-% @misc{industrybenchmark2024,
-%   author  = {TODO},
-%   title   = {TODO},
-%   year    = {2024},
-%   url     = {https://example.com},
-%   note    = {Fill in correct bibliographic details. Placeholder to fix undefined citation.}
-% }
-% 
-% @misc{openview2023,
-%   author  = {TODO},
-%   title   = {TODO},
-%   year    = {2024},
-%   url     = {https://example.com},
-%   note    = {Fill in correct bibliographic details. Placeholder to fix undefined citation.}
-% }
-% 
-% @misc{printful2023,
-%   author  = {TODO},
-%   title   = {TODO},
-%   year    = {2024},
-%   url     = {https://example.com},
-%   note    = {Fill in correct bibliographic details. Placeholder to fix undefined citation.}
-% }
-% 
-% @misc{ycombinator2022,
-%   author  = {TODO},
-%   title   = {TODO},
-%   year    = {2024},
-%   url     = {https://example.com},
-%   note    = {Fill in correct bibliographic details. Placeholder to fix undefined citation.}
-% }
-% 
-% @report{triple2023,
-%   author = {{Triple-A}},
-%   title = {Global Crypto Ownership Data},
-%   year = {2023},
-%   url = {https://triple-a.io/crypto-ownership-data/},
-%   institution = {Triple-A}
-% }
-% 
-% @report{shopify2024,
-%   author = {{Shopify}},
-%   title = {Future of Commerce Report 2024},
-%   year = {2024},
-%   url = {https://www.shopify.com/research/future-of-commerce},
-%   institution = {Shopify Inc.}
-% }
-% 
-% @techreport{industrybenchmark2024,
-%   author = {{Industry Analysis}},
-%   title = {Hardware Security Device Margins: Industry Benchmarks},
-%   year = {2024},
-%   institution = {Industry Analysis Group},
-%   note = {Based on public financial reports from Ledger, Trezor, and comparable companies}
-% }
-% 
-% @online{printful2023,
-%   author = {{Printful}},
-%   title = {How to Calculate Profit Margins for Print Products},
-%   year = {2023},
-%   url = {https://www.printful.com/blog/printful-pricing},
-%   organization = {Printful Blog}
-% }
-% 
-% @report{profitwell2024,
-%   author = {{ProfitWell}},
-%   title = {SaaS Metrics Benchmarks Report},
-%   year = {2024},
-%   url = {https://www.profitwell.com/customer-retention/industry-benchmarks},
-%   institution = {ProfitWell}
-% }
-% 
-% @report{recurly2024,
-%   author = {{Recurly Research}},
-%   title = {Subscription Industry Benchmarks},
-%   year = {2024},
-%   url = {https://recurly.com/research/subscription-industry-benchmarks/},
-%   institution = {Recurly}
-% }
-% 
-% @report{highalpha2024,
-%   author = {{High Alpha and OpenView}},
-%   title = {2024 SaaS Benchmarks Report},
-%   year = {2024},
-%   url = {https://www.highalpha.com/2024-saas-benchmarks-report},
-%   institution = {High Alpha}
-% }
-% 
-% @report{openview2023,
-%   author = {{OpenView}},
-%   title = {2023 SaaS Benchmarks Report},
-%   year = {2023},
-%   url = {https://openviewpartners.com/2023-saas-benchmarks-report/},
-%   institution = {OpenView Venture Partners}
-% }
-% 
-% @online{ycombinator2022,
-%   author = {{Y Combinator}},
-%   title = {YC for Hardware},
-%   year = {2022},
-%   url = {https://www.ycombinator.com/blog/yc-for-hardware},
-%   organization = {Y Combinator Blog},
-%   urldate = {2024-01-01}
-% }
-% 
-% @techreport{authoranalysis2024,
-%   author = {{Author's Analysis}},
-%   title = {Customer Acquisition Cost Estimates},
-%   year = {2024},
-%   institution = {Internal Analysis},
-%   note = {Based on industry benchmarks from ProfitWell, OpenView Partners, and First Round Capital}
-% }
-% \end{filecontents}
 \addbibresource{\jobname.bib}
 
 \begin{document}
@@ -171,7 +105,7 @@
 % EXECUTIVE OVERVIEW
 % =========================================================
 \section*{Executive Overview}
-This document presents a comprehensive valuation model for a Bitcoin security company serving distinct market segments through three revenue streams: recurring subscriptions for managed security, one-time hardware sales for self-sovereign users, and branded merchandise that enhances brand loyalty and offsets customer acquisition costs. The model requires two funding rounds: a \$200K seed round for subscription platform development, followed by a \$600K Series A for hardware development, projecting a path to \$25-30M valuation by Year 3.
+This document presents a comprehensive valuation model for a Bitcoin security company serving distinct market segments through three revenue streams: recurring subscriptions for managed security, one-time hardware sales for self-sovereign users, and branded merchandise that enhances brand loyalty and offsets customer acquisition costs. The model requires two funding rounds: a \$\seedAmount{} seed round for subscription platform development, followed by a \$\seriesAAmount{} Series A for hardware development, projecting a path to \$25-30M valuation by Year 3.
 
 % =========================================================
 % BUSINESS MODEL CLARIFICATION
@@ -194,8 +128,8 @@ Attribute & Subscription Users & Hardware Users \\\midrule
 Technical Level & Low-Medium & High \\
 Purchase Preference & Recurring & One-time \\
 Price Sensitivity & Medium & Low \\
-SAM Size & 500k\cite{chainalysis2024,triple2023} & 200k\cite{chainalysis2024,triple2023} \\
-Merchandise Attach Rate & 60\%\cite{shopify2024} & 65\%\cite{shopify2024} \\
+SAM Size & \samSubs\cite{chainalysis2024,triple2023} & \samHw\cite{chainalysis2024,triple2023} \\
+Merchandise Attach Rate & \merchAttachRate\%\cite{shopify2024} & 65\%\cite{shopify2024} \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -211,9 +145,9 @@ Merchandise Attach Rate & 60\%\cite{shopify2024} & 65\%\cite{shopify2024} \\
 \begin{tabularx}{\linewidth}{l Y Y Y}
 \toprule
 Tier & Price (/mo) & Mix (\%) & Monthly revenue/user \\\midrule
-Basic   & 2.60  & 40 & 1.04 \\
-Medium  & 30.00 & 45 & 13.50 \\
-Golden  & 220.00& 15 & 33.00 \\\midrule
+Basic   & \subBasicPrice  & \subBasicMix & 1.04 \\
+Medium  & \subMediumPrice & \subMediumMix & 13.50 \\
+Golden  & \subGoldenPrice & \subGoldenMix & 33.00 \\\midrule
 \textbf{Weighted Avg} &  & \textbf{100} & \textbf{47.54} \\
 \bottomrule
 \end{tabularx}
@@ -225,9 +159,9 @@ Golden  & 220.00& 15 & 33.00 \\\midrule
 \begin{tabularx}{\linewidth}{l Y Y Y Y}
 \toprule
 Device & Retail (USD) & Margin (\%)\cite{industrybenchmark2024} & Mix (\%) & GP/unit \\\midrule
-Entry        & 500  & 40 & 60 & 200 \\
-Professional & 1000 & 45 & 30 & 450 \\
-Premium      & 2000 & 50 & 10 & 1000 \\\midrule
+Entry        & \hwEntryPrice  & \hwEntryMargin & \hwEntryMix & 200 \\
+Professional & \hwProfPrice & \hwProfMargin & \hwProfMix & 450 \\
+Premium      & \hwPremiumPrice & \hwPremiumMargin & \hwPremiumMix & 1000 \\\midrule
 \textbf{Weighted Avg GP} &  &  &  & \textbf{355} \\
 \bottomrule
 \end{tabularx}
@@ -245,11 +179,11 @@ Mugs & 15 & 55 & 8.25 \\
 Stickers/Decals & 5 & 70 & 3.50 \\
 Hoodies/Coats & 45 & 40 & 18.00 \\
 Backpacks & 35 & 45 & 15.75 \\\midrule
-\textbf{Average basket} & \textbf{28} & \textbf{48} & \textbf{13.44} \\
+\textbf{Average basket} & \textbf{\merchAvgPrice} & \textbf{\merchAvgMargin} & \textbf{\merchAvgProfit} \\
 \bottomrule
 \end{tabularx}
 \end{table}
-\textit{60\% of customers purchase merchandise, reducing effective CAC by \$8.06}\cite{shopify2024}
+\textit{\merchAttachRate\% of customers purchase merchandise, reducing effective CAC by \$8.06}\cite{shopify2024}
 
 % =========================================================
 % CUSTOMER ACQUISITION STRATEGY
@@ -261,14 +195,14 @@ Backpacks & 35 & 45 & 15.75 \\\midrule
 \begin{tabularx}{\linewidth}{l Y Y Y Y}
 \toprule
 Channel & Budget (USD) & Gross CAC\cite{authoranalysis2024} & Merch Offset* & Net CAC \\\midrule
-Digital (Subs) & 60,000 & 20 & 5 & 15 \\
-Content/SEO (Subs) & 25,000 & 18 & 5 & 13 \\
-Events (Hardware Y2+) & 15,000 & 60 & 10 & 50 \\\midrule
+Digital (Subs) & \budgetDigital & \cacDigital & \merchOffsetSubs & 15 \\
+Content/SEO (Subs) & \budgetContent & \cacContent & \merchOffsetSubs & 13 \\
+Events (Hardware Y2+) & \budgetEvents & \cacEvents & \merchOffsetHw & 50 \\\midrule
 \textbf{Total} & \textbf{100,000} &  &  &  \\
 \bottomrule
 \end{tabularx}
 \end{table}
-\textit{*Merchandise offset assumes 60\% purchase rate @ \$13.44 profit per customer}
+\textit{*Merchandise offset assumes \merchAttachRate\% purchase rate @ \$\merchAvgProfit{} profit per customer}
 
 % =========================================================
 % COMPREHENSIVE FINANCIAL PROJECTIONS
@@ -294,10 +228,10 @@ Hardware & 0 & 355,000 & 710,000 \\\midrule
 \begin{tabularx}{\linewidth}{l Y Y Y}
 \toprule
 Metric & Year 1 & Year 2 & Year 3 \\\midrule
-New Subscribers & 10,000 & 10,000 & 10,000 \\
-Cumulative Subs (w/churn) & 10,000 & 16,000 & 22,000 \\
-Hardware Customers & 0 & 1,000 & 2,000 \\
-Monthly Churn Rate\cite{recurly2024} & 5\% & 4.5\% & 4\% \\
+New Subscribers & \newSubsYearOne & \newSubsYearTwo & \newSubsYearThree \\
+Cumulative Subs (w/churn) & \totalSubsYearOne & \totalSubsYearTwo & \totalSubsYearThree \\
+Hardware Customers & 0 & \hwCustomersYearTwo & \hwCustomersYearThree \\
+Monthly Churn Rate\cite{recurly2024} & \churnYearOne\% & \churnYearTwo\% & \churnYearThree\% \\
 Effective CAC (after merch) & \$12 & \$11 & \$10 \\
 \bottomrule
 \end{tabularx}
@@ -314,8 +248,8 @@ Effective CAC (after merch) & \$12 & \$11 & \$10 \\
 \begin{tabularx}{\linewidth}{l Y Y Y Y}
 \toprule
 Component & Multiple\cite{highalpha2024,openview2023} & Y1 Value & Y2 Value & Y3 Value \\\midrule
-Subscription ARR & 3x & 17,114,400 & 34,228,800 & 51,343,200 \\
-Hardware Revenue & 1.5x & 0 & 532,500 & 1,065,000 \\\midrule
+Subscription ARR & \arrMultiple x & 17,114,400 & 34,228,800 & 51,343,200 \\
+Hardware Revenue & \hwMultiple x & 0 & 532,500 & 1,065,000 \\\midrule
 \textbf{Total Valuation} &  & \textbf{17,114,400} & \textbf{34,761,300} & \textbf{52,408,200} \\
 \bottomrule
 \end{tabularx}
@@ -334,8 +268,8 @@ Hardware Revenue & 1.5x & 0 & 532,500 & 1,065,000 \\\midrule
 Metric & Subscriptions & Hardware \\\midrule
 Average Revenue & \$570/year & \$800/unit \\
 Gross Margin\cite{openview2023} & 85\% & 44\% \\
-Gross CAC & \$20 & \$60 \\
-Merchandise Offset & \$8 & \$10 \\
+Gross CAC & \$\cacDigital & \$\cacEvents \\
+Merchandise Offset & \$8 & \$\merchOffsetHw \\
 Net CAC & \$12 & \$50 \\
 LTV or Profit/Unit & \$485 & \$305 \\
 LTV:CAC Ratio & 40:1 & 6:1 \\
@@ -354,8 +288,8 @@ Payback Period & $<1$ month & Immediate \\
 \begin{tabularx}{\linewidth}{l Y Y Y}
 \toprule
 Market Segment & Global TAM\cite{chainalysis2024,triple2023} & Serviceable (SAM) & Target Share \\\midrule
-Subscription Users & 5M & 500k & 10\% (50k) \\
-Hardware Buyers & 2M & 200k & 5\% (10k) \\
+Subscription Users & \tamSubsGlobal & \samSubs & \targetShareSubs\% (50k) \\
+Hardware Buyers & \tamHwGlobal & \samHw & \targetShareHw\% (10k) \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -372,7 +306,7 @@ Hardware Buyers & 2M & 200k & 5\% (10k) \\
   \item \textbf{Large Combined TAM:} 700k potential customers across both segments
   \item \textbf{Capital Efficient Growth:} Merchandise sales reduce CAC by 40\%, improving cash flow
   \item \textbf{Defensible Position:} Bitcoin-specific security focus with technical moat
-  \item \textbf{Brand Loyalty:} 60\% merchandise attach rate demonstrates strong customer engagement
+  \item \textbf{Brand Loyalty:} \merchAttachRate\% merchandise attach rate demonstrates strong customer engagement
 \end{enumerate}
 
 % =========================================================
@@ -390,7 +324,7 @@ Subscription Platform & 50,000 & Build MVP, user interface, security features \\
 Marketing \& Sales & 100,000 & Customer acquisition for subscriptions \\
 Working Capital & 20,000 & Initial merchandise inventory \\
 Operations & 30,000 & Team (2 devs), infrastructure, compliance \\
-\textbf{Total Seed Round} & \textbf{200,000} & \textbf{12-month runway} \\
+\textbf{Total Seed Round} & \textbf{\seedAmount} & \textbf{12-month runway} \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -405,7 +339,7 @@ Hardware Development\cite{ycombinator2022} & 250,000 & Design, prototype, certif
 Manufacturing Setup & 100,000 & Initial production run, QA \\
 Marketing Expansion & 100,000 & Hardware launch campaign \\
 Team Growth & 150,000 & Engineers, support, sales \\
-\textbf{Total Series A} & \textbf{600,000} & \textbf{Hardware launch} \\
+\textbf{Total Series A} & \textbf{\seriesAAmount} & \textbf{Hardware launch} \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -428,27 +362,27 @@ Stage & Timing & Funding & Valuation & Basis \\\midrule
 
 \textbf{Year 0 (Months 0-12): Subscription Focus}
 \begin{itemize}
-  \item Month 0: Raise \$200K seed (3.5\% equity), \$5.7M post-money valuation
+  \item Month 0: Raise \$200K seed (\seedEquity\% equity), \$5.7M post-money valuation
   \item Months 1-3: Build subscription platform MVP
   \item Months 4-6: Launch beta, acquire first 1,000 users
-  \item Months 7-12: Scale to 10,000 subscribers
+  \item Months 7-12: Scale to \newSubsYearOne{} subscribers
   \item Month 12: \$5.7M ARR achieved, raise Series A
 \end{itemize}
 
 \textbf{Year 1 (Months 13-24): Hardware Development}
 \begin{itemize}
-  \item Month 13: Series A \$600K (4\% equity), \$15M post-money valuation
+  \item Month 13: Series A \$600K (\seriesAEquity\% equity), \$15M post-money valuation
   \item Months 13-17: Hardware design and prototyping
   \item Months 18-19: Security certifications and testing
   \item Month 20: Manufacturing setup, initial production
   \item Month 21: Hardware launch, begin sales
-  \item Months 21-24: Scale hardware sales to 1,000 units, 20,000 total subscribers
+  \item Months 21-24: Scale hardware sales to \hwCustomersYearTwo{} units, 20,000 total subscribers
 \end{itemize}
-\
+
 \textbf{Year 2 (Months 25-36): Dual Revenue Growth}
 \begin{itemize}
   \item Revenue: \$11.8M (subs + hardware)
-  \item 1,000 hardware units sold
+  \item \hwCustomersYearTwo{} hardware units sold
   \item 30,000 total subscribers
   \item Valuation: \$25-30M (conservative 2-2.5x revenue)
 \end{itemize}
@@ -456,7 +390,7 @@ Stage & Timing & Funding & Valuation & Basis \\\midrule
 \textbf{Year 3+: Scale and Potential Exit}
 \begin{itemize}
   \item Revenue: \$18M+ across all channels
-  \item 2,000+ hardware units annually
+  \item \hwCustomersYearThree+ hardware units annually
   \item 40,000+ subscribers
   \item Exit valuation: \$25-50M depending on growth rate and market conditions
 \end{itemize}
