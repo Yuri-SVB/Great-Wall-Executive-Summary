@@ -3,3 +3,7 @@
 *.out
 *.pdf
 *.synctex.gz
+*.bbl
+*.blg
+*.xml
+executive-summary-great-wall-blx.bib
