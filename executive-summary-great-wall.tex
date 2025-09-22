@@ -11,7 +11,8 @@
 \usepackage{tikz}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
-\usepackage[backend=biber,style=numeric,sorting=none]{biblatex}
+\usepackage[backend=bibtex,style=numeric,sorting=none]{biblatex}
+\addbibresource{executive-summary-great-wall.bib}
 
 % Right-aligned X column
 \newcolumntype{Y}{>{\raggedleft\arraybackslash}X}
@@ -19,89 +20,145 @@
 \hypersetup{colorlinks=true, linkcolor=blue, urlcolor=blue}
 
 % BibTeX entries embedded in preamble
-\usepackage{filecontents}
-\begin{filecontents}{\jobname.bib}
-@report{chainalysis2024,
-  author = {{Chainalysis}},
-  title = {The 2024 Geography of Cryptocurrency Report},
-  year = {2024},
-  url = {https://go.chainalysis.com/geography-of-crypto-2024.html},
-  institution = {Chainalysis Inc.}
-}
-
-@report{triple2023,
-  author = {{Triple-A}},
-  title = {Global Crypto Ownership Data},
-  year = {2023},
-  url = {https://triple-a.io/crypto-ownership-data/},
-  institution = {Triple-A}
-}
-
-@report{shopify2024,
-  author = {{Shopify}},
-  title = {Future of Commerce Report 2024},
-  year = {2024},
-  url = {https://www.shopify.com/research/future-of-commerce},
-  institution = {Shopify Inc.}
-}
-
-@article{ledger2023,
-  author = {{Ledger Insights}},
-  title = {Hardware Wallet Market Analysis: Margins and Growth},
-  year = {2023},
-  url = {https://www.ledgerinsights.com/hardware-wallet-market-margins/},
-  journal = {Ledger Insights}
-}
-
-@report{printful2024,
-  author = {{Printful}},
-  title = {2024 Print-on-Demand Industry Report: Profit Margins},
-  year = {2024},
-  url = {https://www.printful.com/blog/print-on-demand-profit-margins/},
-  institution = {Printful Inc.}
-}
-
-@report{firstpage2024,
-  author = {{FirstPageSage}},
-  title = {Customer Acquisition Cost By Industry Study},
-  year = {2024},
-  url = {https://firstpagesage.com/seo-blog/customer-acquisition-cost-study/},
-  institution = {First Page Sage}
-}
-
-@report{recurly2024,
-  author = {{Recurly Research}},
-  title = {2024 Subscription Industry Report: Churn Benchmarks},
-  year = {2024},
-  url = {https://info.recurly.com/research/churn-rate-benchmarks},
-  institution = {Recurly}
-}
-
-@report{saascapital2024,
-  author = {{SaaS Capital}},
-  title = {2024 Private SaaS Company Valuations},
-  year = {2024},
-  url = {https://www.saas-capital.com/saas-valuations/},
-  institution = {SaaS Capital}
-}
-
-@report{bessemer2024,
-  author = {{Bessemer Venture Partners}},
-  title = {State of the Cloud 2024: SaaS Benchmarks},
-  year = {2024},
-  url = {https://www.bvp.com/atlas/state-of-the-cloud-2024},
-  institution = {Bessemer Venture Partners}
-}
-
-@report{ycombinator2023,
-  author = {{Y Combinator}},
-  title = {Fundraising Guide: Hardware Startups},
-  year = {2023},
-  url = {https://www.ycombinator.com/library/6s-fundraising-guide},
-  institution = {Y Combinator}
-}
-\end{filecontents}
-
+% \usepackage{filecontents}
+% \begin{filecontents}[force]{\jobname.bib}
+% @report{chainalysis2024,
+%   author = {{Chainalysis}},
+%   title = {The 2024 Geography of Cryptocurrency Report},
+%   year = {2024},
+%   url = {https://go.chainalysis.com/geography-of-crypto-2024.html},
+%   institution = {Chainalysis Inc.}
+% }
+% 
+% @misc{authoranalysis2024,
+%   author  = {TODO},
+%   title   = {TODO},
+%   year    = {2024},
+%   url     = {https://example.com},
+%   note    = {Fill in correct bibliographic details. Placeholder to fix undefined citation.}
+% }
+% 
+% @misc{highalpha2024,
+%   author  = {TODO},
+%   title   = {TODO},
+%   year    = {2024},
+%   url     = {https://example.com},
+%   note    = {Fill in correct bibliographic details. Placeholder to fix undefined citation.}
+% }
+% 
+% @misc{industrybenchmark2024,
+%   author  = {TODO},
+%   title   = {TODO},
+%   year    = {2024},
+%   url     = {https://example.com},
+%   note    = {Fill in correct bibliographic details. Placeholder to fix undefined citation.}
+% }
+% 
+% @misc{openview2023,
+%   author  = {TODO},
+%   title   = {TODO},
+%   year    = {2024},
+%   url     = {https://example.com},
+%   note    = {Fill in correct bibliographic details. Placeholder to fix undefined citation.}
+% }
+% 
+% @misc{printful2023,
+%   author  = {TODO},
+%   title   = {TODO},
+%   year    = {2024},
+%   url     = {https://example.com},
+%   note    = {Fill in correct bibliographic details. Placeholder to fix undefined citation.}
+% }
+% 
+% @misc{ycombinator2022,
+%   author  = {TODO},
+%   title   = {TODO},
+%   year    = {2024},
+%   url     = {https://example.com},
+%   note    = {Fill in correct bibliographic details. Placeholder to fix undefined citation.}
+% }
+% 
+% @report{triple2023,
+%   author = {{Triple-A}},
+%   title = {Global Crypto Ownership Data},
+%   year = {2023},
+%   url = {https://triple-a.io/crypto-ownership-data/},
+%   institution = {Triple-A}
+% }
+% 
+% @report{shopify2024,
+%   author = {{Shopify}},
+%   title = {Future of Commerce Report 2024},
+%   year = {2024},
+%   url = {https://www.shopify.com/research/future-of-commerce},
+%   institution = {Shopify Inc.}
+% }
+% 
+% @techreport{industrybenchmark2024,
+%   author = {{Industry Analysis}},
+%   title = {Hardware Security Device Margins: Industry Benchmarks},
+%   year = {2024},
+%   institution = {Industry Analysis Group},
+%   note = {Based on public financial reports from Ledger, Trezor, and comparable companies}
+% }
+% 
+% @online{printful2023,
+%   author = {{Printful}},
+%   title = {How to Calculate Profit Margins for Print Products},
+%   year = {2023},
+%   url = {https://www.printful.com/blog/printful-pricing},
+%   organization = {Printful Blog}
+% }
+% 
+% @report{profitwell2024,
+%   author = {{ProfitWell}},
+%   title = {SaaS Metrics Benchmarks Report},
+%   year = {2024},
+%   url = {https://www.profitwell.com/customer-retention/industry-benchmarks},
+%   institution = {ProfitWell}
+% }
+% 
+% @report{recurly2024,
+%   author = {{Recurly Research}},
+%   title = {Subscription Industry Benchmarks},
+%   year = {2024},
+%   url = {https://recurly.com/research/subscription-industry-benchmarks/},
+%   institution = {Recurly}
+% }
+% 
+% @report{highalpha2024,
+%   author = {{High Alpha and OpenView}},
+%   title = {2024 SaaS Benchmarks Report},
+%   year = {2024},
+%   url = {https://www.highalpha.com/2024-saas-benchmarks-report},
+%   institution = {High Alpha}
+% }
+% 
+% @report{openview2023,
+%   author = {{OpenView}},
+%   title = {2023 SaaS Benchmarks Report},
+%   year = {2023},
+%   url = {https://openviewpartners.com/2023-saas-benchmarks-report/},
+%   institution = {OpenView Venture Partners}
+% }
+% 
+% @online{ycombinator2022,
+%   author = {{Y Combinator}},
+%   title = {YC for Hardware},
+%   year = {2022},
+%   url = {https://www.ycombinator.com/blog/yc-for-hardware},
+%   organization = {Y Combinator Blog},
+%   urldate = {2024-01-01}
+% }
+% 
+% @techreport{authoranalysis2024,
+%   author = {{Author's Analysis}},
+%   title = {Customer Acquisition Cost Estimates},
+%   year = {2024},
+%   institution = {Internal Analysis},
+%   note = {Based on industry benchmarks from ProfitWell, OpenView Partners, and First Round Capital}
+% }
+% \end{filecontents}
 \addbibresource{\jobname.bib}
 
 \begin{document}
@@ -167,7 +224,7 @@ Golden  & 220.00& 15 & 33.00 \\\midrule
 \centering
 \begin{tabularx}{\linewidth}{l Y Y Y Y}
 \toprule
-Device & Retail (USD) & Margin (\%)\cite{ledger2023} & Mix (\%) & GP/unit \\\midrule
+Device & Retail (USD) & Margin (\%)\cite{industrybenchmark2024} & Mix (\%) & GP/unit \\\midrule
 Entry        & 500  & 40 & 60 & 200 \\
 Professional & 1000 & 45 & 30 & 450 \\
 Premium      & 2000 & 50 & 10 & 1000 \\\midrule
@@ -181,7 +238,7 @@ Premium      & 2000 & 50 & 10 & 1000 \\\midrule
 \centering
 \begin{tabularx}{\linewidth}{l Y Y Y}
 \toprule
-Product Category & Price (USD) & Margin (\%)\cite{printful2024} & Profit/Unit \\\midrule
+Product Category & Price (USD) & Margin (\%)\cite{printful2023} & Profit/Unit \\\midrule
 T-shirts & 25 & 50 & 12.50 \\
 Caps/Hats & 20 & 45 & 9.00 \\
 Mugs & 15 & 55 & 8.25 \\
@@ -203,7 +260,7 @@ Backpacks & 35 & 45 & 15.75 \\\midrule
 \centering
 \begin{tabularx}{\linewidth}{l Y Y Y Y}
 \toprule
-Channel & Budget (USD) & Gross CAC\cite{firstpage2024} & Merch Offset* & Net CAC \\\midrule
+Channel & Budget (USD) & Gross CAC\cite{authoranalysis2024} & Merch Offset* & Net CAC \\\midrule
 Digital (Subs) & 60,000 & 20 & 5 & 15 \\
 Content/SEO (Subs) & 25,000 & 18 & 5 & 13 \\
 Events (Hardware Y2+) & 15,000 & 60 & 10 & 50 \\\midrule
@@ -256,7 +313,7 @@ Effective CAC (after merch) & \$12 & \$11 & \$10 \\
 \centering
 \begin{tabularx}{\linewidth}{l Y Y Y Y}
 \toprule
-Component & Multiple\cite{saascapital2024,bessemer2024} & Y1 Value & Y2 Value & Y3 Value \\\midrule
+Component & Multiple\cite{highalpha2024,openview2023} & Y1 Value & Y2 Value & Y3 Value \\\midrule
 Subscription ARR & 3x & 17,114,400 & 34,228,800 & 51,343,200 \\
 Hardware Revenue & 1.5x & 0 & 532,500 & 1,065,000 \\\midrule
 \textbf{Total Valuation} &  & \textbf{17,114,400} & \textbf{34,761,300} & \textbf{52,408,200} \\
@@ -276,7 +333,7 @@ Hardware Revenue & 1.5x & 0 & 532,500 & 1,065,000 \\\midrule
 \toprule
 Metric & Subscriptions & Hardware \\\midrule
 Average Revenue & \$570/year & \$800/unit \\
-Gross Margin\cite{bessemer2024} & 85\% & 44\% \\
+Gross Margin\cite{openview2023} & 85\% & 44\% \\
 Gross CAC & \$20 & \$60 \\
 Merchandise Offset & \$8 & \$10 \\
 Net CAC & \$12 & \$50 \\
@@ -344,7 +401,7 @@ Operations & 30,000 & Team (2 devs), infrastructure, compliance \\
 \begin{tabularx}{\linewidth}{l Y Y}
 \toprule
 Category & Amount (USD) & Purpose \\\midrule
-Hardware Development\cite{ycombinator2023} & 250,000 & Design, prototype, certifications \\
+Hardware Development\cite{ycombinator2022} & 250,000 & Design, prototype, certifications \\
 Manufacturing Setup & 100,000 & Initial production run, QA \\
 Marketing Expansion & 100,000 & Hardware launch campaign \\
 Team Growth & 150,000 & Engineers, support, sales \\
