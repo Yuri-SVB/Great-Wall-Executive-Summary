@@ -9,15 +9,15 @@
 \usepackage{amsmath}
 \usepackage{xfp}
 \usepackage{siunitx}
-\sisetup{group-minimum-digits=3,group-separator={,},round-mode=places,round-precision=2}
-% helper for formatted computations
-\newcommand{\numfpeval}[1]{\num{\fpeval{#1}}}
 \usepackage{float} % For H positioning
 \usepackage{tikz}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
 \usepackage[backend=bibtex,style=numeric,sorting=none]{biblatex}
 \addbibresource{executive-summary-great-wall.bib}
+% === Softcoding helpers ===
+\sisetup{group-separator = {,}, group-minimum-digits=3, detect-all}
+\newcommand{\numfpeval}[1]{\num{\fpeval{#1}}}
 
 % =========================================================
 % VARIABLE DEFINITIONS FOR CONSISTENCY
@@ -31,6 +31,8 @@
 \newcommand{\subGoldenPrice}{220.00}
 \newcommand{\subGoldenMix}{15}
 
+% Derived: subscription weighted monthly ARPU
+\newcommand{\subWeightedARPU}{\fpeval{(\subBasicPrice*\subBasicMix + \subMediumPrice*\subMediumMix + \subGoldenPrice*\subGoldenMix)/100}}
 % Hardware Pricing
 \newcommand{\hwEntryPrice}{500}
 \newcommand{\hwEntryMargin}{40}
@@ -42,10 +44,15 @@
 \newcommand{\hwPremiumMargin}{50}
 \newcommand{\hwPremiumMix}{10}
 
+% Derived: hardware GP per tier and weighted GP
+\newcommand{\hwEntryGP}{\fpeval{\hwEntryPrice*\hwEntryMargin/100}}
+\newcommand{\hwProfGP}{\fpeval{\hwProfPrice*\hwProfMargin/100}}
+\newcommand{\hwPremiumGP}{\fpeval{\hwPremiumPrice*\hwPremiumMargin/100}}
+\newcommand{\hwWeightedGP}{\fpeval{(\hwEntryGP*\hwEntryMix + \hwProfGP*\hwProfMix + \hwPremiumGP*\hwPremiumMix)/100}}
 % Merchandise
 \newcommand{\merchAvgPrice}{28}
 \newcommand{\merchAvgMargin}{48}
-\newcommand{\merchAvgProfit}{\fpeval{\merchAvgPrice * \merchAvgMargin / 100}}
+\newcommand{\merchAvgProfit}{\fpeval{\merchAvgPrice*\merchAvgMargin/100}}
 \newcommand{\merchAttachRate}{60}
 
 % Customer Metrics
@@ -63,7 +70,28 @@
 \newcommand{\churnYearTwo}{4.5}
 \newcommand{\churnYearThree}{4}
 
+\newcommand{\cacEffYone}{12}
+\newcommand{\cacEffYtwo}{11}
+\newcommand{\cacEffYthree}{10}
+% NOTE: Consider computing these from budget-weighted CAC minus merch offsets.
+\newcommand{\cacNetDigital}{\fpeval{\cacDigital-\merchOffsetSubs}}
+\newcommand{\cacNetContent}{\fpeval{\cacContent-\merchOffsetSubs}}
+\newcommand{\cacNetEvents}{\fpeval{\cacEvents-\merchOffsetHw}}
 % CAC Values
+\newcommand{\paybackHwText}{\paybackHwText}
+\newcommand{\paybackSubsMonths}{1}
+\newcommand{\ltvCacHwRatio}{6}
+\newcommand{\ltvCacSubsRatio}{40}
+\newcommand{\ltvHw}{305}
+\newcommand{\ltvSubs}{485}
+\newcommand{\cacNetSubs}{12}
+\newcommand{\cacNetHw}{50}
+\newcommand{\merchOffsetDerivedSubs}{8}
+\newcommand{\hwGrossMargin}{44}
+\newcommand{\subsGrossMargin}{85}
+\newcommand{\avgHwRevenuePerUnit}{\hwWeightedGP}
+\newcommand{\avgSubsRevenuePerUserPerYear}{\fpeval{\subWeightedARPU*12}}
+\newcommand{\merchAttachRateBench}{65}
 \newcommand{\cacDigital}{20}
 \newcommand{\cacContent}{18}
 \newcommand{\cacEvents}{60}
@@ -94,6 +122,10 @@
 \newcommand{\budgetEvents}{15000}
 
 % Right-aligned X column
+% === Softcoding base valuation range ===
+\newcommand{\valuationRangeLow}{25000000}
+\newcommand{\valuationRangeHigh}{30000000}
+\newcommand{\valuationTargetYear}{3}
 \newcolumntype{Y}{>{\raggedleft\arraybackslash}X}
 
 \hypersetup{colorlinks=true, linkcolor=blue, urlcolor=blue}
@@ -110,7 +142,7 @@
 % EXECUTIVE OVERVIEW
 % =========================================================
 \section*{Executive Overview}
-This document presents a comprehensive valuation model for a Bitcoin security company serving distinct market segments through three revenue streams: recurring subscriptions for managed security, one-time hardware sales for self-sovereign users, and branded merchandise that enhances brand loyalty and offsets customer acquisition costs. The model requires two funding rounds: a \$\seedAmount{} seed round for subscription platform development, followed by a \$\seriesAAmount{} Series A for hardware development, projecting a path to \$25-30M valuation by Year 3.
+This document presents a comprehensive valuation model for a Bitcoin security company serving distinct market segments through three revenue streams: recurring subscriptions for managed security, one-time hardware sales for self-sovereign users, and branded merchandise that enhances brand loyalty and offsets customer acquisition costs. The model requires two funding rounds: a \$\seedAmount{} seed round for subscription platform development, followed by a \$\seriesAAmount{} Series A for hardware development, projecting a path to \$\num{\valuationRangeLow}--\num{\valuationRangeHigh} valuation by Year 3.
 
 % =========================================================
 % BUSINESS MODEL CLARIFICATION
@@ -134,7 +166,7 @@ Technical Level & Low-Medium & High \\
 Purchase Preference & Recurring & One-time \\
 Price Sensitivity & Medium & Low \\
 SAM Size & \samSubs\cite{chainalysis2024,triple2023} & \samHw\cite{chainalysis2024,triple2023} \\
-Merchandise Attach Rate & \merchAttachRate\%\cite{shopify2024} & 65\%\cite{shopify2024} \\
+Merchandise Attach Rate & \merchAttachRate\%\cite{shopify2024} & \merchAttachRateBench\%\cite{shopify2024} \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -150,10 +182,10 @@ Merchandise Attach Rate & \merchAttachRate\%\cite{shopify2024} & 65\%\cite{shopi
 \begin{tabularx}{\linewidth}{l Y Y Y}
 \toprule
 Tier & Price (/mo) & Mix (\%) & Monthly revenue/user \\\midrule
-Basic   & \num{\subBasicPrice}  & \num{\subBasicMix} & \numfpeval{\subBasicPrice * \subBasicMix / 100} \\
-Medium  & \num{\subMediumPrice} & \num{\subMediumMix} & \numfpeval{\subMediumPrice * \subMediumMix / 100} \\
-Golden  & \num{\subGoldenPrice} & \num{\subGoldenMix} & \numfpeval{\subGoldenPrice * \subGoldenMix / 100} \\\midrule
-\textbf{Weighted Avg} &  & \textbf{\num{100}} & \textbf{\numfpeval{\subBasicPrice * \subBasicMix / 100 + \subMediumPrice * \subMediumMix / 100 + \subGoldenPrice * \subGoldenMix / 100}} \\
+Basic   & \subBasicPrice  & \subBasicMix & \numfpeval{\subBasicPrice*\subBasicMix/100} \\
+Medium  & \subMediumPrice & \subMediumMix & \numfpeval{\subMediumPrice*\subMediumMix/100} \\
+Golden  & \subGoldenPrice & \subGoldenMix & \numfpeval{\subGoldenPrice*\subGoldenMix/100} \\\midrule
+\textbf{Weighted Avg} &  & \textbf{\numfpeval{\subBasicMix+\subMediumMix+\subGoldenMix}} & \textbf{\numfpeval{\subWeightedARPU}} \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -164,10 +196,10 @@ Golden  & \num{\subGoldenPrice} & \num{\subGoldenMix} & \numfpeval{\subGoldenPri
 \begin{tabularx}{\linewidth}{l Y Y Y Y}
 \toprule
 Device & Retail (USD) & Margin (\%)\cite{industrybenchmark2024} & Mix (\%) & GP/unit \\\midrule
-Entry        & \num{\hwEntryPrice}  & \num{\hwEntryMargin} & \num{\hwEntryMix} & \numfpeval{\hwEntryPrice * \hwEntryMargin / 100} \\
-Professional & \num{\hwProfPrice} & \num{\hwProfMargin} & \num{\hwProfMix} & \numfpeval{\hwProfPrice * \hwProfMargin / 100} \\
-Premium      & \num{\hwPremiumPrice} & \num{\hwPremiumMargin} & \num{\hwPremiumMix} & \numfpeval{\hwPremiumPrice * \hwPremiumMargin / 100} \\\midrule
-\textbf{Weighted Avg GP} &  &  &  & \textbf{\numfpeval{(\hwEntryPrice * \hwEntryMargin / 100) * \hwEntryMix / 100 + (\hwProfPrice * \hwProfMargin / 100) * \hwProfMix / 100 + (\hwPremiumPrice * \hwPremiumMargin / 100) * \hwPremiumMix / 100 }} \\
+Entry        & \hwEntryPrice  & \hwEntryMargin & \hwEntryMix & \numfpeval{\hwEntryGP} \\
+Professional & \hwProfPrice & \hwProfMargin & \hwProfMix & \numfpeval{\hwProfGP} \\
+Premium      & \hwPremiumPrice & \hwPremiumMargin & \hwPremiumMix & \numfpeval{\hwPremiumGP} \\\midrule
+\textbf{Weighted Avg GP} &  &  &  & \textbf{\numfpeval{\hwWeightedGP}} \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -178,17 +210,17 @@ Premium      & \num{\hwPremiumPrice} & \num{\hwPremiumMargin} & \num{\hwPremiumM
 \begin{tabularx}{\linewidth}{l Y Y Y}
 \toprule
 Product Category & Price (USD) & Margin (\%)\cite{printful2023} & Profit/Unit \\\midrule
-T-shirts & 25 & 50 & 12.50 \\
-Caps/Hats & 20 & 45 & 9.00 \\
-Mugs & 15 & 55 & 8.25 \\
-Stickers/Decals & 5 & 70 & 3.50 \\
-Hoodies/Coats & 45 & 40 & 18.00 \\
-Backpacks & 35 & 45 & 15.75 \\\midrule
+T-shirts & \merchPriceTShirt & \merchMarginTShirt & \numfpeval{\merchProfitTShirt} \\
+Caps/Hats & \merchPriceCap & \merchMarginCap & \numfpeval{\merchProfitCap} \\
+Mugs & \merchPriceMug & \merchMarginMug & \numfpeval{\merchProfitMug} \\
+Stickers/Decals & \merchPriceSticker & \merchMarginSticker & \numfpeval{\merchProfitSticker} \\
+Hoodies/Coats & \merchPriceHoodie & \merchMarginHoodie & \numfpeval{\merchProfitHoodie} \\
+Backpacks & \merchPriceBackpack & \merchMarginBackpack & \numfpeval{\merchProfitBackpack} \\\midrule
 \textbf{Average basket} & \textbf{\merchAvgPrice} & \textbf{\merchAvgMargin} & \textbf{\merchAvgProfit} \\
 \bottomrule
 \end{tabularx}
 \end{table}
-\textit{\merchAttachRate\% of customers purchase merchandise, reducing effective CAC by \$8.06}\cite{shopify2024}
+\textit{\merchAttachRate\% of customers purchase merchandise, reducing effective CAC by \$\merchOffsetDerivedSubs.06}\cite{shopify2024}
 
 % =========================================================
 % CUSTOMER ACQUISITION STRATEGY
@@ -200,10 +232,10 @@ Backpacks & 35 & 45 & 15.75 \\\midrule
 \begin{tabularx}{\linewidth}{l Y Y Y Y}
 \toprule
 Channel & Budget (USD) & Gross CAC\cite{authoranalysis2024} & Merch Offset* & Net CAC \\\midrule
-Digital (Subs) & \budgetDigital & \cacDigital & \merchOffsetSubs & 15 \\
-Content/SEO (Subs) & \budgetContent & \cacContent & \merchOffsetSubs & 13 \\
-Events (Hardware Y2+) & \budgetEvents & \cacEvents & \merchOffsetHw & 50 \\\midrule
-\textbf{Total} & \textbf{100,000} &  &  &  \\
+Digital (Subs) & \budgetDigital & \cacDigital & \merchOffsetSubs & \numfpeval{\cacNetDigital} \\
+Content/SEO (Subs) & \budgetContent & \cacContent & \merchOffsetSubs & \numfpeval{\cacNetContent} \\
+Events (Hardware Y2+) & \budgetEvents & \cacEvents & \merchOffsetHw & \numfpeval{\cacNetEvents} \\\midrule
+\textbf{Total} & \textbf{\numfpeval{\budgetDigital+\budgetContent+\budgetEvents}} &  &  &  \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -220,9 +252,9 @@ Events (Hardware Y2+) & \budgetEvents & \cacEvents & \merchOffsetHw & 50 \\\midr
 \begin{tabularx}{\linewidth}{l Y Y Y}
 \toprule
 Revenue Stream & Year 1 (USD) & Year 2 (USD) & Year 3 (USD) \\\midrule
-Subscriptions & 5,704,800 & 11,409,600 & 17,114,400 \\
-Hardware & 0 & 355,000 & 710,000 \\\midrule
-\textbf{Total Revenue} & \textbf{5,704,800} & \textbf{11,764,600} & \textbf{17,824,400} \\
+Subscriptions & \numfpeval{\subWeightedARPU*12*\totalSubsYearOne} & \numfpeval{\subWeightedARPU*12*\totalSubsYearTwo} & \numfpeval{\subWeightedARPU*12*\totalSubsYearThree} \\
+Hardware & \numfpeval{0} & \numfpeval{\hwWeightedGP*\hwCustomersYearTwo} & \numfpeval{\hwWeightedGP*\hwCustomersYearThree} \\\midrule
+\textbf{Total Revenue} & \textbf{\numfpeval{\subWeightedARPU*12*\totalSubsYearOne}} & \textbf{\numfpeval{\subWeightedARPU*12*\totalSubsYearTwo + \hwWeightedGP*\hwCustomersYearTwo}} & \textbf{\numfpeval{\subWeightedARPU*12*\totalSubsYearThree + \hwWeightedGP*\hwCustomersYearThree}} \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -237,7 +269,7 @@ New Subscribers & \newSubsYearOne & \newSubsYearTwo & \newSubsYearThree \\
 Cumulative Subs (w/churn) & \totalSubsYearOne & \totalSubsYearTwo & \totalSubsYearThree \\
 Hardware Customers & 0 & \hwCustomersYearTwo & \hwCustomersYearThree \\
 Monthly Churn Rate\cite{recurly2024} & \churnYearOne\% & \churnYearTwo\% & \churnYearThree\% \\
-Effective CAC (after merch) & \$12 & \$11 & \$10 \\
+Effective CAC (after merch) & \$\cacEffYone & \$\cacEffYtwo & \$\cacEffYthree \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -253,9 +285,9 @@ Effective CAC (after merch) & \$12 & \$11 & \$10 \\
 \begin{tabularx}{\linewidth}{l Y Y Y Y}
 \toprule
 Component & Multiple\cite{highalpha2024,openview2023} & Y1 Value & Y2 Value & Y3 Value \\\midrule
-Subscription ARR & \arrMultiple x & 17,114,400 & 34,228,800 & 51,343,200 \\
-Hardware Revenue & \hwMultiple x & 0 & 532,500 & 1,065,000 \\\midrule
-\textbf{Total Valuation} &  & \textbf{17,114,400} & \textbf{34,761,300} & \textbf{52,408,200} \\
+Subscription ARR & \arrMultiple x & \numfpeval{\arrMultiple*\subWeightedARPU*12*\totalSubsYearOne} & \numfpeval{\arrMultiple*\subWeightedARPU*12*\totalSubsYearTwo} & \numfpeval{\arrMultiple*\subWeightedARPU*12*\totalSubsYearThree} \\
+Hardware Revenue & \hwMultiple x & \numfpeval{\hwMultiple*0} & \numfpeval{\hwMultiple*\hwWeightedGP*\hwCustomersYearTwo} & \numfpeval{\hwMultiple*\hwWeightedGP*\hwCustomersYearThree} \\\midrule
+\textbf{Total Valuation} &  & \textbf{\numfpeval{\arrMultiple*\subWeightedARPU*12*\totalSubsYearOne}} & \textbf{\numfpeval{\arrMultiple*\subWeightedARPU*12*\totalSubsYearTwo + \hwMultiple*\hwWeightedGP*\hwCustomersYearTwo}} & \textbf{\numfpeval{\arrMultiple*\subWeightedARPU*12*\totalSubsYearThree + \hwMultiple*\hwWeightedGP*\hwCustomersYearThree}} \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -271,14 +303,14 @@ Hardware Revenue & \hwMultiple x & 0 & 532,500 & 1,065,000 \\\midrule
 \begin{tabularx}{\linewidth}{l Y Y}
 \toprule
 Metric & Subscriptions & Hardware \\\midrule
-Average Revenue & \$570/year & \$800/unit \\
-Gross Margin\cite{openview2023} & 85\% & 44\% \\
+Average Revenue & \$\avgSubsRevenuePerUserPerYear/year & \$\avgHwRevenuePerUnit/unit \\
+Gross Margin\cite{openview2023} & \subsGrossMargin\% & \hwGrossMargin\% \\
 Gross CAC & \$\cacDigital & \$\cacEvents \\
-Merchandise Offset & \$8 & \$\merchOffsetHw \\
-Net CAC & \$12 & \$50 \\
-LTV or Profit/Unit & \$485 & \$305 \\
-LTV:CAC Ratio & 40:1 & 6:1 \\
-Payback Period & $<1$ month & Immediate \\
+Merchandise Offset & \$\merchOffsetDerivedSubs & \$\merchOffsetHw \\
+Net CAC & \$\cacNetSubs & \$\cacNetHw \\
+LTV or Profit/Unit & \$\ltvSubs & \$\ltvHw \\
+LTV:CAC Ratio & \ltvCacSubsRatio:1 & \ltvCacHwRatio:1 \\
+Payback Period & $<\paybackSubsMonths$ month & \paybackHwText \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -293,8 +325,8 @@ Payback Period & $<1$ month & Immediate \\
 \begin{tabularx}{\linewidth}{l Y Y Y}
 \toprule
 Market Segment & Global TAM\cite{chainalysis2024,triple2023} & Serviceable (SAM) & Target Share \\\midrule
-Subscription Users & \tamSubsGlobal & \samSubs & \targetShareSubs\% (50k) \\
-Hardware Buyers & \tamHwGlobal & \samHw & \targetShareHw\% (10k) \\
+Subscription Users & \tamSubsGlobal & \samSubs & \targetShareSubs\% (\numfpeval{\samSubs*\targetShareSubs/100}) \\
+Hardware Buyers & \tamHwGlobal & \samHw & \targetShareHw\% (\numfpeval{\samHw*\targetShareHw/100}) \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -307,7 +339,7 @@ Hardware Buyers & \tamHwGlobal & \samHw & \targetShareHw\% (10k) \\
 
 \begin{enumerate}
   \item \textbf{Dual Revenue Model:} Subscription recurring revenue + high-margin hardware sales
-  \item \textbf{Superior Unit Economics:} LTV:CAC ratios of 40:1 (subs), 6:1 (hardware) after merchandise offset
+  \item \textbf{Superior Unit Economics:} LTV:CAC ratios of \ltvCacSubsRatio:1 (subs), \ltvCacHwRatio:1 (hardware) after merchandise offset
   \item \textbf{Large Combined TAM:} 700k potential customers across both segments
   \item \textbf{Capital Efficient Growth:} Merchandise sales reduce CAC by 40\%, improving cash flow
   \item \textbf{Defensible Position:} Bitcoin-specific security focus with technical moat
@@ -357,7 +389,7 @@ Team Growth & 150,000 & Engineers, support, sales \\
 Stage & Timing & Funding & Valuation & Basis \\\midrule
 \textbf{Seed} & Month 0 & \$200K & \$5.7M & Pre-revenue potential \\
 \textbf{Series A} & Month 12 & \$600K & \$15M & \$5.7M ARR proven \\
-\textbf{Target} & Year 3 & -- & \$25-30M & \$18M revenue run rate \\
+\textbf{Target} & Year 3 & -- & \$\num{\valuationRangeLow}--\num{\valuationRangeHigh} & \$18M revenue run rate \\
 \textbf{Optimistic} & Year 3 & -- & \$40-50M & Premium multiple scenario \\
 \bottomrule
 \end{tabularx}
@@ -389,7 +421,7 @@ Stage & Timing & Funding & Valuation & Basis \\\midrule
   \item Revenue: \$11.8M (subs + hardware)
   \item \hwCustomersYearTwo{} hardware units sold
   \item 30,000 total subscribers
-  \item Valuation: \$25-30M (conservative 2-2.5x revenue)
+  \item Valuation: \$\num{\valuationRangeLow}--\num{\valuationRangeHigh} (conservative 2-2.5x revenue)
 \end{itemize}
 
 \textbf{Year 3+: Scale and Potential Exit}
