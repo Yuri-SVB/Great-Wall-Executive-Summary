@@ -157,3 +157,31 @@
 
 % Annual budget allocation (USD).
 \newcommand{\budgetEvents}{15000}
+
+%% ================= DERIVED CALCULATIONS =================
+%% These are calculated from the base values above.
+%% Do not edit these directly - they update automatically.
+
+% Subscription weighted average monthly revenue per user (USD).
+\newcommand{\subWeightedAvgMonthly}{\fpeval{\subBasicPrice * \subBasicMix / 100 + \subMediumPrice * \subMediumMix / 100 + \subGoldenPrice * \subGoldenMix / 100}}
+
+% Subscription weighted average annual revenue per user (USD).
+\newcommand{\subWeightedAvgAnnual}{\fpeval{\subWeightedAvgMonthly * 12}}
+
+% Hardware weighted average gross profit per unit (USD).
+\newcommand{\hwWeightedAvgGP}{\fpeval{(\hwEntryPrice * \hwEntryMargin / 100) * \hwEntryMix / 100 + (\hwProfPrice * \hwProfMargin / 100) * \hwProfMix / 100 + (\hwPremiumPrice * \hwPremiumMargin / 100) * \hwPremiumMix / 100}}
+
+% Hardware weighted average price per unit (USD).
+\newcommand{\hwWeightedAvgPrice}{\fpeval{\hwEntryPrice * \hwEntryMix / 100 + \hwProfPrice * \hwProfMix / 100 + \hwPremiumPrice * \hwPremiumMix / 100}}
+
+% Hardware weighted average margin (%).
+\newcommand{\hwWeightedAvgMargin}{\fpeval{\hwWeightedAvgGP / \hwWeightedAvgPrice * 100}}
+
+% Merchandise average profit per unit (USD).
+\newcommand{\merchAvgProfit}{\fpeval{\merchAvgPrice * \merchAvgMargin / 100}}
+
+% Merchandise offset for subscription customers (USD).
+\newcommand{\merchOffsetSubsCalc}{\fpeval{\merchAttachRate / 100 * \merchAvgProfit}}
+
+% Merchandise offset for hardware customers (USD).
+\newcommand{\merchOffsetHwCalc}{\fpeval{65 / 100 * \merchAvgProfit}}
