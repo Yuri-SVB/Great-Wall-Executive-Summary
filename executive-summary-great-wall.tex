@@ -116,7 +116,7 @@ Backpacks & \num{35} & \num{45} & \num{15.75} \\\midrule
 \bottomrule
 \end{tabularx}
 \end{table}
-\textit{\num{\merchAttachRate}\% of customers purchase merchandise, reducing effective CAC by \$\numfpeval{\merchOffsetSubsCalc}}\cite{shopify2024}
+\textit{\num{\merchAttachRate}\% of subscription customers purchase merchandise, reducing effective CAC by \$\numfpeval{\merchOffsetSubsCalc}}\cite{shopify2024}
 
 % =========================================================
 % CUSTOMER ACQUISITION STRATEGY
@@ -128,14 +128,14 @@ Backpacks & \num{35} & \num{45} & \num{15.75} \\\midrule
 \begin{tabularx}{\linewidth}{l Y Y Y Y}
 \toprule
 Channel & Budget (USD) & Gross CAC\cite{authoranalysis2024} & Merch Offset* & Net CAC \\\midrule
-Digital (Subs) & \num{\budgetDigital} & \num{\cacDigital} & \num{\merchOffsetSubs} & \num{15} \\
-Content/SEO (Subs) & \num{\budgetContent} & \num{\cacContent} & \num{\merchOffsetSubs} & \num{13} \\
-Events (Hardware Y2+) & \num{\budgetEvents} & \num{\cacEvents} & \num{\merchOffsetHw} & \num{50} \\\midrule
+Digital (Subs) & \num{\budgetDigital} & \num{\cacDigital} & \numfpeval{\merchOffsetSubsCalc} & \numfpeval{\cacDigital - \merchOffsetSubsCalc} \\
+Content/SEO (Subs) & \num{\budgetContent} & \num{\cacContent} & \numfpeval{\merchOffsetSubsCalc} & \numfpeval{\cacContent - \merchOffsetSubsCalc} \\
+Events (Hardware Y2+) & \num{\budgetEvents} & \num{\cacEvents} & \numfpeval{\merchOffsetHwCalc} & \numfpeval{\cacEvents - \merchOffsetHwCalc} \\\midrule
 \textbf{Total} & \textbf{\num{100000}} &  &  &  \\
 \bottomrule
 \end{tabularx}
 \end{table}
-\textit{*Merchandise offset assumes \num{\merchAttachRate}\% purchase rate @ \$\numfpeval{\merchAvgProfit} profit per customer}
+\textit{*Merchandise offset: Subs @ \num{\merchAttachRate}\% × \$\numfpeval{\merchAvgProfit} = \$\numfpeval{\merchOffsetSubsCalc}, Hardware @ \num{65}\% × \$\numfpeval{\merchAvgProfit} = \$\numfpeval{\merchOffsetHwCalc}}
 
 % =========================================================
 % COMPREHENSIVE FINANCIAL PROJECTIONS
@@ -180,7 +180,7 @@ New Subscribers & \num{\newSubsYearOne} & \num{\newSubsYearTwo} & \num{\newSubsY
 Cumulative Subs (w/churn) & \num{\totalSubsYearOne} & \num{\totalSubsYearTwo} & \num{\totalSubsYearThree} \\
 Hardware Customers & \num{0} & \num{\hwCustomersYearTwo} & \num{\hwCustomersYearThree} \\
 Annual Churn Rate\cite{recurly2024} & \num{\churnYearOne}\% & \num{\churnYearTwo}\% & \num{\churnYearThree}\% \\
-Effective CAC (after merch) & \$\num{12} & \$\num{11} & \$\num{10} \\
+Net CAC (after merch) & \$\numfpeval{round(\cacDigital - \merchOffsetSubsCalc,0)} & \$\numfpeval{round(\cacDigital - \merchOffsetSubsCalc,0)} & \$\numfpeval{round(\cacDigital - \merchOffsetSubsCalc,0)} \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -217,9 +217,9 @@ Average Revenue & \$\numfpeval{\subWeightedAvgAnnual}/year & \$\numfpeval{\hwWei
 Gross Margin\cite{openview2023} & \num{85}\% & \num{\hwWeightedAvgMargin}\% \\
 Gross CAC & \$\num{\cacDigital} & \$\num{\cacEvents} \\
 Merchandise Offset & \$\numfpeval{\merchOffsetSubsCalc} & \$\numfpeval{\merchOffsetHwCalc} \\
-Net CAC & \$\num{12} & \$\num{50} \\
+Net CAC & \$\numfpeval{round(\cacDigital - \merchOffsetSubsCalc,0)} & \$\numfpeval{round(\cacEvents - \merchOffsetHwCalc,0)} \\
 LTV or Profit/Unit & \$\numfpeval{\subLTV} & \$\numfpeval{\hwWeightedAvgGP} \\
-LTV:CAC Ratio & \numfpeval{round(\subLTV/12,0)}:\num{1} & \numfpeval{round(\hwWeightedAvgGP/50,0)}:\num{1} \\
+LTV:CAC Ratio & \numfpeval{round(\subLTV/(\cacDigital - \merchOffsetSubsCalc),0)}:\num{1} & \numfpeval{round(\hwWeightedAvgGP/(\cacEvents - \merchOffsetHwCalc),0)}:\num{1} \\
 Payback Period & $<$\num{1} month & Immediate \\
 \bottomrule
 \end{tabularx}
@@ -249,7 +249,7 @@ Hardware Buyers & \num{\tamHwGlobal} & \num{\samHw} & \num{\targetShareHw}\% (\n
 
 \begin{enumerate}
   \item \textbf{Dual Revenue Model:} Subscription recurring revenue + high-margin hardware sales
-  \item \textbf{Superior Unit Economics:} LTV:CAC ratios of \numfpeval{round(\subLTV/12,0)}:\num{1} (subs), \numfpeval{round(\hwWeightedAvgGP/50,0)}:\num{1} (hardware) after merchandise offset
+  \item \textbf{Superior Unit Economics:} LTV:CAC ratios of \numfpeval{round(\subLTV/(\cacDigital - \merchOffsetSubsCalc),0)}:\num{1} (subs), \numfpeval{round(\hwWeightedAvgGP/(\cacEvents - \merchOffsetHwCalc),0)}:\num{1} (hardware) after merchandise offset
   \item \textbf{Large Combined TAM:} \num{700}k potential customers across both segments
   \item \textbf{Capital Efficient Growth:} Merchandise sales reduce CAC by \num{40}\%, improving cash flow
   \item \textbf{Defensible Position:} Bitcoin-specific security focus with technical moat
