@@ -3,22 +3,39 @@
 
 %% ================= Subscription Tiers =================
 % Subscription tier mix (% of subscribers).
-\newcommand{\subBasicMix}{40}
+\newcommand{\subBasicMix}{35}
 
 % Subscription tier monthly price (USD).
 \newcommand{\subBasicPrice}{2.60}
 
 % Subscription tier mix (% of subscribers).
-\newcommand{\subGoldenMix}{15}
+\newcommand{\subMediumMix}{40}
+
+% Subscription tier monthly price (USD).
+\newcommand{\subMediumPrice}{30.00}
+
+% Subscription tier mix (% of subscribers) - NEW TIER
+% Professional tier bridges the gap between Medium and Golden
+\newcommand{\subProfessionalMix}{15}
+
+% Subscription tier monthly price (USD) - NEW TIER
+% Priced at ~3x Medium, providing smoother progression
+\newcommand{\subProfessionalPrice}{90.00}
+
+% Subscription tier mix (% of subscribers).
+\newcommand{\subGoldenMix}{9}
 
 % Subscription tier monthly price (USD).
 \newcommand{\subGoldenPrice}{220.00}
 
-% Subscription tier mix (% of subscribers).
-\newcommand{\subMediumMix}{45}
+% Subscription tier mix (% of subscribers) - NEW TIER
+% Platinum tier for enterprise/whale customers
+% Expected <1% adoption but important for completeness
+\newcommand{\subPlatinumMix}{1}
 
-% Subscription tier monthly price (USD).
-\newcommand{\subMediumPrice}{30.00}
+% Subscription tier monthly price (USD) - NEW TIER
+% 2x Golden price for maximum security features
+\newcommand{\subPlatinumPrice}{440.00}
 
 %% ================= Hardware SKUs =================
 % Hardware gross margin (%).
@@ -192,7 +209,7 @@
 %% Do not edit these directly - they update automatically.
 
 % Subscription weighted average monthly revenue per user (USD).
-\newcommand{\subWeightedAvgMonthly}{\fpeval{\subBasicPrice * \subBasicMix / 100 + \subMediumPrice * \subMediumMix / 100 + \subGoldenPrice * \subGoldenMix / 100}}
+\newcommand{\subWeightedAvgMonthly}{\fpeval{\subBasicPrice * \subBasicMix / 100 + \subMediumPrice * \subMediumMix / 100 + \subProfessionalPrice * \subProfessionalMix / 100 + \subGoldenPrice * \subGoldenMix / 100 + \subPlatinumPrice * \subPlatinumMix / 100}}
 
 % Subscription weighted average annual revenue per user (USD).
 \newcommand{\subWeightedAvgAnnual}{\fpeval{\subWeightedAvgMonthly * 12}}
@@ -233,9 +250,8 @@
 % Theoretical customer lifetime in years (1/churn_rate)
 \newcommand{\theoreticalLifetimeYears}{\fpeval{1 / \avgAnnualChurn}}
 
-% Optimistic LTV cap in years based on business idiosyncrasies (industry standard)
-\newcommand{\ltvCapYears}{7}
-
+% Conservative LTV cap in years (industry standard)
+\newcommand{\ltvCapYears}{5}
 
 % Actual LTV calculation years (minimum of theoretical and cap)
 \newcommand{\ltvYearsUsed}{\fpeval{min(\theoreticalLifetimeYears, \ltvCapYears)}}
