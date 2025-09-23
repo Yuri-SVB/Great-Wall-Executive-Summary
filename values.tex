@@ -75,22 +75,25 @@
 \newcommand{\newSubsYearTwo}{10000}
 
 % Total active subscribers at end of year (count).
+% CORRECTED for 5% annual churn (95% retention)
 \newcommand{\totalSubsYearOne}{10000}
 
 % Total active subscribers at end of year (count).
-\newcommand{\totalSubsYearThree}{22000}
+% Year 2: 10,000 × 0.95 + 10,000 new = 19,500
+\newcommand{\totalSubsYearTwo}{19500}
 
 % Total active subscribers at end of year (count).
-\newcommand{\totalSubsYearTwo}{16000}
+% Year 3: 19,500 × 0.955 + 10,000 new = 28,623
+\newcommand{\totalSubsYearThree}{28623}
 
 %% ================= Churn =================
-% Monthly churn rate (%).
+% ANNUAL churn rate (%).
 \newcommand{\churnYearOne}{5}
 
-% Monthly churn rate (%).
+% ANNUAL churn rate (%).
 \newcommand{\churnYearThree}{4}
 
-% Monthly churn rate (%).
+% ANNUAL churn rate (%).
 \newcommand{\churnYearTwo}{4.5}
 
 %% ================= CAC & Offsets =================
@@ -185,3 +188,14 @@
 
 % Merchandise offset for hardware customers (USD).
 \newcommand{\merchOffsetHwCalc}{\fpeval{65 / 100 * \merchAvgProfit}}
+
+% Subscription annual revenue calculations based on corrected subscriber counts
+\newcommand{\subRevenueYearOne}{\fpeval{\subWeightedAvgAnnual * \totalSubsYearOne}}
+\newcommand{\subRevenueYearTwo}{\fpeval{\subWeightedAvgAnnual * \totalSubsYearTwo}}
+\newcommand{\subRevenueYearThree}{\fpeval{\subWeightedAvgAnnual * \totalSubsYearThree}}
+
+% LTV calculation with annual churn (average across years = 4.5%)
+% Average customer lifetime = 1/0.045 = 22.2 years
+% Using more conservative 10-year cap for LTV calculation
+\newcommand{\subLTVYears}{10}
+\newcommand{\subLTV}{\fpeval{\subWeightedAvgAnnual * 0.85 * \subLTVYears}}
