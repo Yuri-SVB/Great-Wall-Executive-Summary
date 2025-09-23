@@ -155,6 +155,21 @@ Hardware & \num{0} & \numfpeval{\hwWeightedAvgGP * \hwCustomersYearTwo} & \numfp
 \end{tabularx}
 \end{table}
 
+\subsection{ARR vs Revenue Clarification}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\linewidth}{l Y Y Y}
+\toprule
+Metric & Year 1 & Year 2 & Year 3 \\\midrule
+Subscription Revenue (actual) & \numfpeval{\subRevenueYearOne} & \numfpeval{\subRevenueYearTwo} & \numfpeval{\subRevenueYearThree} \\
+Exit ARR (MRR $\times$ 12) & \numfpeval{\subARRYearOne} & \numfpeval{\subARRYearTwo} & \numfpeval{\subARRYearThree} \\
+Active Subscribers (year-end) & \num{\totalSubsYearOne} & \num{\totalSubsYearTwo} & \num{\totalSubsYearThree} \\
+Monthly Revenue/User & \numfpeval{\subWeightedAvgMonthly} & \numfpeval{\subWeightedAvgMonthly} & \numfpeval{\subWeightedAvgMonthly} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+\textit{Note: ARR = Annual Recurring Revenue based on exit monthly run rate, not total year revenue}
+
 \subsection{Customer Metrics with Churn}
 \begin{table}[H]
 \centering
@@ -181,9 +196,9 @@ Effective CAC (after merch) & \$\num{12} & \$\num{11} & \$\num{10} \\
 \begin{tabularx}{\linewidth}{l Y Y Y Y}
 \toprule
 Component & Multiple\cite{highalpha2024,openview2023} & Y1 Value & Y2 Value & Y3 Value \\\midrule
-Subscription ARR & \num{\arrMultiple}x & \numfpeval{\subRevenueYearOne * \arrMultiple} & \numfpeval{\subRevenueYearTwo * \arrMultiple} & \numfpeval{\subRevenueYearThree * \arrMultiple} \\
+Subscription Exit ARR & \num{\arrMultiple}x & \numfpeval{\subARRYearOne * \arrMultiple} & \numfpeval{\subARRYearTwo * \arrMultiple} & \numfpeval{\subARRYearThree * \arrMultiple} \\
 Hardware Gross Profit & \num{\hwMultiple}x & \num{0} & \numfpeval{\hwWeightedAvgGP * \hwCustomersYearTwo * \hwMultiple} & \numfpeval{\hwWeightedAvgGP * \hwCustomersYearThree * \hwMultiple} \\\midrule
-\textbf{Total Valuation} &  & \textbf{\numfpeval{\subRevenueYearOne * \arrMultiple}} & \textbf{\numfpeval{\subRevenueYearTwo * \arrMultiple + \hwWeightedAvgGP * \hwCustomersYearTwo * \hwMultiple}} & \textbf{\numfpeval{\subRevenueYearThree * \arrMultiple + \hwWeightedAvgGP * \hwCustomersYearThree * \hwMultiple}} \\
+\textbf{Total Valuation} &  & \textbf{\numfpeval{\subARRYearOne * \arrMultiple}} & \textbf{\numfpeval{\subARRYearTwo * \arrMultiple + \hwWeightedAvgGP * \hwCustomersYearTwo * \hwMultiple}} & \textbf{\numfpeval{\subARRYearThree * \arrMultiple + \hwWeightedAvgGP * \hwCustomersYearThree * \hwMultiple}} \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -284,8 +299,8 @@ Team Growth & \num{150000} & Engineers, support, sales \\
 \toprule
 Stage & Timing & Funding & Valuation & Basis \\\midrule
 \textbf{Seed} & Month 0 & \$\num{200}K & \$\num{5.7}M & Pre-revenue potential \\
-\textbf{Series A} & Month 12 & \$\num{600}K & \$\num{17}M & \$\numfpeval{round(\subRevenueYearOne/1000000,1)}M ARR proven \\
-\textbf{Target} & Year 3 & -- & \$\num{30}--\num{35}M & \$\numfpeval{round(\subRevenueYearThree/1000000,1)}M revenue run rate \\
+\textbf{Series A} & Month 12 & \$\num{600}K & \$\num{17}M & \$\numfpeval{round(\subARRYearOne/1000000,1)}M ARR proven \\
+\textbf{Target} & Year 3 & -- & \$\num{30}--\num{35}M & \$\numfpeval{round(\subARRYearThree/1000000,1)}M exit ARR \\
 \textbf{Optimistic} & Year 3 & -- & \$\num{50}--\num{60}M & Premium multiple scenario \\
 \bottomrule
 \end{tabularx}
@@ -299,7 +314,7 @@ Stage & Timing & Funding & Valuation & Basis \\\midrule
   \item Months 1-3: Build subscription platform MVP
   \item Months 4-6: Launch beta, acquire first \num{1000} users
   \item Months 7-12: Scale to \num{\newSubsYearOne} subscribers
-  \item Month 12: \$\numfpeval{round(\subRevenueYearOne/1000000,1)}M ARR achieved, raise Series A
+  \item Month 12: \$\numfpeval{round(\subARRYearOne/1000000,1)}M exit ARR achieved, raise Series A
 \end{itemize}
 
 \textbf{Year 1 (Months 13-24): Hardware Development}
@@ -310,19 +325,22 @@ Stage & Timing & Funding & Valuation & Basis \\\midrule
   \item Month 20: Manufacturing setup, initial production
   \item Month 21: Hardware launch, begin sales
   \item Months 21-24: Scale hardware sales to \num{\hwCustomersYearTwo} units, \num{\totalSubsYearTwo} total subscribers
+  \item Exit ARR: \$\numfpeval{round(\subARRYearTwo/1000000,1)}M
 \end{itemize}
 
 \textbf{Year 2 (Months 25-36): Dual Revenue Growth}
 \begin{itemize}
   \item Revenue: \$\numfpeval{round((\subRevenueYearTwo + \hwWeightedAvgGP * \hwCustomersYearTwo)/1000000,1)}M (subs + hardware)
+  \item Exit ARR: \$\numfpeval{round(\subARRYearTwo/1000000,1)}M
   \item \num{\hwCustomersYearTwo} hardware units sold
   \item \num{\totalSubsYearTwo} total subscribers
-  \item Valuation: \$\num{30}--\num{35}M (conservative \num{2.5}x revenue)
+  \item Valuation: \$\num{30}--\num{35}M (conservative \num{2.5}x ARR)
 \end{itemize}
 
 \textbf{Year 3+: Scale and Potential Exit}
 \begin{itemize}
   \item Revenue: \$\numfpeval{round((\subRevenueYearThree + \hwWeightedAvgGP * \hwCustomersYearThree)/1000000,1)}M+ across all channels
+  \item Exit ARR: \$\numfpeval{round(\subARRYearThree/1000000,1)}M
   \item \num{\hwCustomersYearThree}+ hardware units annually
   \item \num{\totalSubsYearThree}+ subscribers
   \item Exit valuation: \$\num{35}--\num{60}M depending on growth rate and market conditions

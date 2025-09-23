@@ -194,6 +194,12 @@
 \newcommand{\subRevenueYearTwo}{\fpeval{\subWeightedAvgAnnual * \totalSubsYearTwo}}
 \newcommand{\subRevenueYearThree}{\fpeval{\subWeightedAvgAnnual * \totalSubsYearThree}}
 
+% ARR calculations - based on exit MRR × 12
+% ARR = Active subscribers at year-end × average monthly revenue × 12
+\newcommand{\subARRYearOne}{\fpeval{\totalSubsYearOne * \subWeightedAvgMonthly * 12}}
+\newcommand{\subARRYearTwo}{\fpeval{\totalSubsYearTwo * \subWeightedAvgMonthly * 12}}
+\newcommand{\subARRYearThree}{\fpeval{\totalSubsYearThree * \subWeightedAvgMonthly * 12}}
+
 % LTV calculation with annual churn (average across years = 4.5%)
 % Average customer lifetime = 1/0.045 = 22.2 years
 % Using more conservative 10-year cap for LTV calculation
