@@ -161,6 +161,10 @@
 % Annual budget allocation (USD).
 \newcommand{\budgetEvents}{15000}
 
+%% ================= Gross Margins =================
+% Subscription gross margin (%).
+\newcommand{\subGrossMargin}{85}
+
 %% ================= DERIVED CALCULATIONS =================
 %% These are calculated from the base values above.
 %% Do not edit these directly - they update automatically.
@@ -200,8 +204,24 @@
 \newcommand{\subARRYearTwo}{\fpeval{\totalSubsYearTwo * \subWeightedAvgMonthly * 12}}
 \newcommand{\subARRYearThree}{\fpeval{\totalSubsYearThree * \subWeightedAvgMonthly * 12}}
 
-% LTV calculation with annual churn (average across years = 4.5%)
-% Average customer lifetime = 1/0.045 = 22.2 years
-% Using more conservative 10-year cap for LTV calculation
-\newcommand{\subLTVYears}{10}
-\newcommand{\subLTV}{\fpeval{\subWeightedAvgAnnual * 0.85 * \subLTVYears}}
+% LTV Calculation Components
+% Average churn rate across 3 years
+\newcommand{\avgAnnualChurn}{\fpeval{(\churnYearOne + \churnYearTwo + \churnYearThree) / 3 / 100}}
+
+% Theoretical customer lifetime in years (1/churn_rate)
+\newcommand{\theoreticalLifetimeYears}{\fpeval{1 / \avgAnnualChurn}}
+
+% Optimistic LTV cap in years based on business idiosyncrasies (industry standard)
+\newcommand{\ltvCapYears}{7}
+
+% Actual LTV calculation years (minimum of theoretical and cap)
+\newcommand{\ltvYearsUsed}{\fpeval{min(\theoreticalLifetimeYears, \ltvCapYears)}}
+
+% Annual gross profit per subscriber
+\newcommand{\subAnnualGrossProfit}{\fpeval{\subWeightedAvgAnnual * \subGrossMargin / 100}}
+
+% Final LTV calculation
+\newcommand{\subLTV}{\fpeval{\subAnnualGrossProfit * \ltvYearsUsed}}
+
+% Monthly gross profit (for payback calculation)
+\newcommand{\subMonthlyGrossProfit}{\fpeval{\subWeightedAvgMonthly * \subGrossMargin / 100}}
