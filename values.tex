@@ -1,17 +1,69 @@
 % values.tex -- central registry of model inputs (CLEAN ROOM).
 % Edit only these numbers to update the model. Keep names stable to avoid breaking formulas.
 
+%% ================= Computation Economics =================
+% Electricity cost per kWh (USD).
+\newcommand{\electricityCostPerKwh}{0.12}
+
+% Average power consumption during computation (watts).
+\newcommand{\computePowerWatts}{350}
+
+% Number of weekly job runs per month.
+\newcommand{\weeklyRunsPerMonth}{4.28}
+
+% Patrick's markup multipliers by tier (progressive).
+\newcommand{\patrickMarkupBasic}{2.5}
+\newcommand{\patrickMarkupMedium}{2.6}
+\newcommand{\patrickMarkupProfessional}{3.5}  % Premium for 48hr commitment
+\newcommand{\patrickMarkupGolden}{2.8}
+\newcommand{\patrickMarkupPlatinum}{2.9}
+
+% Mark's platform fee percentage (of Charlie's payment).
+\newcommand{\markPlatformFeePercent}{28}
+
+% Computation job durations (hours).
+\newcommand{\computeHoursBasic}{2}
+\newcommand{\computeHoursMedium}{24}
+\newcommand{\computeHoursProfessional}{48}
+\newcommand{\computeHoursGolden}{168}
+\newcommand{\computeHoursPlatinum}{336}
+
+%% ================= Patrick's Cost Calculations =================
+% Patrick's monthly electricity cost per tier (USD).
+\newcommand{\patrickCostBasic}{\fpeval{\computeHoursBasic * \computePowerWatts / 1000 * \electricityCostPerKwh * \weeklyRunsPerMonth}}
+\newcommand{\patrickCostMedium}{\fpeval{\computeHoursMedium * \computePowerWatts / 1000 * \electricityCostPerKwh * \weeklyRunsPerMonth}}
+\newcommand{\patrickCostProfessional}{\fpeval{\computeHoursProfessional * \computePowerWatts / 1000 * \electricityCostPerKwh * \weeklyRunsPerMonth}}
+\newcommand{\patrickCostGolden}{\fpeval{\computeHoursGolden * \computePowerWatts / 1000 * \electricityCostPerKwh * \weeklyRunsPerMonth}}
+\newcommand{\patrickCostPlatinum}{\fpeval{\computeHoursPlatinum * \computePowerWatts / 1000 * \electricityCostPerKwh * \weeklyRunsPerMonth}}
+
+% Patrick's gross revenue per tier (after markup, USD/month).
+\newcommand{\patrickGrossBasic}{\fpeval{\patrickCostBasic * \patrickMarkupBasic}}
+\newcommand{\patrickGrossMedium}{\fpeval{\patrickCostMedium * \patrickMarkupMedium}}
+\newcommand{\patrickGrossProfessional}{\fpeval{\patrickCostProfessional * \patrickMarkupProfessional}}
+\newcommand{\patrickGrossGolden}{\fpeval{\patrickCostGolden * \patrickMarkupGolden}}
+\newcommand{\patrickGrossPlatinum}{\fpeval{\patrickCostPlatinum * \patrickMarkupPlatinum}}
+
 %% ================= Subscription Tiers =================
+% COMPUTATION MARKETPLACE TIERS:
+% Tiers represent different computation job durations (hours):
+% Basic = 2 hours, Medium = 24 hours, Professional = 48 hours,
+% Golden = 168 hours, Platinum = 336 hours
+% All jobs recur weekly (4.28 times per month)
+
 % Subscription tier mix (% of subscribers).
 \newcommand{\subBasicMix}{35}
 
 % Subscription tier monthly price (USD).
+% 2-hour computation jobs @ 4.28/month
+% Patrick cost: $0.36/mo, Markup: 7.2x
 \newcommand{\subBasicPrice}{2.60}
 
 % Subscription tier mix (% of subscribers).
 \newcommand{\subMediumMix}{40}
 
 % Subscription tier monthly price (USD).
+% 24-hour computation jobs @ 4.28/month
+% Patrick cost: $4.32/mo, Markup: 6.9x
 \newcommand{\subMediumPrice}{30.00}
 
 % Subscription tier mix (% of subscribers) - NEW TIER
@@ -19,13 +71,16 @@
 \newcommand{\subProfessionalMix}{15}
 
 % Subscription tier monthly price (USD) - NEW TIER
-% Priced at ~3x Medium, providing smoother progression
+% 48-hour computation jobs @ 4.28/month
+% Patrick cost: $8.64/mo, Markup: 10.4x (premium for longer commitment)
 \newcommand{\subProfessionalPrice}{90.00}
 
 % Subscription tier mix (% of subscribers).
 \newcommand{\subGoldenMix}{9}
 
 % Subscription tier monthly price (USD).
+% 168-hour (1 week) computation jobs @ 4.28/month
+% Patrick cost: $30.24/mo, Markup: 7.3x
 \newcommand{\subGoldenPrice}{220.00}
 
 % Subscription tier mix (% of subscribers) - NEW TIER
@@ -33,9 +88,46 @@
 % Expected <1% adoption but important for completeness
 \newcommand{\subPlatinumMix}{1}
 
-% Subscription tier monthly price (USD) - NEW TIER
-% 2x Golden price for maximum security features
+% Subscription tier monthly price (USD).
+% 336-hour (2 week) computation jobs @ 4.28/month
+% Patrick cost: $60.40/mo, Markup: 7.3x
 \newcommand{\subPlatinumPrice}{440.00}
+
+%% ================= Derived Computation Costs =================
+% Patrick's monthly electricity cost per tier (USD).
+\newcommand{\patrickCostBasic}{\fpeval{\computeHoursBasic * \computePowerWatts / 1000 * \electricityCostPerKwh * \weeklyRunsPerMonth}}
+\newcommand{\patrickCostMedium}{\fpeval{\computeHoursMedium * \computePowerWatts / 1000 * \electricityCostPerKwh * \weeklyRunsPerMonth}}
+\newcommand{\patrickCostProfessional}{\fpeval{\computeHoursProfessional * \computePowerWatts / 1000 * \electricityCostPerKwh * \weeklyRunsPerMonth}}
+\newcommand{\patrickCostGolden}{\fpeval{\computeHoursGolden * \computePowerWatts / 1000 * \electricityCostPerKwh * \weeklyRunsPerMonth}}
+\newcommand{\patrickCostPlatinum}{\fpeval{\computeHoursPlatinum * \computePowerWatts / 1000 * \electricityCostPerKwh * \weeklyRunsPerMonth}}
+
+% Patrick's gross profit per tier (after markup, USD/month).
+\newcommand{\patrickGrossBasic}{\fpeval{\patrickCostBasic * \patrickMarkupBasic}}
+\newcommand{\patrickGrossMedium}{\fpeval{\patrickCostMedium * \patrickMarkupMedium}}
+\newcommand{\patrickGrossProfessional}{\fpeval{\patrickCostProfessional * \patrickMarkupProfessional}}
+\newcommand{\patrickGrossGolden}{\fpeval{\patrickCostGolden * \patrickMarkupGolden}}
+\newcommand{\patrickGrossPlatinum}{\fpeval{\patrickCostPlatinum * \patrickMarkupPlatinum}}
+
+% Patrick's profit margin per tier (USD/month).
+\newcommand{\patrickProfitBasic}{\fpeval{\patrickGrossBasic - \patrickCostBasic}}
+\newcommand{\patrickProfitMedium}{\fpeval{\patrickGrossMedium - \patrickCostMedium}}
+\newcommand{\patrickProfitProfessional}{\fpeval{\patrickGrossProfessional - \patrickCostProfessional}}
+\newcommand{\patrickProfitGolden}{\fpeval{\patrickGrossGolden - \patrickCostGolden}}
+\newcommand{\patrickProfitPlatinum}{\fpeval{\patrickGrossPlatinum - \patrickCostPlatinum}}
+
+% Mark's revenue per tier (platform fee, USD/month).
+\newcommand{\markRevenueBasic}{\fpeval{\subBasicPrice * \markPlatformFeePercent / 100}}
+\newcommand{\markRevenueMedium}{\fpeval{\subMediumPrice * \markPlatformFeePercent / 100}}
+\newcommand{\markRevenueProfessional}{\fpeval{\subProfessionalPrice * \markPlatformFeePercent / 100}}
+\newcommand{\markRevenueGolden}{\fpeval{\subGoldenPrice * \markPlatformFeePercent / 100}}
+\newcommand{\markRevenuePlatinum}{\fpeval{\subPlatinumPrice * \markPlatformFeePercent / 100}}
+
+% Total markup per tier (Charlie price / Patrick cost).
+\newcommand{\totalMarkupBasic}{\fpeval{\subBasicPrice / \patrickCostBasic}}
+\newcommand{\totalMarkupMedium}{\fpeval{\subMediumPrice / \patrickCostMedium}}
+\newcommand{\totalMarkupProfessional}{\fpeval{\subProfessionalPrice / \patrickCostProfessional}}
+\newcommand{\totalMarkupGolden}{\fpeval{\subGoldenPrice / \patrickCostGolden}}
+\newcommand{\totalMarkupPlatinum}{\fpeval{\subPlatinumPrice / \patrickCostPlatinum}}
 
 %% ================= Hardware SKUs =================
 % Hardware gross margin (%).
@@ -73,6 +165,7 @@
 % 2. Bitcoin users historically show high brand loyalty (see Ledger, Trezor merch adoption)
 % 3. Physical security tools create natural cross-sell opportunity for branded items
 % 4. "Not your keys, not your coins" culture drives physical product affinity
+% 5. Anonymous marketplace users value privacy-respecting branded gear
 \newcommand{\merchAttachRate}{60}
 
 % Merchandise attach rate for hardware customers (%).
@@ -266,6 +359,8 @@
 
 %% ================= Gross Margins =================
 % Subscription gross margin (%).
+% 85% reflects typical SaaS margins after Patrick's payout
+% Mark retains ~25-30% of Charlie's payment as platform fee
 \newcommand{\subGrossMargin}{85}
 
 %% ================= DERIVED CALCULATIONS =================

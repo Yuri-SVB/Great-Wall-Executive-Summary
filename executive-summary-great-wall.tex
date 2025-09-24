@@ -49,9 +49,25 @@ This document presents a comprehensive valuation model for a Bitcoin security co
 
 \subsection{Revenue Stream Segmentation}
 \begin{itemize}
-  \item \textbf{Subscriptions:} Managed security service for less technical users preferring ongoing protection
+  \item \textbf{Subscriptions:} Anonymous marketplace for recurring memory-intensive computation services
   \item \textbf{Hardware:} One-time purchase for technical users wanting self-sovereign security tools
   \item \textbf{Merchandise (CAC Offset):} Branded items (t-shirts, caps, mugs) sold at profitable margins to reduce customer acquisition costs
+\end{itemize}
+
+\subsection{Subscription Service: Anonymous Computation Marketplace}
+The subscription service operates as an anonymous matchmaking marketplace connecting:
+\begin{itemize}
+  \item \textbf{Charlie (Clients):} Users needing recurring memory-intensive computation without owning adequate hardware
+  \item \textbf{Patrick (Providers):} PC owners monetizing idle computational capacity
+  \item \textbf{Mark (Marketplace):} Platform providing anonymous matching, reputation system, and dispute arbitration
+\end{itemize}
+
+Key marketplace dynamics:
+\begin{itemize}
+  \item Computation jobs are simple but memory-intensive, recurring weekly
+  \item Anonymity is critical for Charlie, beneficial for Patrick
+  \item First-mover advantage critical to build reputable user base before competitors
+  \item Tiers differentiate by computation duration: 2, 24, 48, 168, and 336 hours
 \end{itemize}
 
 \begin{table}[H]
@@ -74,21 +90,30 @@ Merchandise Attach Rate & \num{\merchAttachRate}\%\cite{shopify2024} & \num{\hwM
 % =========================================================
 \section{Enhanced Business Model with CAC Optimization}
 
-\subsection{Subscription Pricing (Revised for Security-Conscious Market)}
+\subsection{Subscription Pricing (Based on Computation Economics)}
 \begin{table}[H]
 \centering
-\begin{tabularx}{\linewidth}{l Y Y Y}
+\begin{tabularx}{\linewidth}{l Y Y Y Y Y}
 \toprule
-Tier & Price (/mo) & Mix (\%) & Monthly revenue/user \\\midrule
-Basic   & \num{\subBasicPrice}  & \num{\subBasicMix} & \numfpeval{\subBasicPrice * \subBasicMix / 100} \\
-Medium  & \num{\subMediumPrice} & \num{\subMediumMix} & \numfpeval{\subMediumPrice * \subMediumMix / 100} \\
-Professional & \num{\subProfessionalPrice} & \num{\subProfessionalMix} & \numfpeval{\subProfessionalPrice * \subProfessionalMix / 100} \\
-Golden  & \num{\subGoldenPrice} & \num{\subGoldenMix} & \numfpeval{\subGoldenPrice * \subGoldenMix / 100} \\
-Platinum & \num{\subPlatinumPrice} & \num{\subPlatinumMix} & \numfpeval{\subPlatinumPrice * \subPlatinumMix / 100} \\\midrule
-\textbf{Weighted Avg} &  & \textbf{\num{100}} & \textbf{\numfpeval{\subWeightedAvgMonthly}} \\
+Tier & Hours & Price (/mo) & Mix (\%) & Patrick Cost/mo & Markup \\\midrule
+Basic   & 2 & \num{\subBasicPrice}  & \num{\subBasicMix} & \num{0.36} & 7.2x \\
+Medium  & 24 & \num{\subMediumPrice} & \num{\subMediumMix} & \num{4.32} & 6.9x \\
+Professional & 48 & \num{\subProfessionalPrice} & \num{\subProfessionalMix} & \num{8.64} & 10.4x \\
+Golden  & 168 & \num{\subGoldenPrice} & \num{\subGoldenMix} & \num{30.24} & 7.3x \\
+Platinum & 336 & \num{\subPlatinumPrice} & \num{\subPlatinumMix} & \num{60.40} & 7.3x \\\midrule
+\textbf{Weighted Avg} &  &  & \textbf{\num{100}} &  &  \\
 \bottomrule
 \end{tabularx}
 \end{table}
+\textit{Note: Patrick's costs based on 350W @ \$0.12/kWh, 4.28 runs/month. Markup includes Patrick's margin (2.5-3x) + Mark's platform fee (25-30\%)}
+
+\subsection{Marketplace Economics Justification}
+The pricing structure reflects:
+\begin{itemize}
+  \item \textbf{Patrick's Markup (2.5-3x):} Covers electricity, wear, bandwidth, opportunity cost, and risk premium for anonymous transactions
+  \item \textbf{Mark's Platform Fee (25-30\%):} Funds anonymous matchmaking infrastructure, reputation system maintenance, dispute resolution, and first-mover advantage consolidation
+  \item \textbf{Non-linear Pricing:} Professional tier premium reflects scarcity of providers willing to commit 48-hour blocks
+\end{itemize}
 
 \subsection{Hardware Portfolio}
 \begin{table}[H]
@@ -259,6 +284,8 @@ Hardware Buyers & \numint{\tamHwGlobal} & \numint{\samHw} & \num{\targetShareHw}
   \item \textbf{Defensible Position:} Bitcoin-specific security focus with technical moat
   \item \textbf{Brand Loyalty:} \num{\merchAttachRate}\% merchandise attach rate demonstrates strong customer engagement
   \item \textbf{Low Churn:} \num{5}\% annual churn rate demonstrates strong product-market fit
+  \item \textbf{Network Effects:} Anonymous marketplace gains value with more reputable participants
+  \item \textbf{First-Mover Advantage:} Early user base creates barrier for competitors lacking reputation history
 \end{enumerate}
 
 % =========================================================
@@ -272,7 +299,7 @@ Hardware Buyers & \numint{\tamHwGlobal} & \numint{\samHw} & \num{\targetShareHw}
 \begin{tabularx}{\linewidth}{l Y Y}
 \toprule
 Category & Amount (USD) & Purpose \\\midrule
-Subscription Platform & \numint{\seedUseSubPlatform} & Build MVP, user interface, security features \\
+Subscription Platform & \numint{\seedUseSubPlatform} & Anonymous matchmaking, reputation system \\
 Marketing \& Sales & \numint{\seedUseMarketing} & Customer acquisition for subscriptions \\
 Working Capital & \numint{\seedUseWorkingCap} & Initial merchandise inventory \\
 Operations & \numint{\seedUseOperations} & Team (\num{\seedTeamSize} devs), infrastructure, compliance \\
@@ -315,7 +342,9 @@ Stage & Timing & Funding & Valuation & Basis \\\midrule
 \textbf{Year 0 (Months 0-12): Subscription Focus}
 \begin{itemize}
   \item Month 0: Raise \$\numint{round(\seedAmount/1000,0)}K seed (\num{\seedEquity}\% equity), \$\numfpeval{round(\seedValuation/1000000,1)}M post-money valuation
+  \item Months 1-3: Build anonymous matchmaking infrastructure and reputation system
   \item Months 4-6: Launch beta, acquire first \numint{\betaUsers} users
+  \item Months 7-12: Scale marketplace, prove unit economics
   \item Month 13: Series A \$\numint{round(\seriesAAmount/1000,0)}K ({\seriesAEquity}\% equity), \${\seriesAValuation/1000000}M post-money valuation
   \item Valuation: \$\num{\targetValLow}--\num{\targetValHigh}M (conservative \num{\yearTwoRevMultiple}x ARR)
   \item Exit valuation: \$\num{\targetValLow}--\num{\optimisticValHigh}M depending on growth rate and market conditions
@@ -362,8 +391,9 @@ Stage & Timing & Funding & Valuation & Basis \\\midrule
 Risk & Impact & Mitigation \\\midrule
 Hardware development delays & Revenue push to Y3 & Start with merchandise, proven designs \\
 Higher CAC than projected & Lower growth & Merchandise cross-sell reduces effective CAC \\
-Competitive entry & Margin pressure & First-mover advantage, brand loyalty \\
+Competitive entry & Margin pressure & First-mover advantage, network effects \\
 Regulatory changes & Compliance costs & Conservative approach, legal reserves \\
+Provider availability & Supply constraints & Dynamic pricing, geographic diversity \\
 \bottomrule
 \end{tabularx}
 \end{table}
