@@ -56,17 +56,18 @@ This document presents a comprehensive valuation model for a Bitcoin security co
 \end{itemize}
 
 \subsection{Subscription Service: Anonymous Computation Marketplace}
-The subscription service operates as an anonymous matchmaking marketplace connecting:
+The subscription service operates as a computation matchmaking marketplace connecting:
 \begin{itemize}
-  \item \textbf{Charlie (Clients):} Users needing recurring memory-intensive computation without owning adequate hardware
-  \item \textbf{Patrick (Providers):} PC owners monetizing idle computational capacity
-  \item \textbf{Mark (Marketplace):} Platform providing anonymous matching, reputation system, and dispute arbitration
+  \item \textbf{Charlie (Clients):} Users needing recurring memory-intensive computation without owning adequate hardware - anonymity critical for privacy
+  \item \textbf{Patrick (Providers):} PC owners monetizing idle computational capacity - can operate publicly to attract clients
+  \item \textbf{Mark (Marketplace):} Platform providing anonymous client matching, reputation system, and dispute arbitration
 \end{itemize}
 
 Key marketplace dynamics:
 \begin{itemize}
   \item Computation jobs are simple but memory-intensive, recurring weekly
-  \item Anonymity is critical for Charlie, beneficial for Patrick
+  \item Anonymity is critical for Charlie, while Patrick can promote services openly
+  \item Provider incentives drive viral growth as they recruit clients to increase revenue\cite{parker2016}
   \item First-mover advantage critical to build reputable user base before competitors
   \item Tiers differentiate by computation duration: \numint{\computeHoursBasic}, \numint{\computeHoursMedium}, \numint{\computeHoursProfessional}, \numint{\computeHoursGolden}, and \numint{\computeHoursPlatinum} hours
 \end{itemize}
@@ -114,7 +115,7 @@ Platinum & \numint{\computeHoursPlatinum} & \num{\subPlatinumPrice} & \num{\subP
 \subsection{Marketplace Economics Justification}
 The pricing structure reflects a progressive markup model:
 \begin{itemize}
-  \item \textbf{Patrick's Progressive Markup (\numfpeval{\patrickMarkupBasic}--\numfpeval{\patrickMarkupProfessional}x):} 
+  \item \textbf{Patrick's Progressive Markup (\numfpeval{\patrickMarkupBasic}--\numfpeval{\patrickMarkupPlatinum}x):} 
   \begin{itemize}
     \item Basic (\numfpeval{\patrickMarkupBasic}x): Lower margin for short jobs to encourage provider participation
     \item Professional (\numfpeval{\patrickMarkupProfessional}x): Premium for 48-hour commitment reflecting provider scarcity
@@ -161,6 +162,20 @@ Backpacks & \num{\merchBackpackPrice} & \num{\merchBackpackMargin} & \numfpeval{
 % =========================================================
 \section{Multi-Channel Customer Acquisition}
 
+\subsection{Annual Marketing Budget Allocation}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\linewidth}{l Y Y Y Y}
+\toprule
+Year & Budget & Base CAC & Paid Customers & Cost per Customer \\\midrule
+Year 1 & \$\numint{\marketingBudgetYearOne} & \$\num{\cacDigital} & \numint{\baseNewSubsYearOne} & \$\numint{\cacDigital} \\
+Year 2 & \$\numint{\marketingBudgetYearTwo} & \$\num{\cacDigital} & \numint{\baseNewSubsYearTwo} & \$\numint{\cacDigital} \\
+Year 3 & \$\numint{\marketingBudgetYearThree} & \$\num{\cacDigital} & \numint{\baseNewSubsYearThree} & \$\numint{\cacDigital} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+\textit{Note: Shows customers acquired through paid channels before viral effects}
+
 \subsection{Traditional Acquisition Channels}
 \begin{table}[H]
 \centering
@@ -177,18 +192,18 @@ Events (Hardware Y2+) & \numint{\budgetEvents} & \num{\cacEvents} & \numfpeval{\
 \textit{*Merchandise offset: Subs @ \num{\merchAttachRate}\% × \$\numfpeval{\merchAvgProfit} = \$\numfpeval{\merchOffsetSubsCalc}, Hardware @ \num{\hwMerchAttachRate}\% × \$\numfpeval{\merchAvgProfit} = \$\numfpeval{\merchOffsetHwCalc}}
 
 \subsection{Viral Marketing Effects from Provider Incentives}
-Providers (Patrick) are directly incentivized to attract clients (Charlie) as more demand means more computation jobs. This creates a powerful viral marketing dynamic:
+Providers (Patrick) are directly incentivized to attract clients (Charlie) as more demand means more computation jobs. Since providers can operate publicly while maintaining client anonymity, this creates a powerful viral marketing dynamic\cite{hbs2016,parker2016}:
 \begin{itemize}
-  \item Each provider attracts ~\num{\providerViralCoeff} new clients through word-of-mouth
-  \item Providers promote the platform to monetize their idle capacity
-  \item Network effect compounds with \num{\viralGrowthFactor}x annual growth factor
+  \item Each provider attracts ~\num{\providerViralCoeff} new clients through word-of-mouth\cite{kumar2018}
+  \item Providers actively promote the platform to monetize their idle capacity
+  \item Network effect compounds with \num{\viralGrowthFactor}x annual growth factor\cite{nfx2018}
 \end{itemize}
 
 \begin{table}[H]
 \centering
 \begin{tabularx}{\linewidth}{l Y Y Y}
 \toprule
-Year & Base CAC & Viral Reduction & Effective CAC \\\midrule
+Year & Base CAC & Viral Reduction\cite{cbinsights2021} & Effective CAC \\\midrule
 Year 1 & \$\num{\cacDigital} & \num{\cacViralReductionYearOne}\% & \$\numfpeval{\effectiveCACYearOne} \\
 Year 2 & \$\num{\cacDigital} & \num{\cacViralReductionYearTwo}\% & \$\numfpeval{\effectiveCACYearTwo} \\
 Year 3 & \$\num{\cacDigital} & \num{\cacViralReductionYearThree}\% & \$\numfpeval{\effectiveCACYearThree} \\
@@ -236,7 +251,9 @@ Mark's Monthly Rev/User & \numfpeval{\markWeightedAvgMonthly} & \numfpeval{\mark
 \begin{tabularx}{\linewidth}{l Y Y Y}
 \toprule
 Metric & Year 1 & Year 2 & Year 3 \\\midrule
-New Subscribers & \numint{\newSubsYearOne} & \numint{\newSubsYearTwo} & \numint{\newSubsYearThree} \\
+Base New Subs (Paid) & \numint{\baseNewSubsYearOne} & \numint{\baseNewSubsYearTwo} & \numint{\baseNewSubsYearThree} \\
+Viral Multiplier & \numfpeval{\viralMultiplierYearOne}x & \numfpeval{\viralMultiplierYearTwo}x & \numfpeval{\viralMultiplierYearThree}x \\
+Total New Subscribers & \numint{\newSubsYearOne} & \numint{\newSubsYearTwo} & \numint{\newSubsYearThree} \\
 Cumulative Subs (w/churn) & \numint{\totalSubsYearOne} & \numint{\totalSubsYearTwo} & \numint{\totalSubsYearThree} \\
 Hardware Customers & \num{0} & \numint{\hwCustomersYearTwo} & \numint{\hwCustomersYearThree} \\
 Annual Churn Rate\cite{recurly2024} & \num{\churnYearOne}\% & \num{\churnYearTwo}\% & \num{\churnYearThree}\% \\
@@ -318,7 +335,8 @@ Hardware Buyers & \numint{\tamHwGlobal} & \numint{\samHw} & \num{\targetShareHw}
   \item \textbf{Low Churn:} \num{5}\% annual churn rate demonstrates strong product-market fit
   \item \textbf{Network Effects:} Anonymous marketplace gains value with more reputable participants
   \item \textbf{First-Mover Advantage:} Early user base creates barrier for competitors lacking reputation history
-  \item \textbf{Viral Growth Engine:} Providers incentivized to attract clients, reducing CAC by \num{\cacViralReductionYearThree}\% by Year 3
+  \item \textbf{Viral Growth Engine:} Providers incentivized to attract clients, with viral multiplier growing from \numfpeval{\viralMultiplierYearOne}x to \numfpeval{\viralMultiplierYearThree}x\cite{parker2016}
+  \item \textbf{Asymmetric Privacy Model:} Client anonymity preserved while providers can promote openly, maximizing viral potential\cite{hbs2016}
 \end{enumerate}
 
 % =========================================================
@@ -362,13 +380,14 @@ Team Growth & \numint{\seriesAUseTeam} & Engineers, support, sales \\
 \begin{tabularx}{\linewidth}{l Y Y Y Y}
 \toprule
 Stage & Timing & Funding & Valuation & Basis \\\midrule
-\textbf{Seed} & Month 0 & \$\numint{round(\seedAmount/1000,0)}K & \$\numfpeval{round(\seedValuation/1000000,1)}M & Pre-revenue potential \\
-\textbf{Series A} & Month 12 & \$\numint{\seriesAAmount/1000}K & \$\numfpeval{\seriesAValuation/1000000}M & \$\numfpeval{round(\subARRYearOne/1000000,1)}M ARR proven \\
-\textbf{Target} & Year 3 & -- & \$\num{\targetValLow}--\num{\targetValHigh}M & \$\numfpeval{round(\subARRYearThree/1000000,1)}M exit ARR \\
-\textbf{Optimistic} & Year 3 & -- & \$\num{\optimisticValLow}--\num{\optimisticValHigh}M & Premium multiple scenario \\
+\textbf{Seed} & Month 0 & \$\numint{round(\seedAmount/1000,0)}K & \$\numfpeval{round(\seedValuation/1000000,1)}M & Market comparables* \\
+\textbf{Series A} & Month 12 & \$\numint{\seriesAAmount/1000}K & \$\numfpeval{\seriesAValuation/1000000}M & \$\numfpeval{round(\subARRYearOne/1000000,1)}M ARR × \num{\seriesAARRMultiple}x \\
+\textbf{Target} & Year 3 & -- & \$\num{\targetValLow}--\num{\targetValHigh}M & \$\numfpeval{round(\subARRYearThree/1000000,1)}M ARR × \numfpeval{\targetARRMultiple}--\num{\arrMultiple}x \\
+\textbf{Optimistic} & Year 3 & -- & \$\num{\optimisticValLow}--\num{\optimisticValHigh}M & Premium multiples \\
 \bottomrule
 \end{tabularx}
 \end{table}
+\textit{*Pre-revenue valuation based on team, TAM, and marketplace model - not formulaic}
 
 \subsection{Detailed Timeline}
 

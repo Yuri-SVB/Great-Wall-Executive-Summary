@@ -13,10 +13,10 @@
 
 % Patrick's markup multipliers by tier (progressive).
 \newcommand{\patrickMarkupBasic}{2.5}
-\newcommand{\patrickMarkupMedium}{2.6}
+\newcommand{\patrickMarkupMedium}{3.0}
 \newcommand{\patrickMarkupProfessional}{3.5}  % Premium for 48hr commitment
-\newcommand{\patrickMarkupGolden}{2.8}
-\newcommand{\patrickMarkupPlatinum}{2.9}
+\newcommand{\patrickMarkupGolden}{5.0}
+\newcommand{\patrickMarkupPlatinum}{10.0}
 
 % Mark's platform fee percentage (of Charlie's payment).
 \newcommand{\markPlatformFeePercent}{28}
@@ -202,32 +202,24 @@
 \newcommand{\merchBackpackMargin}{45}
 
 %% ================= Customer Metrics =================
-% Hardware customers in given year (count).
-\newcommand{\hwCustomersYearThree}{2000}
+% New subscribers in given year (includes viral growth).
+\newcommand{\newSubsYearOne}{\fpeval{round(\baseNewSubsYearOne * \viralMultiplierYearOne, 0)}}
+\newcommand{\newSubsYearTwo}{\fpeval{round(\baseNewSubsYearTwo * \viralMultiplierYearTwo, 0)}}
+\newcommand{\newSubsYearThree}{\fpeval{round(\baseNewSubsYearThree * \viralMultiplierYearThree, 0)}}
 
-% Hardware customers in given year (count).
-\newcommand{\hwCustomersYearTwo}{1000}
-
-% New subscribers in given year (count).
-\newcommand{\newSubsYearOne}{10000}
-
-% New subscribers in given year (count).
-\newcommand{\newSubsYearThree}{10000}
-
-% New subscribers in given year (count).
-\newcommand{\newSubsYearTwo}{10000}
+% Hardware customers in given year (includes viral growth).
+\newcommand{\hwCustomersYearTwo}{\fpeval{round(\baseHwCustomersYearTwo * \viralMultiplierYearTwo, 0)}}
+\newcommand{\hwCustomersYearThree}{\fpeval{round(\baseHwCustomersYearThree * \viralMultiplierYearThree, 0)}}
 
 % Total active subscribers at end of year (count).
-% CORRECTED for 5% annual churn (95% retention)
-\newcommand{\totalSubsYearOne}{10000}
+% Year 1: New subscribers only
+\newcommand{\totalSubsYearOne}{\fpeval{round(\newSubsYearOne, 0)}}
 
-% Total active subscribers at end of year (count).
-% Year 2: 10,000 × 0.95 + 10,000 new = 19,500
-\newcommand{\totalSubsYearTwo}{19500}
+% Year 2: Year 1 × retention + new subscribers
+\newcommand{\totalSubsYearTwo}{\fpeval{round(\totalSubsYearOne * (1 - \churnYearOne/100) + \newSubsYearTwo, 0)}}
 
-% Total active subscribers at end of year (count).
-% Year 3: 19,500 × 0.955 + 10,000 new = 28,623
-\newcommand{\totalSubsYearThree}{28623}
+% Year 3: Year 2 × retention + new subscribers
+\newcommand{\totalSubsYearThree}{\fpeval{round(\totalSubsYearTwo * (1 - \churnYearTwo/100) + \newSubsYearThree, 0)}}
 
 %% ================= Churn =================
 % ANNUAL churn rate (%).
@@ -241,16 +233,57 @@
 
 %% ================= Viral Marketing & Network Effects =================
 % Provider referral coefficient (providers incentivized to bring clients)
-% Each provider brings X new clients through word-of-mouth
-\newcommand{\providerViralCoeff}{0.3}
+% Higher coefficient since providers aren't anonymous and can publicly promote
+% Based on Airbnb host referral data (HBS 2016): 0.2-0.3 range
+\newcommand{\providerViralCoeff}{0.25}
 
 % Annual viral growth factor (compounds as network grows)
-\newcommand{\viralGrowthFactor}{1.15}
+% Conservative based on NFX (2018) marketplace research
+\newcommand{\viralGrowthFactor}{1.10}
 
 % CAC reduction from viral effects by year (%)
-\newcommand{\cacViralReductionYearOne}{10}
-\newcommand{\cacViralReductionYearTwo}{25}
-\newcommand{\cacViralReductionYearThree}{40}
+% Based on CB Insights (2021) marketplace platform studies
+% Conservative estimates aligned with Kumar et al. (2007) WoM research
+\newcommand{\cacViralReductionYearOne}{8}
+\newcommand{\cacViralReductionYearTwo}{18}
+\newcommand{\cacViralReductionYearThree}{30}
+
+%% ================= Annual Marketing Budgets =================
+% Year 1 marketing budget (from seed round)
+\newcommand{\marketingBudgetYearOne}{80000}
+
+% Year 2 marketing budget (seed remainder + Series A portion)
+\newcommand{\marketingBudgetYearTwo}{120000}
+
+% Year 3 marketing budget (Series A remainder + revenue reinvestment)
+\newcommand{\marketingBudgetYearThree}{150000}
+
+%% ================= Customer Acquisition Efficiency =================
+% Customers acquired per $1000 marketing spend (improves with scale)
+\newcommand{\custPerThousandYearOne}{100}
+\newcommand{\custPerThousandYearTwo}{75}  % Decreases as early adopters exhausted
+\newcommand{\custPerThousandYearThree}{60}
+
+%% ================= Base Customer Acquisition (before viral) =================
+% Base new customers from paid acquisition (marketing budget / CAC)
+\newcommand{\baseNewSubsYearOne}{\fpeval{round(\marketingBudgetYearOne / \cacDigital, 0)}}
+\newcommand{\baseNewSubsYearTwo}{\fpeval{round(\marketingBudgetYearTwo / \cacDigital, 0)}}
+\newcommand{\baseNewSubsYearThree}{\fpeval{round(\marketingBudgetYearThree / \cacDigital, 0)}}
+
+% Base hardware customers from paid acquisition
+\newcommand{\baseHwCustomersYearTwo}{800}
+\newcommand{\baseHwCustomersYearThree}{1500}
+
+%% ================= Viral Customer Growth =================
+% Viral multiplier per year (1 + viral coefficient × existing base × adoption rate)
+% Year 1: Limited viral effect as network builds
+\newcommand{\viralMultiplierYearOne}{\fpeval{1 + \providerViralCoeff * 0.2}}
+
+% Year 2: Growing viral effect with proven providers
+\newcommand{\viralMultiplierYearTwo}{\fpeval{1 + \providerViralCoeff * 0.5}}
+
+% Year 3: Strong viral effect with established network
+\newcommand{\viralMultiplierYearThree}{\fpeval{1 + \providerViralCoeff * 0.8}}
 
 %% ================= CAC & Offsets =================
 % Customer Acquisition Cost component (USD per acquired customer).
@@ -316,13 +349,15 @@
 % Seed investor equity offered (%).
 \newcommand{\seedEquity}{3.5}
 
-% Seed post-money valuation (USD).
-% Standard calculation: Investment / Equity %
-\newcommand{\seedPostMoney}{\fpeval{\seedAmount / (\seedEquity / 100)}}
+% Pre-revenue valuation factors (not formula-based)
+% Based on: Team (2 devs), TAM ($5M), Business model (marketplace 28% take)
+% Comparable: Pre-revenue marketplace seeds typically $2-8M
+% Reality: This is negotiated, not calculated
+\newcommand{\seedPreMoneyNegotiated}{5500000}
 
 % Seed pre-money valuation (USD).
-% Post-money minus investment
-\newcommand{\seedValuation}{\fpeval{\seedPostMoney - \seedAmount}}
+% PRE-REVENUE: Cannot use ARR multiple, must use market comparables
+\newcommand{\seedValuation}{\seedPreMoneyNegotiated}
 
 % Series A target raise (USD).
 \newcommand{\seriesAAmount}{600000}
@@ -334,7 +369,7 @@
 \newcommand{\seriesAARRMultiple}{2.8}
 
 % Series A pre-money valuation (USD).
-% Calculated as Year 1 ARR × multiple
+% NOW we can use ARR multiple since we have revenue
 \newcommand{\seriesAValuation}{\fpeval{round(\subARRYearOne * \seriesAARRMultiple, -5)}}
 
 %% ================= Target Valuations =================
