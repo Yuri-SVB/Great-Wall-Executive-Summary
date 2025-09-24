@@ -28,7 +28,7 @@
 \newcommand{\computeHoursGolden}{168}
 \newcommand{\computeHoursPlatinum}{336}
 
-%% ================= Patrick's Cost Calculations =================
+%% ================= Derived Computation Costs =================
 % Patrick's monthly electricity cost per tier (USD).
 \newcommand{\patrickCostBasic}{\fpeval{\computeHoursBasic * \computePowerWatts / 1000 * \electricityCostPerKwh * \weeklyRunsPerMonth}}
 \newcommand{\patrickCostMedium}{\fpeval{\computeHoursMedium * \computePowerWatts / 1000 * \electricityCostPerKwh * \weeklyRunsPerMonth}}
@@ -37,11 +37,11 @@
 \newcommand{\patrickCostPlatinum}{\fpeval{\computeHoursPlatinum * \computePowerWatts / 1000 * \electricityCostPerKwh * \weeklyRunsPerMonth}}
 
 % Patrick's gross revenue per tier (after markup, USD/month).
-\newcommand{\patrickGrossBasic}{\fpeval{\patrickCostBasic * \patrickMarkupBasic}}
-\newcommand{\patrickGrossMedium}{\fpeval{\patrickCostMedium * \patrickMarkupMedium}}
-\newcommand{\patrickGrossProfessional}{\fpeval{\patrickCostProfessional * \patrickMarkupProfessional}}
-\newcommand{\patrickGrossGolden}{\fpeval{\patrickCostGolden * \patrickMarkupGolden}}
-\newcommand{\patrickGrossPlatinum}{\fpeval{\patrickCostPlatinum * \patrickMarkupPlatinum}}
+\newcommand{\patrickGrossRevenueBasic}{\fpeval{\patrickCostBasic * {1 + \patrickMarkupBasic}}}
+\newcommand{\patrickGrossRevenueMedium}{\fpeval{\patrickCostMedium * {1 + \patrickMarkupMedium}}}
+\newcommand{\patrickGrossRevenueProfessional}{\fpeval{\patrickCostProfessional * {1 + \patrickMarkupProfessional}}}
+\newcommand{\patrickGrossRevenueGolden}{\fpeval{\patrickCostGolden * {1 + \patrickMarkupGolden}}}
+\newcommand{\patrickGrossRevenuePlatinum}{\fpeval{\patrickCostPlatinum * {1 + \patrickMarkupPlatinum}}}
 
 %% ================= Subscription Tiers =================
 % COMPUTATION MARKETPLACE TIERS:
@@ -93,27 +93,19 @@
 % Patrick cost: $60.40/mo, Markup: 7.3x
 \newcommand{\subPlatinumPrice}{440.00}
 
-%% ================= Derived Computation Costs =================
-% Patrick's monthly electricity cost per tier (USD).
-\newcommand{\patrickCostBasic}{\fpeval{\computeHoursBasic * \computePowerWatts / 1000 * \electricityCostPerKwh * \weeklyRunsPerMonth}}
-\newcommand{\patrickCostMedium}{\fpeval{\computeHoursMedium * \computePowerWatts / 1000 * \electricityCostPerKwh * \weeklyRunsPerMonth}}
-\newcommand{\patrickCostProfessional}{\fpeval{\computeHoursProfessional * \computePowerWatts / 1000 * \electricityCostPerKwh * \weeklyRunsPerMonth}}
-\newcommand{\patrickCostGolden}{\fpeval{\computeHoursGolden * \computePowerWatts / 1000 * \electricityCostPerKwh * \weeklyRunsPerMonth}}
-\newcommand{\patrickCostPlatinum}{\fpeval{\computeHoursPlatinum * \computePowerWatts / 1000 * \electricityCostPerKwh * \weeklyRunsPerMonth}}
-
 % Patrick's gross profit per tier (after markup, USD/month).
-\newcommand{\patrickGrossBasic}{\fpeval{\patrickCostBasic * \patrickMarkupBasic}}
-\newcommand{\patrickGrossMedium}{\fpeval{\patrickCostMedium * \patrickMarkupMedium}}
-\newcommand{\patrickGrossProfessional}{\fpeval{\patrickCostProfessional * \patrickMarkupProfessional}}
-\newcommand{\patrickGrossGolden}{\fpeval{\patrickCostGolden * \patrickMarkupGolden}}
-\newcommand{\patrickGrossPlatinum}{\fpeval{\patrickCostPlatinum * \patrickMarkupPlatinum}}
+\newcommand{\patrickGrossProfitBasic}{\fpeval{\patrickCostBasic * \patrickMarkupBasic}}
+\newcommand{\patrickGrossProfitMedium}{\fpeval{\patrickCostMedium * \patrickMarkupMedium}}
+\newcommand{\patrickGrossProfitProfessional}{\fpeval{\patrickCostProfessional * \patrickMarkupProfessional}}
+\newcommand{\patrickGrossProfitGolden}{\fpeval{\patrickCostGolden * \patrickMarkupGolden}}
+\newcommand{\patrickGrossProfitPlatinum}{\fpeval{\patrickCostPlatinum * \patrickMarkupPlatinum}}
 
 % Patrick's profit margin per tier (USD/month).
-\newcommand{\patrickProfitBasic}{\fpeval{\patrickGrossBasic - \patrickCostBasic}}
-\newcommand{\patrickProfitMedium}{\fpeval{\patrickGrossMedium - \patrickCostMedium}}
-\newcommand{\patrickProfitProfessional}{\fpeval{\patrickGrossProfessional - \patrickCostProfessional}}
-\newcommand{\patrickProfitGolden}{\fpeval{\patrickGrossGolden - \patrickCostGolden}}
-\newcommand{\patrickProfitPlatinum}{\fpeval{\patrickGrossPlatinum - \patrickCostPlatinum}}
+\newcommand{\patrickProfitBasic}{\fpeval{\patrickGrossRevenueBasic - \patrickCostBasic}}
+\newcommand{\patrickProfitMedium}{\fpeval{\patrickGrossRevenueMedium - \patrickCostMedium}}
+\newcommand{\patrickProfitProfessional}{\fpeval{\patrickGrossRevenueProfessional - \patrickCostProfessional}}
+\newcommand{\patrickProfitGolden}{\fpeval{\patrickGrossRevenueGolden - \patrickCostGolden}}
+\newcommand{\patrickProfitPlatinum}{\fpeval{\patrickGrossRevenuePlatinum - \patrickCostPlatinum}}
 
 % Mark's revenue per tier (platform fee, USD/month).
 \newcommand{\markRevenueBasic}{\fpeval{\subBasicPrice * \markPlatformFeePercent / 100}}
@@ -189,6 +181,31 @@
 % - Mugs/accessories: $15-20
 % - Average basket contains 1.2 items @ $23 each = $28 total
 \newcommand{\merchAvgPrice}{28}
+
+%% ================= Merchandise Product Details =================
+% T-shirt price and margin
+\newcommand{\merchTshirtPrice}{25}
+\newcommand{\merchTshirtMargin}{50}
+
+% Caps/Hats price and margin
+\newcommand{\merchCapPrice}{20}
+\newcommand{\merchCapMargin}{45}
+
+% Mugs price and margin
+\newcommand{\merchMugPrice}{15}
+\newcommand{\merchMugMargin}{55}
+
+% Stickers/Decals price and margin
+\newcommand{\merchStickerPrice}{5}
+\newcommand{\merchStickerMargin}{70}
+
+% Hoodies/Coats price and margin
+\newcommand{\merchHoodiePrice}{45}
+\newcommand{\merchHoodieMargin}{40}
+
+% Backpacks price and margin
+\newcommand{\merchBackpackPrice}{35}
+\newcommand{\merchBackpackMargin}{45}
 
 %% ================= Customer Metrics =================
 % Hardware customers in given year (count).
@@ -362,6 +379,27 @@
 % 85% reflects typical SaaS margins after Patrick's payout
 % Mark retains ~25-30% of Charlie's payment as platform fee
 \newcommand{\subGrossMargin}{85}
+
+%% ================= Timeline Ranges =================
+% Beta launch timing (months)
+\newcommand{\betaLaunchStartMonth}{4}
+\newcommand{\betaLaunchEndMonth}{6}
+
+% Hardware development timing (months)
+\newcommand{\hwDesignStartMonth}{13}
+\newcommand{\hwDesignEndMonth}{17}
+
+% Security certification timing (months)
+\newcommand{\hwCertStartMonth}{18}
+\newcommand{\hwCertEndMonth}{19}
+
+% Marketplace infrastructure build (months)
+\newcommand{\marketplaceBuildStartMonth}{1}
+\newcommand{\marketplaceBuildEndMonth}{3}
+
+% Marketplace scaling period (months)
+\newcommand{\marketplaceScaleStartMonth}{7}
+\newcommand{\marketplaceScaleEndMonth}{12}
 
 %% ================= DERIVED CALCULATIONS =================
 %% These are calculated from the base values above.

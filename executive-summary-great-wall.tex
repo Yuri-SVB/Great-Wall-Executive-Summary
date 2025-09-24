@@ -17,6 +17,7 @@
 \usepackage{float} % For H positioning
 \usepackage{tikz}
 \usepackage{pgfplots}
+\usepackage{graphicx} % For resizebox
 \pgfplotsset{compat=1.18}
 \usepackage[backend=bibtex,style=numeric,sorting=none]{biblatex}
 \addbibresource{executive-summary-great-wall.bib}
@@ -67,7 +68,7 @@ Key marketplace dynamics:
   \item Computation jobs are simple but memory-intensive, recurring weekly
   \item Anonymity is critical for Charlie, beneficial for Patrick
   \item First-mover advantage critical to build reputable user base before competitors
-  \item Tiers differentiate by computation duration: 2, 24, 48, 168, and 336 hours
+  \item Tiers differentiate by computation duration: \numint{\computeHoursBasic}, \numint{\computeHoursMedium}, \numint{\computeHoursProfessional}, \numint{\computeHoursGolden}, and \numint{\computeHoursPlatinum} hours
 \end{itemize}
 
 \begin{table}[H]
@@ -93,26 +94,34 @@ Merchandise Attach Rate & \num{\merchAttachRate}\%\cite{shopify2024} & \num{\hwM
 \subsection{Subscription Pricing (Based on Computation Economics)}
 \begin{table}[H]
 \centering
-\begin{tabularx}{\linewidth}{l Y Y Y Y Y}
+\caption{Anonymous Computation Marketplace Economics}
+\resizebox{\textwidth}{!}{%
+\begin{tabularx}{1.2\linewidth}{l Y Y Y Y Y Y Y Y}
 \toprule
-Tier & Hours & Price (/mo) & Mix (\%) & Patrick Cost/mo & Markup \\\midrule
-Basic   & 2 & \num{\subBasicPrice}  & \num{\subBasicMix} & \num{0.36} & 7.2x \\
-Medium  & 24 & \num{\subMediumPrice} & \num{\subMediumMix} & \num{4.32} & 6.9x \\
-Professional & 48 & \num{\subProfessionalPrice} & \num{\subProfessionalMix} & \num{8.64} & 10.4x \\
-Golden  & 168 & \num{\subGoldenPrice} & \num{\subGoldenMix} & \num{30.24} & 7.3x \\
-Platinum & 336 & \num{\subPlatinumPrice} & \num{\subPlatinumMix} & \num{60.40} & 7.3x \\\midrule
-\textbf{Weighted Avg} &  &  & \textbf{\num{100}} &  &  \\
+Tier & Hours & Charlie Price & Mix & Patrick Cost & Patrick GP & Mark Rev & Total Markup & Monthly Rev/User \\\midrule
+Basic   & \numint{\computeHoursBasic} & \num{\subBasicPrice}  & \num{\subBasicMix}\% & \numfpeval{\patrickCostBasic} & \numfpeval{\patrickProfitBasic} & \numfpeval{\markRevenueBasic} & \numfpeval{\totalMarkupBasic}x & \numfpeval{\subBasicPrice * \subBasicMix / 100} \\
+Medium  & \numint{\computeHoursMedium} & \num{\subMediumPrice} & \num{\subMediumMix}\% & \numfpeval{\patrickCostMedium} & \numfpeval{\patrickProfitMedium} & \numfpeval{\markRevenueMedium} & \numfpeval{\totalMarkupMedium}x & \numfpeval{\subMediumPrice * \subMediumMix / 100} \\
+Professional & \numint{\computeHoursProfessional} & \num{\subProfessionalPrice} & \num{\subProfessionalMix}\% & \numfpeval{\patrickCostProfessional} & \numfpeval{\patrickProfitProfessional} & \numfpeval{\markRevenueProfessional} & \numfpeval{\totalMarkupProfessional}x & \numfpeval{\subProfessionalPrice * \subProfessionalMix / 100} \\
+Golden  & \numint{\computeHoursGolden} & \num{\subGoldenPrice} & \num{\subGoldenMix}\% & \numfpeval{\patrickCostGolden} & \numfpeval{\patrickProfitGolden} & \numfpeval{\markRevenueGolden} & \numfpeval{\totalMarkupGolden}x & \numfpeval{\subGoldenPrice * \subGoldenMix / 100} \\
+Platinum & \numint{\computeHoursPlatinum} & \num{\subPlatinumPrice} & \num{\subPlatinumMix}\% & \numfpeval{\patrickCostPlatinum} & \numfpeval{\patrickProfitPlatinum} & \numfpeval{\markRevenuePlatinum} & \numfpeval{\totalMarkupPlatinum}x & \numfpeval{\subPlatinumPrice * \subPlatinumMix / 100} \\\midrule
+\textbf{Weighted Avg} &  &  & \textbf{\num{100}}\% &  &  &  &  & \textbf{\numfpeval{\subWeightedAvgMonthly}} \\
 \bottomrule
 \end{tabularx}
+}
 \end{table}
-\textit{Note: Patrick's costs based on 350W @ \$0.12/kWh, 4.28 runs/month. Markup includes Patrick's margin (2.5-3x) + Mark's platform fee (25-30\%)}
+\textit{Note: Patrick's costs based on \numint{\computePowerWatts}W @ \$\num{\electricityCostPerKwh}/kWh, \numfpeval{\weeklyRunsPerMonth} runs/month. All values in USD/month.}
 
 \subsection{Marketplace Economics Justification}
-The pricing structure reflects:
+The pricing structure reflects a progressive markup model:
 \begin{itemize}
-  \item \textbf{Patrick's Markup (2.5-3x):} Covers electricity, wear, bandwidth, opportunity cost, and risk premium for anonymous transactions
-  \item \textbf{Mark's Platform Fee (25-30\%):} Funds anonymous matchmaking infrastructure, reputation system maintenance, dispute resolution, and first-mover advantage consolidation
-  \item \textbf{Non-linear Pricing:} Professional tier premium reflects scarcity of providers willing to commit 48-hour blocks
+  \item \textbf{Patrick's Progressive Markup (\numfpeval{\patrickMarkupBasic}--\numfpeval{\patrickMarkupProfessional}x):} 
+  \begin{itemize}
+    \item Basic (\numfpeval{\patrickMarkupBasic}x): Lower margin for short jobs to encourage provider participation
+    \item Professional (\numfpeval{\patrickMarkupProfessional}x): Premium for 48-hour commitment reflecting provider scarcity
+    \item Higher tiers (\numfpeval{\patrickMarkupGolden}--\numfpeval{\patrickMarkupPlatinum}x): Balanced markup for long-duration jobs
+  \end{itemize}
+  \item \textbf{Mark's Platform Fee (\num{\markPlatformFeePercent}\% of Charlie's payment):} Funds anonymous matchmaking infrastructure, reputation system maintenance, dispute resolution, and first-mover advantage consolidation
+  \item \textbf{Economic Balance:} Progressive markups ensure provider incentives align with job commitment requirements while maintaining platform sustainability
 \end{itemize}
 
 \subsection{Hardware Portfolio}
@@ -135,12 +144,12 @@ Premium      & \numint{\hwPremiumPrice} & \num{\hwPremiumMargin} & \num{\hwPremi
 \begin{tabularx}{\linewidth}{l Y Y Y}
 \toprule
 Product Category & Price (USD) & Margin (\%)\cite{printful2023} & Profit/Unit \\\midrule
-T-shirts & \num{25} & \num{50} & \num{12.50} \\
-Caps/Hats & \num{20} & \num{45} & \num{9.00} \\
-Mugs & \num{15} & \num{55} & \num{8.25} \\
-Stickers/Decals & \num{5} & \num{70} & \num{3.50} \\
-Hoodies/Coats & \num{45} & \num{40} & \num{18.00} \\
-Backpacks & \num{35} & \num{45} & \num{15.75} \\\midrule
+T-shirts & \num{\merchTshirtPrice} & \num{\merchTshirtMargin} & \numfpeval{\merchTshirtPrice * \merchTshirtMargin / 100} \\
+Caps/Hats & \num{\merchCapPrice} & \num{\merchCapMargin} & \numfpeval{\merchCapPrice * \merchCapMargin / 100} \\
+Mugs & \num{\merchMugPrice} & \num{\merchMugMargin} & \numfpeval{\merchMugPrice * \merchMugMargin / 100} \\
+Stickers/Decals & \num{\merchStickerPrice} & \num{\merchStickerMargin} & \numfpeval{\merchStickerPrice * \merchStickerMargin / 100} \\
+Hoodies/Coats & \num{\merchHoodiePrice} & \num{\merchHoodieMargin} & \numfpeval{\merchHoodiePrice * \merchHoodieMargin / 100} \\
+Backpacks & \num{\merchBackpackPrice} & \num{\merchBackpackMargin} & \numfpeval{\merchBackpackPrice * \merchBackpackMargin / 100} \\\midrule
 \textbf{Average basket} & \textbf{\num{\merchAvgPrice}} & \textbf{\num{\merchAvgMargin}} & \textbf{\numfpeval{\merchAvgProfit}} \\
 \bottomrule
 \end{tabularx}
@@ -243,7 +252,7 @@ Hardware Gross Profit & \num{\hwMultiple}x & \num{0} & \numint{\hwWeightedAvgGP 
 \toprule
 Metric & Subscriptions & Hardware \\\midrule
 Average Revenue & \$\numint{\subWeightedAvgAnnual}/year & \$\numint{\hwWeightedAvgPrice}/unit \\
-Gross Margin\cite{openview2023} & \num{85}\% & \num{\hwWeightedAvgMargin}\% \\
+Gross Margin\cite{openview2023} & \num{\subGrossMargin}\% & \num{\hwWeightedAvgMargin}\% \\
 Gross CAC & \$\num{\cacDigital} & \$\num{\cacEvents} \\
 Merchandise Offset & \$\numfpeval{\merchOffsetSubsCalc} & \$\numfpeval{\merchOffsetHwCalc} \\
 Net CAC & \$\numint{\cacDigital - \merchOffsetSubsCalc} & \$\numint{\cacEvents - \merchOffsetHwCalc} \\
@@ -342,19 +351,19 @@ Stage & Timing & Funding & Valuation & Basis \\\midrule
 \textbf{Year 0 (Months 0-12): Subscription Focus}
 \begin{itemize}
   \item Month 0: Raise \$\numint{round(\seedAmount/1000,0)}K seed (\num{\seedEquity}\% equity), \$\numfpeval{round(\seedValuation/1000000,1)}M post-money valuation
-  \item Months 1-3: Build anonymous matchmaking infrastructure and reputation system
-  \item Months 4-6: Launch beta, acquire first \numint{\betaUsers} users
-  \item Months 7-12: Scale marketplace, prove unit economics
-  \item Month 13: Series A \$\numint{round(\seriesAAmount/1000,0)}K ({\seriesAEquity}\% equity), \${\seriesAValuation/1000000}M post-money valuation
+  \item Months \num{\marketplaceBuildStartMonth}--\num{\marketplaceBuildEndMonth}: Build anonymous matchmaking infrastructure and reputation system
+  \item Months \num{\betaLaunchStartMonth}--\num{\betaLaunchEndMonth}: Launch beta, acquire first \numint{\betaUsers} users
+  \item Months \num{\marketplaceScaleStartMonth}--\num{\marketplaceScaleEndMonth}: Scale marketplace, prove unit economics
+  \item Month 13: Series A \$\numint{round(\seriesAAmount/1000,0)}K (\num{\seriesAEquity}\% equity), \$\numfpeval{\seriesAValuation/1000000}M post-money valuation
   \item Valuation: \$\num{\targetValLow}--\num{\targetValHigh}M (conservative \num{\yearTwoRevMultiple}x ARR)
   \item Exit valuation: \$\num{\targetValLow}--\num{\optimisticValHigh}M depending on growth rate and market conditions
 \end{itemize}
 
 \textbf{Year 1 (Months 13-24): Hardware Development}
 \begin{itemize}
-  \item Month 13: Series A \$600K (\num{\seriesAEquity}\% equity), \$17M post-money valuation
-  \item Months 13-17: Hardware design and prototyping
-  \item Months 18-19: Security certifications and testing
+  \item Month 13: Series A \$\numint{\seriesAAmount/1000}K (\num{\seriesAEquity}\% equity), \$\numint{\seriesAValuation/1000000}M post-money valuation
+  \item Months \num{\hwDesignStartMonth}--\num{\hwDesignEndMonth}: Hardware design and prototyping
+  \item Months \num{\hwCertStartMonth}--\num{\hwCertEndMonth}: Security certifications and testing
   \item Month 20: Manufacturing setup, initial production
   \item Month 21: Hardware launch, begin sales
   \item Months 21-24: Scale hardware sales to \numint{\hwCustomersYearTwo} units, \numint{\totalSubsYearTwo} total subscribers
