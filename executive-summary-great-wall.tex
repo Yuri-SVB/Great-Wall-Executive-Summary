@@ -161,6 +161,7 @@ Backpacks & \num{\merchBackpackPrice} & \num{\merchBackpackMargin} & \numfpeval{
 % =========================================================
 \section{Multi-Channel Customer Acquisition}
 
+\subsection{Traditional Acquisition Channels}
 \begin{table}[H]
 \centering
 \begin{tabularx}{\linewidth}{l Y Y Y Y}
@@ -174,6 +175,27 @@ Events (Hardware Y2+) & \numint{\budgetEvents} & \num{\cacEvents} & \numfpeval{\
 \end{tabularx}
 \end{table}
 \textit{*Merchandise offset: Subs @ \num{\merchAttachRate}\% × \$\numfpeval{\merchAvgProfit} = \$\numfpeval{\merchOffsetSubsCalc}, Hardware @ \num{\hwMerchAttachRate}\% × \$\numfpeval{\merchAvgProfit} = \$\numfpeval{\merchOffsetHwCalc}}
+
+\subsection{Viral Marketing Effects from Provider Incentives}
+Providers (Patrick) are directly incentivized to attract clients (Charlie) as more demand means more computation jobs. This creates a powerful viral marketing dynamic:
+\begin{itemize}
+  \item Each provider attracts ~\num{\providerViralCoeff} new clients through word-of-mouth
+  \item Providers promote the platform to monetize their idle capacity
+  \item Network effect compounds with \num{\viralGrowthFactor}x annual growth factor
+\end{itemize}
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\linewidth}{l Y Y Y}
+\toprule
+Year & Base CAC & Viral Reduction & Effective CAC \\\midrule
+Year 1 & \$\num{\cacDigital} & \num{\cacViralReductionYearOne}\% & \$\numfpeval{\effectiveCACYearOne} \\
+Year 2 & \$\num{\cacDigital} & \num{\cacViralReductionYearTwo}\% & \$\numfpeval{\effectiveCACYearTwo} \\
+Year 3 & \$\num{\cacDigital} & \num{\cacViralReductionYearThree}\% & \$\numfpeval{\effectiveCACYearThree} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+\textit{Note: Effective CAC after merchandise offset: Y1 \$\numfpeval{\effectiveCACYearOne - \merchOffsetSubsCalc}, Y2 \$\numfpeval{\effectiveCACYearTwo - \merchOffsetSubsCalc}, Y3 \$\numfpeval{\effectiveCACYearThree - \merchOffsetSubsCalc}}
 
 % =========================================================
 % COMPREHENSIVE FINANCIAL PROJECTIONS
@@ -218,7 +240,8 @@ New Subscribers & \numint{\newSubsYearOne} & \numint{\newSubsYearTwo} & \numint{
 Cumulative Subs (w/churn) & \numint{\totalSubsYearOne} & \numint{\totalSubsYearTwo} & \numint{\totalSubsYearThree} \\
 Hardware Customers & \num{0} & \numint{\hwCustomersYearTwo} & \numint{\hwCustomersYearThree} \\
 Annual Churn Rate\cite{recurly2024} & \num{\churnYearOne}\% & \num{\churnYearTwo}\% & \num{\churnYearThree}\% \\
-Net CAC (after merch) & \$\numint{\cacDigital - \merchOffsetSubsCalc} & \$\numint{\cacDigital - \merchOffsetSubsCalc} & \$\numint{\cacDigital - \merchOffsetSubsCalc} \\
+Effective CAC (viral + merch) & \$\numint{\effectiveCACYearOne - \merchOffsetSubsCalc} & \$\numint{\effectiveCACYearTwo - \merchOffsetSubsCalc} & \$\numint{\effectiveCACYearThree - \merchOffsetSubsCalc} \\
+LTV:CAC Ratio & \numint{\subLTV/(\effectiveCACYearOne - \merchOffsetSubsCalc)}:\numint{1} & \numint{\subLTV/(\effectiveCACYearTwo - \merchOffsetSubsCalc)}:\numint{1} & \numint{\subLTV/(\effectiveCACYearThree - \merchOffsetSubsCalc)}:\numint{1} \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -295,6 +318,7 @@ Hardware Buyers & \numint{\tamHwGlobal} & \numint{\samHw} & \num{\targetShareHw}
   \item \textbf{Low Churn:} \num{5}\% annual churn rate demonstrates strong product-market fit
   \item \textbf{Network Effects:} Anonymous marketplace gains value with more reputable participants
   \item \textbf{First-Mover Advantage:} Early user base creates barrier for competitors lacking reputation history
+  \item \textbf{Viral Growth Engine:} Providers incentivized to attract clients, reducing CAC by \num{\cacViralReductionYearThree}\% by Year 3
 \end{enumerate}
 
 % =========================================================
@@ -412,4 +436,4 @@ Provider availability & Supply constraints & Dynamic pricing, geographic diversi
 % =========================================================
 \printbibliography
 
-\end{document}  
+\end{document}

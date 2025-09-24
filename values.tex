@@ -36,7 +36,7 @@
 \newcommand{\patrickCostGolden}{\fpeval{\computeHoursGolden * \computePowerWatts / 1000 * \electricityCostPerKwh * \weeklyRunsPerMonth}}
 \newcommand{\patrickCostPlatinum}{\fpeval{\computeHoursPlatinum * \computePowerWatts / 1000 * \electricityCostPerKwh * \weeklyRunsPerMonth}}
 
-% Patrick's gross revenue per tier (after markup, USD/month).
+% Patrick's gross revenue per tier (what Patrick receives from Mark, USD/month).
 \newcommand{\patrickGrossBasic}{\fpeval{\patrickCostBasic * \patrickMarkupBasic}}
 \newcommand{\patrickGrossMedium}{\fpeval{\patrickCostMedium * \patrickMarkupMedium}}
 \newcommand{\patrickGrossProfessional}{\fpeval{\patrickCostProfessional * \patrickMarkupProfessional}}
@@ -93,6 +93,7 @@
 % Calculated: Patrick receives (cost × markup), Mark adds platform fee
 \newcommand{\subPlatinumPrice}{\fpeval{round(\patrickGrossPlatinum / (1 - \markPlatformFeePercent/100), 0)}}
 
+%% ================= Derived Marketplace Economics =================
 % Patrick's profit margin per tier (USD/month).
 \newcommand{\patrickProfitBasic}{\fpeval{\patrickGrossBasic - \patrickCostBasic}}
 \newcommand{\patrickProfitMedium}{\fpeval{\patrickGrossMedium - \patrickCostMedium}}
@@ -238,6 +239,19 @@
 % ANNUAL churn rate (%).
 \newcommand{\churnYearTwo}{4.5}
 
+%% ================= Viral Marketing & Network Effects =================
+% Provider referral coefficient (providers incentivized to bring clients)
+% Each provider brings X new clients through word-of-mouth
+\newcommand{\providerViralCoeff}{0.3}
+
+% Annual viral growth factor (compounds as network grows)
+\newcommand{\viralGrowthFactor}{1.15}
+
+% CAC reduction from viral effects by year (%)
+\newcommand{\cacViralReductionYearOne}{10}
+\newcommand{\cacViralReductionYearTwo}{25}
+\newcommand{\cacViralReductionYearThree}{40}
+
 %% ================= CAC & Offsets =================
 % Customer Acquisition Cost component (USD per acquired customer).
 \newcommand{\cacContent}{18}
@@ -247,6 +261,12 @@
 
 % Customer Acquisition Cost component (USD per acquired customer).
 \newcommand{\cacEvents}{60}
+
+%% ================= Adjusted CAC with Viral Effects =================
+% Effective CAC after viral reduction
+\newcommand{\effectiveCACYearOne}{\fpeval{\cacDigital * (1 - \cacViralReductionYearOne/100)}}
+\newcommand{\effectiveCACYearTwo}{\fpeval{\cacDigital * (1 - \cacViralReductionYearTwo/100)}}
+\newcommand{\effectiveCACYearThree}{\fpeval{\cacDigital * (1 - \cacViralReductionYearThree/100)}}
 
 %% ================= Market Size Assumptions =================
 % Serviceable Available Market (count).
@@ -296,12 +316,13 @@
 % Seed investor equity offered (%).
 \newcommand{\seedEquity}{3.5}
 
-% Seed valuation multiple on raise (typical: 25-30x for promising marketplaces)
-\newcommand{\seedRaiseMultiple}{28.5}
+% Seed post-money valuation (USD).
+% Standard calculation: Investment / Equity %
+\newcommand{\seedPostMoney}{\fpeval{\seedAmount / (\seedEquity / 100)}}
 
 % Seed pre-money valuation (USD).
-% Calculated as raise amount × multiple (pre-revenue marketplace standard)
-\newcommand{\seedValuation}{\fpeval{\seedAmount * \seedRaiseMultiple}}
+% Post-money minus investment
+\newcommand{\seedValuation}{\fpeval{\seedPostMoney - \seedAmount}}
 
 % Series A target raise (USD).
 \newcommand{\seriesAAmount}{600000}
@@ -436,9 +457,11 @@
 %% Do not edit these directly - they update automatically.
 
 % Subscription weighted average monthly revenue per user (USD).
+% This is Charlie's payment amount, not Mark's revenue
 \newcommand{\subWeightedAvgMonthly}{\fpeval{\subBasicPrice * \subBasicMix / 100 + \subMediumPrice * \subMediumMix / 100 + \subProfessionalPrice * \subProfessionalMix / 100 + \subGoldenPrice * \subGoldenMix / 100 + \subPlatinumPrice * \subPlatinumMix / 100}}
 
 % Subscription weighted average annual revenue per user (USD).
+% This is Charlie's payment amount, not Mark's revenue
 \newcommand{\subWeightedAvgAnnual}{\fpeval{\subWeightedAvgMonthly * 12}}
 
 % Hardware weighted average gross profit per unit (USD).
