@@ -28,7 +28,7 @@
 \newcommand{\computeHoursGolden}{168}
 \newcommand{\computeHoursPlatinum}{336}
 
-%% ================= Derived Computation Costs =================
+%% ================= Patrick's Cost Calculations =================
 % Patrick's monthly electricity cost per tier (USD).
 \newcommand{\patrickCostBasic}{\fpeval{\computeHoursBasic * \computePowerWatts / 1000 * \electricityCostPerKwh * \weeklyRunsPerMonth}}
 \newcommand{\patrickCostMedium}{\fpeval{\computeHoursMedium * \computePowerWatts / 1000 * \electricityCostPerKwh * \weeklyRunsPerMonth}}
@@ -36,7 +36,7 @@
 \newcommand{\patrickCostGolden}{\fpeval{\computeHoursGolden * \computePowerWatts / 1000 * \electricityCostPerKwh * \weeklyRunsPerMonth}}
 \newcommand{\patrickCostPlatinum}{\fpeval{\computeHoursPlatinum * \computePowerWatts / 1000 * \electricityCostPerKwh * \weeklyRunsPerMonth}}
 
-% Patrick's gross profit per tier (after markup, USD/month).
+% Patrick's gross revenue per tier (after markup, USD/month).
 \newcommand{\patrickGrossBasic}{\fpeval{\patrickCostBasic * \patrickMarkupBasic}}
 \newcommand{\patrickGrossMedium}{\fpeval{\patrickCostMedium * \patrickMarkupMedium}}
 \newcommand{\patrickGrossProfessional}{\fpeval{\patrickCostProfessional * \patrickMarkupProfessional}}
@@ -277,6 +277,18 @@
 % Conservative revenue multiple for Year 2 valuation.
 \newcommand{\yearTwoRevMultiple}{2.5}
 
+%% ================= Valuation Benchmarking =================
+% Growth rate calculations for valuation adjustments
+\newcommand{\growthRateYearOneTwo}{\fpeval{(\subARRYearTwo / \subARRYearOne - 1) * 100}}
+\newcommand{\growthRateYearTwoThree}{\fpeval{(\subARRYearThree / \subARRYearTwo - 1) * 100}}
+
+% Rule of 40 score (Growth Rate + Profit Margin)
+\newcommand{\ruleOfFortyScore}{\fpeval{\growthRateYearTwoThree + \subGrossMargin}}
+
+% Additional valuation calculations for hardware business
+\newcommand{\hwValuationYearTwo}{\fpeval{\hwWeightedAvgGP * \hwCustomersYearTwo * \hwMultiple}}
+\newcommand{\hwValuationYearThree}{\fpeval{\hwWeightedAvgGP * \hwCustomersYearThree * \hwMultiple}}
+
 %% ================= Funding Plan =================
 % Seed round target raise (USD).
 \newcommand{\seedAmount}{200000}
@@ -284,8 +296,12 @@
 % Seed investor equity offered (%).
 \newcommand{\seedEquity}{3.5}
 
+% Seed valuation multiple on raise (typical: 25-30x for promising marketplaces)
+\newcommand{\seedRaiseMultiple}{28.5}
+
 % Seed pre-money valuation (USD).
-\newcommand{\seedValuation}{5700000}
+% Calculated as raise amount × multiple (pre-revenue marketplace standard)
+\newcommand{\seedValuation}{\fpeval{\seedAmount * \seedRaiseMultiple}}
 
 % Series A target raise (USD).
 \newcommand{\seriesAAmount}{600000}
@@ -293,21 +309,35 @@
 % Series A investor equity offered (%).
 \newcommand{\seriesAEquity}{4}
 
+% Series A ARR multiple (typical: 2.5-3x for growing marketplaces)
+\newcommand{\seriesAARRMultiple}{2.8}
+
 % Series A pre-money valuation (USD).
-\newcommand{\seriesAValuation}{17000000}
+% Calculated as Year 1 ARR × multiple
+\newcommand{\seriesAValuation}{\fpeval{round(\subARRYearOne * \seriesAARRMultiple, -5)}}
 
 %% ================= Target Valuations =================
+% Conservative ARR multiple for Year 3 target (typical: 2.5-3x)
+\newcommand{\targetARRMultiple}{2.5}
+
+% Premium ARR multiple for Year 3 optimistic (typical: 3.5-4.5x for high growth)
+\newcommand{\optimisticARRMultiple}{4.0}
+
 % Year 3 target valuation low (USD millions).
-\newcommand{\targetValLow}{30}
+% Conservative multiple on Year 3 ARR
+\newcommand{\targetValLow}{\fpeval{round(\subARRYearThree * \targetARRMultiple / 1000000, 0)}}
 
 % Year 3 target valuation high (USD millions).
-\newcommand{\targetValHigh}{35}
+% Standard multiple on Year 3 ARR
+\newcommand{\targetValHigh}{\fpeval{round(\subARRYearThree * \arrMultiple / 1000000, 0)}}
 
 % Year 3 optimistic valuation low (USD millions).
-\newcommand{\optimisticValLow}{50}
+% Premium multiple on Year 3 ARR
+\newcommand{\optimisticValLow}{\fpeval{round(\subARRYearThree * 3.5 / 1000000, 0)}}
 
 % Year 3 optimistic valuation high (USD millions).
-\newcommand{\optimisticValHigh}{60}
+% High premium multiple on Year 3 ARR
+\newcommand{\optimisticValHigh}{\fpeval{round(\subARRYearThree * \optimisticARRMultiple / 1000000, 0)}}
 
 %% ================= Budget =================
 % Annual budget allocation (USD).
