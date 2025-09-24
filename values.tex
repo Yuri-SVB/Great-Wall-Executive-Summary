@@ -36,12 +36,12 @@
 \newcommand{\patrickCostGolden}{\fpeval{\computeHoursGolden * \computePowerWatts / 1000 * \electricityCostPerKwh * \weeklyRunsPerMonth}}
 \newcommand{\patrickCostPlatinum}{\fpeval{\computeHoursPlatinum * \computePowerWatts / 1000 * \electricityCostPerKwh * \weeklyRunsPerMonth}}
 
-% Patrick's gross revenue per tier (after markup, USD/month).
-\newcommand{\patrickGrossRevenueBasic}{\fpeval{\patrickCostBasic * {1 + \patrickMarkupBasic}}}
-\newcommand{\patrickGrossRevenueMedium}{\fpeval{\patrickCostMedium * {1 + \patrickMarkupMedium}}}
-\newcommand{\patrickGrossRevenueProfessional}{\fpeval{\patrickCostProfessional * {1 + \patrickMarkupProfessional}}}
-\newcommand{\patrickGrossRevenueGolden}{\fpeval{\patrickCostGolden * {1 + \patrickMarkupGolden}}}
-\newcommand{\patrickGrossRevenuePlatinum}{\fpeval{\patrickCostPlatinum * {1 + \patrickMarkupPlatinum}}}
+% Patrick's gross profit per tier (after markup, USD/month).
+\newcommand{\patrickGrossBasic}{\fpeval{\patrickCostBasic * \patrickMarkupBasic}}
+\newcommand{\patrickGrossMedium}{\fpeval{\patrickCostMedium * \patrickMarkupMedium}}
+\newcommand{\patrickGrossProfessional}{\fpeval{\patrickCostProfessional * \patrickMarkupProfessional}}
+\newcommand{\patrickGrossGolden}{\fpeval{\patrickCostGolden * \patrickMarkupGolden}}
+\newcommand{\patrickGrossPlatinum}{\fpeval{\patrickCostPlatinum * \patrickMarkupPlatinum}}
 
 %% ================= Subscription Tiers =================
 % COMPUTATION MARKETPLACE TIERS:
@@ -55,16 +55,16 @@
 
 % Subscription tier monthly price (USD).
 % 2-hour computation jobs @ 4.28/month
-% Patrick cost: $0.36/mo, Markup: 7.2x
-\newcommand{\subBasicPrice}{2.60}
+% Calculated: Patrick receives (cost × markup), Mark adds platform fee
+\newcommand{\subBasicPrice}{\fpeval{round(\patrickGrossBasic / (1 - \markPlatformFeePercent/100), 0)}}
 
 % Subscription tier mix (% of subscribers).
 \newcommand{\subMediumMix}{40}
 
 % Subscription tier monthly price (USD).
 % 24-hour computation jobs @ 4.28/month
-% Patrick cost: $4.32/mo, Markup: 6.9x
-\newcommand{\subMediumPrice}{30.00}
+% Calculated: Patrick receives (cost × markup), Mark adds platform fee
+\newcommand{\subMediumPrice}{\fpeval{round(\patrickGrossMedium / (1 - \markPlatformFeePercent/100), 0)}}
 
 % Subscription tier mix (% of subscribers) - NEW TIER
 % Professional tier bridges the gap between Medium and Golden
@@ -72,40 +72,33 @@
 
 % Subscription tier monthly price (USD) - NEW TIER
 % 48-hour computation jobs @ 4.28/month
-% Patrick cost: $8.64/mo, Markup: 10.4x (premium for longer commitment)
-\newcommand{\subProfessionalPrice}{90.00}
+% Calculated: Patrick receives (cost × markup), Mark adds platform fee
+\newcommand{\subProfessionalPrice}{\fpeval{round(\patrickGrossProfessional / (1 - \markPlatformFeePercent/100), 0)}}
 
 % Subscription tier mix (% of subscribers).
 \newcommand{\subGoldenMix}{9}
 
 % Subscription tier monthly price (USD).
 % 168-hour (1 week) computation jobs @ 4.28/month
-% Patrick cost: $30.24/mo, Markup: 7.3x
-\newcommand{\subGoldenPrice}{220.00}
+% Calculated: Patrick receives (cost × markup), Mark adds platform fee
+\newcommand{\subGoldenPrice}{\fpeval{round(\patrickGrossGolden / (1 - \markPlatformFeePercent/100), 0)}}
 
 % Subscription tier mix (% of subscribers) - NEW TIER
 % Platinum tier for enterprise/whale customers
 % Expected <1% adoption but important for completeness
 \newcommand{\subPlatinumMix}{1}
 
-% Subscription tier monthly price (USD).
-% 336-hour (2 week) computation jobs @ 4.28/month
-% Patrick cost: $60.40/mo, Markup: 7.3x
-\newcommand{\subPlatinumPrice}{440.00}
-
-% Patrick's gross profit per tier (after markup, USD/month).
-\newcommand{\patrickGrossProfitBasic}{\fpeval{\patrickCostBasic * \patrickMarkupBasic}}
-\newcommand{\patrickGrossProfitMedium}{\fpeval{\patrickCostMedium * \patrickMarkupMedium}}
-\newcommand{\patrickGrossProfitProfessional}{\fpeval{\patrickCostProfessional * \patrickMarkupProfessional}}
-\newcommand{\patrickGrossProfitGolden}{\fpeval{\patrickCostGolden * \patrickMarkupGolden}}
-\newcommand{\patrickGrossProfitPlatinum}{\fpeval{\patrickCostPlatinum * \patrickMarkupPlatinum}}
+% Subscription tier monthly price (USD) - NEW TIER
+% 336-hour (2 week) computation jobs @ 4.28/month  
+% Calculated: Patrick receives (cost × markup), Mark adds platform fee
+\newcommand{\subPlatinumPrice}{\fpeval{round(\patrickGrossPlatinum / (1 - \markPlatformFeePercent/100), 0)}}
 
 % Patrick's profit margin per tier (USD/month).
-\newcommand{\patrickProfitBasic}{\fpeval{\patrickGrossRevenueBasic - \patrickCostBasic}}
-\newcommand{\patrickProfitMedium}{\fpeval{\patrickGrossRevenueMedium - \patrickCostMedium}}
-\newcommand{\patrickProfitProfessional}{\fpeval{\patrickGrossRevenueProfessional - \patrickCostProfessional}}
-\newcommand{\patrickProfitGolden}{\fpeval{\patrickGrossRevenueGolden - \patrickCostGolden}}
-\newcommand{\patrickProfitPlatinum}{\fpeval{\patrickGrossRevenuePlatinum - \patrickCostPlatinum}}
+\newcommand{\patrickProfitBasic}{\fpeval{\patrickGrossBasic - \patrickCostBasic}}
+\newcommand{\patrickProfitMedium}{\fpeval{\patrickGrossMedium - \patrickCostMedium}}
+\newcommand{\patrickProfitProfessional}{\fpeval{\patrickGrossProfessional - \patrickCostProfessional}}
+\newcommand{\patrickProfitGolden}{\fpeval{\patrickGrossGolden - \patrickCostGolden}}
+\newcommand{\patrickProfitPlatinum}{\fpeval{\patrickGrossPlatinum - \patrickCostPlatinum}}
 
 % Mark's revenue per tier (platform fee, USD/month).
 \newcommand{\markRevenueBasic}{\fpeval{\subBasicPrice * \markPlatformFeePercent / 100}}
@@ -376,9 +369,16 @@
 
 %% ================= Gross Margins =================
 % Subscription gross margin (%).
-% 85% reflects typical SaaS margins after Patrick's payout
-% Mark retains ~25-30% of Charlie's payment as platform fee
-\newcommand{\subGrossMargin}{85}
+% Mark keeps 100% of the platform fee (28% of Charlie's payment) as gross margin
+% since Mark has minimal direct costs for matchmaking
+\newcommand{\subGrossMargin}{95}
+
+%% ================= Mark's Revenue Calculations =================
+% Mark's weighted average monthly revenue per user (USD).
+\newcommand{\markWeightedAvgMonthly}{\fpeval{\markRevenueBasic * \subBasicMix / 100 + \markRevenueMedium * \subMediumMix / 100 + \markRevenueProfessional * \subProfessionalMix / 100 + \markRevenueGolden * \subGoldenMix / 100 + \markRevenuePlatinum * \subPlatinumMix / 100}}
+
+% Mark's weighted average annual revenue per user (USD).
+\newcommand{\markWeightedAvgAnnual}{\fpeval{\markWeightedAvgMonthly * 12}}
 
 %% ================= Timeline Ranges =================
 % Beta launch timing (months)
@@ -430,15 +430,16 @@
 \newcommand{\merchOffsetHwCalc}{\fpeval{\hwMerchAttachRate / 100 * \merchAvgProfit}}
 
 % Subscription annual revenue calculations based on corrected subscriber counts
-\newcommand{\subRevenueYearOne}{\fpeval{\subWeightedAvgAnnual * \totalSubsYearOne}}
-\newcommand{\subRevenueYearTwo}{\fpeval{\subWeightedAvgAnnual * \totalSubsYearTwo}}
-\newcommand{\subRevenueYearThree}{\fpeval{\subWeightedAvgAnnual * \totalSubsYearThree}}
+% This is MARK's revenue (platform fees only), not total Charlie payments
+\newcommand{\subRevenueYearOne}{\fpeval{\markWeightedAvgAnnual * \totalSubsYearOne}}
+\newcommand{\subRevenueYearTwo}{\fpeval{\markWeightedAvgAnnual * \totalSubsYearTwo}}
+\newcommand{\subRevenueYearThree}{\fpeval{\markWeightedAvgAnnual * \totalSubsYearThree}}
 
 % ARR calculations - based on exit MRR × 12
-% ARR = Active subscribers at year-end × average monthly revenue × 12
-\newcommand{\subARRYearOne}{\fpeval{\totalSubsYearOne * \subWeightedAvgMonthly * 12}}
-\newcommand{\subARRYearTwo}{\fpeval{\totalSubsYearTwo * \subWeightedAvgMonthly * 12}}
-\newcommand{\subARRYearThree}{\fpeval{\totalSubsYearThree * \subWeightedAvgMonthly * 12}}
+% ARR = Active subscribers at year-end × Mark's average monthly revenue × 12
+\newcommand{\subARRYearOne}{\fpeval{\totalSubsYearOne * \markWeightedAvgMonthly * 12}}
+\newcommand{\subARRYearTwo}{\fpeval{\totalSubsYearTwo * \markWeightedAvgMonthly * 12}}
+\newcommand{\subARRYearThree}{\fpeval{\totalSubsYearThree * \markWeightedAvgMonthly * 12}}
 
 % LTV Calculation Components
 % Average churn rate across 3 years
@@ -453,11 +454,11 @@
 % Actual LTV calculation years (minimum of theoretical and cap)
 \newcommand{\ltvYearsUsed}{\fpeval{min(\theoreticalLifetimeYears, \ltvCapYears)}}
 
-% Annual gross profit per subscriber
-\newcommand{\subAnnualGrossProfit}{\fpeval{\subWeightedAvgAnnual * \subGrossMargin / 100}}
+% Annual gross profit per subscriber (for Mark's business)
+\newcommand{\subAnnualGrossProfit}{\fpeval{\markWeightedAvgAnnual * \subGrossMargin / 100}}
 
-% Final LTV calculation
+% Final LTV calculation (for Mark's business)
 \newcommand{\subLTV}{\fpeval{\subAnnualGrossProfit * \ltvYearsUsed}}
 
-% Monthly gross profit (for payback calculation)
-\newcommand{\subMonthlyGrossProfit}{\fpeval{\subWeightedAvgMonthly * \subGrossMargin / 100}}
+% Monthly gross profit (for payback calculation - Mark's business)
+\newcommand{\subMonthlyGrossProfit}{\fpeval{\markWeightedAvgMonthly * \subGrossMargin / 100}}

@@ -41,7 +41,7 @@
 % EXECUTIVE OVERVIEW
 % =========================================================
 \section*{Executive Overview}
-This document presents a comprehensive valuation model for a Bitcoin security company serving distinct market segments through three revenue streams: recurring subscriptions for managed security, one-time hardware sales for self-sovereign users, and branded merchandise that enhances brand loyalty and offsets customer acquisition costs. The model requires two funding rounds: a \$\numint{\seedAmount} seed round for subscription platform development, followed by a \$\numint{\seriesAAmount} Series A for hardware development, projecting a path to \$\num{\targetValLow}--\num{\targetValHigh}M valuation by Year 3.
+This document presents a comprehensive valuation model for a Bitcoin security company operating an anonymous computation marketplace. The company (Mark) connects computation providers (Patrick) with clients (Charlie) through three revenue streams: platform fees from recurring computation services (28\% take rate), one-time hardware sales for self-sovereign users, and branded merchandise that enhances brand loyalty and offsets customer acquisition costs. The model requires two funding rounds: a \$\numint{\seedAmount} seed round for marketplace platform development, followed by a \$\numint{\seriesAAmount} Series A for hardware development, projecting a path to \$\num{\targetValLow}--\num{\targetValHigh}M valuation by Year 3.
 
 % =========================================================
 % BUSINESS MODEL CLARIFICATION
@@ -202,11 +202,11 @@ Metric & Year 1 & Year 2 & Year 3 \\\midrule
 Subscription Revenue (actual) & \numint{\subRevenueYearOne} & \numint{\subRevenueYearTwo} & \numint{\subRevenueYearThree} \\
 Exit ARR (MRR $\times$ 12) & \numint{\subARRYearOne} & \numint{\subARRYearTwo} & \numint{\subARRYearThree} \\
 Active Subscribers (year-end) & \numint{\totalSubsYearOne} & \numint{\totalSubsYearTwo} & \numint{\totalSubsYearThree} \\
-Monthly Revenue/User & \numfpeval{\subWeightedAvgMonthly} & \numfpeval{\subWeightedAvgMonthly} & \numfpeval{\subWeightedAvgMonthly} \\
+Mark's Monthly Rev/User & \numfpeval{\markWeightedAvgMonthly} & \numfpeval{\markWeightedAvgMonthly} & \numfpeval{\markWeightedAvgMonthly} \\
 \bottomrule
 \end{tabularx}
 \end{table}
-\textit{Note: ARR = Annual Recurring Revenue based on exit monthly run rate, not total year revenue}
+\textit{Note: Revenue shown is Mark's platform fee revenue (28\% of Charlie payments). ARR = Annual Recurring Revenue based on exit monthly run rate.}
 
 \subsection{Customer Metrics with Churn}
 \begin{table}[H]
@@ -251,7 +251,7 @@ Hardware Gross Profit & \num{\hwMultiple}x & \num{0} & \numint{\hwWeightedAvgGP 
 \begin{tabularx}{\linewidth}{l Y Y}
 \toprule
 Metric & Subscriptions & Hardware \\\midrule
-Average Revenue & \$\numint{\subWeightedAvgAnnual}/year & \$\numint{\hwWeightedAvgPrice}/unit \\
+Average Revenue (Mark) & \$\numint{\markWeightedAvgAnnual}/year & \$\numint{\hwWeightedAvgPrice}/unit \\
 Gross Margin\cite{openview2023} & \num{\subGrossMargin}\% & \num{\hwWeightedAvgMargin}\% \\
 Gross CAC & \$\num{\cacDigital} & \$\num{\cacEvents} \\
 Merchandise Offset & \$\numfpeval{\merchOffsetSubsCalc} & \$\numfpeval{\merchOffsetHwCalc} \\
@@ -412,4 +412,4 @@ Provider availability & Supply constraints & Dynamic pricing, geographic diversi
 % =========================================================
 \printbibliography
 
-\end{document}
+\end{document}  
