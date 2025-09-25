@@ -1,8 +1,8 @@
-% Formatting Macros  
+% Formatting Macros - Simplified and Working Version
 % Reusable formatting commands for consistent document styling
 
 % =============================================================================
-% TABLE FORMATTING MACROS
+% TABLE FORMATTING ENVIRONMENTS
 % =============================================================================
 
 % Financial summary table
@@ -12,8 +12,23 @@
     \caption{#1}
     \begin{tabular}{lccc}
       \toprule
-      \tableheadcolor
+      \rowcolor{LightGray}
       \textbf{Metric} & \textbf{Conservative} & \textbf{Base Case} & \textbf{Aggressive} \\
+      \midrule
+}{%
+      \bottomrule
+    \end{tabular}
+  \end{table}
+}
+
+% Key metrics dashboard
+\newenvironment{metricsdashboard}{%
+  \begin{table}[htbp]
+    \centering
+    \begin{tabular}{@{}ll@{}}
+      \toprule
+      \rowcolor{LightGray}
+      \textbf{Key Performance Indicator} & \textbf{Value} \\
       \midrule
 }{%
       \bottomrule
@@ -26,13 +41,13 @@
   \begin{longtable}{lrrrrr}
     \caption{Five-Year Revenue Projections (\CurrencySymbol 000s)} \\
     \toprule
-    \tableheadcolor
+    \rowcolor{LightGray}
     \textbf{Year} & \textbf{2025} & \textbf{2026} & \textbf{2027} & \textbf{2028} & \textbf{2029} \\
     \midrule
     \endfirsthead
     \multicolumn{6}{c}{\textit{(Continued from previous page)}} \\
     \toprule
-    \tableheadcolor
+    \rowcolor{LightGray}
     \textbf{Year} & \textbf{2025} & \textbf{2026} & \textbf{2027} & \textbf{2028} & \textbf{2029} \\
     \midrule
     \endhead
@@ -43,21 +58,6 @@
     \endlastfoot
 }{%
   \end{longtable}
-}
-
-% Key metrics dashboard
-\newenvironment{metricsdashboard}{%
-  \begin{table}[htbp]
-    \centering
-    \begin{tabular}{@{}ll@{}}
-      \toprule
-      \tableheadcolor
-      \textbf{Key Performance Indicator} & \textbf{Value} \\
-      \midrule
-}{%
-      \bottomrule
-    \end{tabular}
-  \end{table}
 }
 
 % =============================================================================
@@ -95,70 +95,6 @@
 }
 
 % =============================================================================
-% CHART AND GRAPH PREPARATION
-% =============================================================================
-
-% Standard chart colors
-\definecolor{Chart1}{RGB}{0,51,102}
-\definecolor{Chart2}{RGB}{102,153,204}  
-\definecolor{Chart3}{RGB}{255,102,0}
-\definecolor{Chart4}{RGB}{51,51,51}
-\definecolor{Chart5}{RGB}{153,153,153}
-
-% Revenue growth chart setup
-\newcommand{\revenuechart}{%
-  \begin{tikzpicture}
-    \begin{axis}[
-      width=12cm,
-      height=8cm,
-      xlabel={Year},
-      ylabel={Revenue (\CurrencySymbol M)},
-      legend pos=north west,
-      grid=major,
-      ymin=0,
-      xmin=2024.5,
-      xmax=2029.5,
-      xtick={2025,2026,2027,2028,2029},
-      line width=2pt
-    ]
-    \addplot[Chart1,mark=*] coordinates {
-      (2025,2.5)
-      (2026,8.75)
-      (2027,24.5)
-      (2028,58.8)
-      (2029,117.6)
-    };
-    \legend{Projected Revenue}
-    \end{axis}
-  \end{tikzpicture}
-}
-
-% Market size visualization
-\newcommand{\marketsizechart}{%
-  \begin{tikzpicture}
-    \begin{axis}[
-      width=10cm,
-      height=6cm,
-      xlabel={Market Segment},
-      ylabel={Market Size (\CurrencySymbol B)},
-      ybar,
-      bar width=2cm,
-      symbolic x coords={TAM,SAM,SOM},
-      xtick=data,
-      ymin=0,
-      nodes near coords,
-      nodes near coords align={vertical},
-    ]
-    \addplot[Chart1,fill=Chart1!30] coordinates {
-      (TAM,250)
-      (SAM,75)  
-      (SOM,7.5)
-    };
-    \end{axis}
-  \end{tikzpicture}
-}
-
-% =============================================================================
 % LAYOUT AND SPACING HELPERS
 % =============================================================================
 
@@ -180,15 +116,29 @@
   \newpage
 }
 
-% Executive summary callout box
-\newenvironment{executivebox}{%
-  \begin{center}%
-    \fcolorbox{PrimaryColor}{LightGray}{%
-      \begin{minipage}{0.95\textwidth}%
-        \vspace{0.5em}%
-}{%
-        \vspace{0.5em}%
-      \end{minipage}%
-    }%
-  \end{center}%
+% Simple executive box (temporary replacement)
+\newcommand{\executivebox}[1]{%
+  \begin{center}
+    \colorbox{LightGray}{%
+      \parbox{0.95\textwidth}{%
+        \vspace{0.5em}
+        #1
+        \vspace{0.5em}
+      }
+    }
+  \end{center}
+}
+
+% Simple market size visualization placeholder
+\newcommand{\marketsizechart}{%
+  \begin{center}
+    \textit{[Market Size Chart - TAM: \$250B, SAM: \$75B, SOM: \$7.5B]}
+  \end{center}
+}
+
+% Simple revenue chart placeholder  
+\newcommand{\revenuechart}{%
+  \begin{center}
+    \textit{[Revenue Chart - Growth from \$2.5M (2025) to \$117.6M (2029)]}
+  \end{center}
 }

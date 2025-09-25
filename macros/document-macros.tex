@@ -7,7 +7,7 @@
 % =============================================================================
 
 % Executive summary highlighting
-\NewDocumentCommand{\executivehighlight}{m}{%
+\newcommand{\executivehighlight}[1]{%
   \begin{center}
     \colorbox{LightGray}{%
       \begin{minipage}{0.9\textwidth}
@@ -18,7 +18,7 @@
 }
 
 % Key takeaway boxes
-\NewDocumentCommand{\keytakeaway}{m}{%
+\newcommand{\keytakeaway}[1]{%
   \begin{quote}
     \color{PrimaryColor}\textbf{Key Takeaway:} 
     \color{TextColor}#1
@@ -26,7 +26,7 @@
 }
 
 % Risk callouts
-\NewDocumentCommand{\riskcallout}{m}{%
+\newcommand{\riskcallout}[1]{%
   \begin{quote}
     \color{AccentColor}\textbf{Risk Consideration:} 
     \color{TextColor}#1
@@ -34,7 +34,7 @@
 }
 
 % Opportunity highlights
-\NewDocumentCommand{\opportunityhighlight}{m}{%
+\newcommand{\opportunityhighlight}[1]{%
   \begin{quote}
     \color{SecondaryColor}\textbf{Opportunity:} 
     \color{TextColor}#1
@@ -46,20 +46,20 @@
 % =============================================================================
 
 % Section introduction paragraph
-\NewDocumentCommand{\sectionintro}{m}{%
+\newcommand{\sectionintro}[1]{%
   \textit{\color{TextColor}#1}
   \vspace{0.5em}
 }
 
 % Subsection summary
-\NewDocumentCommand{\subsectionsummary}{m}{%
+\newcommand{\subsectionsummary}[1]{%
   \begin{flushright}
     \textit{\small\color{SecondaryColor}Summary: #1}
   \end{flushright}
 }
 
 % Cross-reference with context
-\NewDocumentCommand{\contextref}{m m}{%
+\newcommand{\contextref}[2]{%
   \hyperref[#1]{\color{PrimaryColor}#2}%
 }
 
@@ -68,18 +68,18 @@
 % =============================================================================
 
 % Company name styling
-\NewDocumentCommand{\companyname}{}{%
+\newcommand{\companyname}{%
   \textbf{\color{PrimaryColor}\CompanyName}%
 }
 
 % Product/service name styling
-\NewDocumentCommand{\productname}{m}{%
+\newcommand{\productname}[1]{%
   \textsc{\color{SecondaryColor}#1}%
 }
 
 % Technical term definition
-\NewDocumentCommand{\defineterm}{m m}{%
-  \textbf{#1}\index{#1}: #2%
+\newcommand{\defineterm}[2]{%
+  \textbf{#1}: #2%
 }
 
 % =============================================================================
@@ -87,7 +87,7 @@
 % =============================================================================
 
 % Table of contents with custom formatting
-\NewDocumentCommand{\documenttoc}{}{%
+\newcommand{\documenttoc}{%
   \newpage
   \section*{Table of Contents}
   \addcontentsline{toc}{section}{Table of Contents}
@@ -96,13 +96,13 @@
 }
 
 % List of figures
-\NewDocumentCommand{\documentlof}{}{%
+\newcommand{\documentlof}{%
   \listoffigures
   \addcontentsline{toc}{section}{List of Figures}
 }
 
 % List of tables  
-\NewDocumentCommand{\documentlot}{}{%
+\newcommand{\documentlot}{%
   \listoftables
   \addcontentsline{toc}{section}{List of Tables}
 }
@@ -112,7 +112,7 @@
 % =============================================================================
 
 % Appendix section starter
-\NewDocumentCommand{\startappendices}{}{%
+\newcommand{\startappendices}{%
   \appendix
   \renewcommand{\thesection}{\Alph{section}}
   \section*{Appendices}
@@ -120,6 +120,6 @@
 }
 
 % Individual appendix
-\NewDocumentCommand{\appendixsection}{m m}{%
+\newcommand{\appendixsection}[2]{%
   \section{#1}\label{app:#2}
 }

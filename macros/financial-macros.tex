@@ -7,83 +7,63 @@
 % =============================================================================
 
 % Currency formatting with automatic scaling
-\NewDocumentCommand{\currency}{O{} m}{%
-  \IfStrEq{#1}{M}{%
+\newcommand{\currency}[2][]{%
+  \ifthenelse{\equal{#1}{M}}{%
     % Millions
-    \num[group-separator={,}]{\fpeval{#2/1000}}\,\text{M}%
+    \CurrencySymbol\pgfmathparse{#2/1000}\pgfmathprintnumber{\pgfmathresult}M%
   }{%
-    \IfStrEq{#1}{K}{%
+    \ifthenelse{\equal{#1}{K}}{%
       % Thousands  
-      \num[group-separator={,}]{\fpeval{#2}}\,\text{K}%
+      \CurrencySymbol\pgfmathparse{#2}\pgfmathprintnumber{\pgfmathresult}K%
     }{%
       % Standard formatting
-      \CurrencySymbol\num[group-separator={,}]{\fpeval{#2}}%
+      \CurrencySymbol\pgfmathparse{#2}\pgfmathprintnumber[fixed, precision=0]{\pgfmathresult}%
     }%
   }%
 }
 
 % Percentage formatting
-\NewDocumentCommand{\percent}{m}{%
-  \num{\fpeval{#1*100}}\%%
+\newcommand{\percent}[1]{%
+  \pgfmathparse{#1*100}\pgfmathprintnumber[fixed, precision=1]{\pgfmathresult}\%%
 }
 
 % Growth rate display
-\NewDocumentCommand{\growthrate}{m}{%
-  \IfBooleanTF{#1 > 0}{%
+\newcommand{\growthrate}[1]{%
+  \pgfmathparse{#1}%
+  \ifdim\pgfmathresult pt>0pt%
     +\percent{#1}%
-  }{%
+  \else%
     \percent{#1}%
-  }%
+  \fi%
 }
 
 % =============================================================================
-% FINANCIAL CALCULATIONS
+% SIMPLIFIED FINANCIAL CALCULATIONS
 % =============================================================================
 
-% Revenue calculation for any year
-\NewDocumentCommand{\revenueyear}{m}{%
-  \fpeval{%
-    \IfStrEq{#1}{1}{\RevenueYearOne}{%
-      \IfStrEq{#1}{2}{\RevenueYearTwo}{%
-        \IfStrEq{#1}{3}{\RevenueYearThree}{%
-          \IfStrEq{#1}{4}{\RevenueYearFour}{%
-            \IfStrEq{#1}{5}{\RevenueYearFive}{0}%
-          }%
+% Revenue calculation for any year (hardcoded for reliability)
+\newcommand{\revenueyear}[1]{%
+  \ifthenelse{\equal{#1}{1}}{\RevenueYearOne}{%
+    \ifthenelse{\equal{#1}{2}}{\RevenueYearTwo}{%
+      \ifthenelse{\equal{#1}{3}}{\RevenueYearThree}{%
+        \ifthenelse{\equal{#1}{4}}{\RevenueYearFour}{%
+          \ifthenelse{\equal{#1}{5}}{\RevenueYearFive}{0}%
         }%
       }%
     }%
   }%
 }
 
-% Gross profit calculation
-\NewDocumentCommand{\grossprofityear}{m}{%
-  \fpeval{%
-    \revenueyear{#1} * %
-    \IfStrEq{#1}{1}{\GrossMarginYearOne}{%
-      \IfStrEq{#1}{2}{\GrossMarginYearTwo}{%
-        \IfStrEq{#1}{3}{\GrossMarginYearThree}{%
-          \IfStrEq{#1}{4}{\GrossMarginYearFour}{%
-            \IfStrEq{#1}{5}{\GrossMarginYearFive}{0}%
-          }%
+% Gross profit calculation (simplified)
+\newcommand{\grossprofityear}[1]{%
+  \ifthenelse{\equal{#1}{1}}{\pgfmathparse{\RevenueYearOne*\GrossMarginYearOne}\pgfmathprintnumber[fixed, precision=0]{\pgfmathresult}}{%
+    \ifthenelse{\equal{#1}{2}}{\pgfmathparse{\RevenueYearTwo*\GrossMarginYearTwo}\pgfmathprintnumber[fixed, precision=0]{\pgfmathresult}}{%
+      \ifthenelse{\equal{#1}{3}}{\pgfmathparse{\RevenueYearThree*\GrossMarginYearThree}\pgfmathprintnumber[fixed, precision=0]{\pgfmathresult}}{%
+        \ifthenelse{\equal{#1}{4}}{\pgfmathparse{\RevenueYearFour*\GrossMarginYearFour}\pgfmathprintnumber[fixed, precision=0]{\pgfmathresult}}{%
+          \ifthenelse{\equal{#1}{5}}{\pgfmathparse{\RevenueYearFive*\GrossMarginYearFive}\pgfmathprintnumber[fixed, precision=0]{\pgfmathresult}}{0}%
         }%
       }%
     }%
-  }%
-}
-
-% Market size with growth
-\NewDocumentCommand{\marketsize}{m}{%
-  \fpeval{%
-    \TotalAddressableMarket * %
-    (1 + \IfStrEq{#1}{1}{\MarketGrowthRateYearOne}{%
-      \IfStrEq{#1}{2}{\MarketGrowthRateYearTwo}{%
-        \IfStrEq{#1}{3}{\MarketGrowthRateYearThree}{%
-          \IfStrEq{#1}{4}{\MarketGrowthRateYearFour}{%
-            \IfStrEq{#1}{5}{\MarketGrowthRateYearFive}{0}%
-          }%
-        }%
-      }%
-    })^(#1-1)%
   }%
 }
 
@@ -92,25 +72,16 @@
 % =============================================================================
 
 % Revenue multiple valuation
-\NewDocumentCommand{\valuationrevmultiple}{O{base} m}{%
-  \fpeval{%
-    \revenueyear{#2} * %
-    \IfStrEq{#1}{low}{\RevenueMultipleLow}{%
-      \IfStrEq{#1}{high}{\RevenueMultipleHigh}{%
-        \RevenueMultipleBase%
-      }%
+\newcommand{\valuationrevmultiple}[2][base]{%
+  \ifthenelse{\equal{#1}{low}}{%
+    \pgfmathparse{\revenueyear{#2}*\RevenueMultipleLow}\pgfmathprintnumber[fixed, precision=0]{\pgfmathresult}%
+  }{%
+    \ifthenelse{\equal{#1}{high}}{%
+      \pgfmathparse{\revenueyear{#2}*\RevenueMultipleHigh}\pgfmathprintnumber[fixed, precision=0]{\pgfmathresult}%
+    }{%
+      \pgfmathparse{\revenueyear{#2}*\RevenueMultipleBase}\pgfmathprintnumber[fixed, precision=0]{\pgfmathresult}%
     }%
   }%
-}
-
-% DCF present value calculation (simplified)
-\NewDocumentCommand{\presentvalue}{m m}{%
-  \fpeval{#1 / (1 + \DiscountRate)^(#2)}%
-}
-
-% Terminal value calculation
-\NewDocumentCommand{\terminalvalue}{m}{%
-  \fpeval{#1 * (1 + \TerminalGrowthRate) / (\DiscountRate - \TerminalGrowthRate)}%
 }
 
 % =============================================================================
@@ -118,40 +89,21 @@
 % =============================================================================
 
 % Return on investment
-\NewDocumentCommand{\roi}{m m}{%
-  \percent{\fpeval{(#1 - #2) / #2}}%
+\newcommand{\roi}[2]{%
+  \pgfmathparse{(#1 - #2) / #2 * 100}\pgfmathprintnumber[fixed, precision=1]{\pgfmathresult}\%%
 }
 
 % Compound annual growth rate
-\NewDocumentCommand{\cagr}{m m m}{%
-  \percent{\fpeval{((#2/#1)^(1/#3)) - 1}}%
+\newcommand{\cagr}[3]{%
+  \pgfmathparse{(pow(#2/#1, 1/#3) - 1) * 100}\pgfmathprintnumber[fixed, precision=1]{\pgfmathresult}\%%
 }
 
 % Customer metrics
-\NewDocumentCommand{\ltvcac}{}{%
-  \fpeval{\LifetimeValue / \CustomerAcquisitionCost}%
-}
-
-% Payback period in months
-\NewDocumentCommand{\paybackperiod}{}{%
-  \fpeval{\CustomerAcquisitionCost / (\LifetimeValue / 12 * (1 - \MonthlyChurnRate))}%
-}
-
-% =============================================================================
-% SCENARIO ANALYSIS MACROS
-% =============================================================================
-
-% Scenario comparison table row
-\NewDocumentCommand{\scenariorow}{m m m m}{%
-  #1 & \currency[M]{#2} & \currency[M]{#3} & \currency[M]{#4} \\
+\newcommand{\ltvcac}{%
+  \pgfmathparse{\LifetimeValue / \CustomerAcquisitionCost}\pgfmathprintnumber[fixed, precision=1]{\pgfmathresult}%
 }
 
 % Risk-adjusted valuation
-\NewDocumentCommand{\riskadjustedvalue}{m}{%
-  \fpeval{#1 * (1 - \RiskAdjustmentFactor)}%
-}
-
-% Sensitivity analysis
-\NewDocumentCommand{\sensitivity}{m m}{%
-  \fpeval{#1 * (1 + #2)}%
+\newcommand{\riskadjustedvalue}[1]{%
+  \pgfmathparse{#1 * (1 - \RiskAdjustmentFactor)}\pgfmathprintnumber[fixed, precision=0]{\pgfmathresult}%
 }
