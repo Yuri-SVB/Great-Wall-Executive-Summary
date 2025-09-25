@@ -1,0 +1,125 @@
+% Document-level Macros
+% Semantic markup commands following clean room paradigm
+% These commands separate content from formatting
+
+% =============================================================================
+% STRUCTURAL ELEMENTS
+% =============================================================================
+
+% Executive summary highlighting
+\NewDocumentCommand{\executivehighlight}{m}{%
+  \begin{center}
+    \colorbox{LightGray}{%
+      \begin{minipage}{0.9\textwidth}
+        \centering\textbf{\color{PrimaryColor}#1}
+      \end{minipage}
+    }
+  \end{center}
+}
+
+% Key takeaway boxes
+\NewDocumentCommand{\keytakeaway}{m}{%
+  \begin{quote}
+    \color{PrimaryColor}\textbf{Key Takeaway:} 
+    \color{TextColor}#1
+  \end{quote}
+}
+
+% Risk callouts
+\NewDocumentCommand{\riskcallout}{m}{%
+  \begin{quote}
+    \color{AccentColor}\textbf{Risk Consideration:} 
+    \color{TextColor}#1
+  \end{quote}
+}
+
+% Opportunity highlights
+\NewDocumentCommand{\opportunityhighlight}{m}{%
+  \begin{quote}
+    \color{SecondaryColor}\textbf{Opportunity:} 
+    \color{TextColor}#1
+  \end{quote}
+}
+
+% =============================================================================
+% CONTENT ORGANIZATION
+% =============================================================================
+
+% Section introduction paragraph
+\NewDocumentCommand{\sectionintro}{m}{%
+  \textit{\color{TextColor}#1}
+  \vspace{0.5em}
+}
+
+% Subsection summary
+\NewDocumentCommand{\subsectionsummary}{m}{%
+  \begin{flushright}
+    \textit{\small\color{SecondaryColor}Summary: #1}
+  \end{flushright}
+}
+
+% Cross-reference with context
+\NewDocumentCommand{\contextref}{m m}{%
+  \hyperref[#1]{\color{PrimaryColor}#2}%
+}
+
+% =============================================================================
+% EMPHASIS AND STYLING
+% =============================================================================
+
+% Company name styling
+\NewDocumentCommand{\companyname}{}{%
+  \textbf{\color{PrimaryColor}\CompanyName}%
+}
+
+% Product/service name styling
+\NewDocumentCommand{\productname}{m}{%
+  \textsc{\color{SecondaryColor}#1}%
+}
+
+% Technical term definition
+\NewDocumentCommand{\defineterm}{m m}{%
+  \textbf{#1}\index{#1}: #2%
+}
+
+% =============================================================================
+% DOCUMENT NAVIGATION
+% =============================================================================
+
+% Table of contents with custom formatting
+\NewDocumentCommand{\documenttoc}{}{%
+  \newpage
+  \section*{Table of Contents}
+  \addcontentsline{toc}{section}{Table of Contents}
+  \tableofcontents
+  \newpage
+}
+
+% List of figures
+\NewDocumentCommand{\documentlof}{}{%
+  \listoffigures
+  \addcontentsline{toc}{section}{List of Figures}
+}
+
+% List of tables  
+\NewDocumentCommand{\documentlot}{}{%
+  \listoftables
+  \addcontentsline{toc}{section}{List of Tables}
+}
+
+% =============================================================================
+% APPENDIX MANAGEMENT
+% =============================================================================
+
+% Appendix section starter
+\NewDocumentCommand{\startappendices}{}{%
+  \appendix
+  \renewcommand{\thesection}{\Alph{section}}
+  \section*{Appendices}
+  \addcontentsline{toc}{section}{Appendices}
+}
+
+% Individual appendix
+\NewDocumentCommand{\appendixsection}{m m}{%
+  \section{#1}\label{app:#2}
+}

@@ -1,0 +1,97 @@
+% Formatting Configuration
+% Visual styling and layout parameters
+
+% =============================================================================
+% SECTION TITLE FORMATTING
+% =============================================================================
+\titleformat{\section}
+  {\Large\bfseries\color{PrimaryColor}}
+  {\thesection}{1em}{}
+  [\vspace{0.5em}\color{SecondaryColor}\rule{\textwidth}{0.5pt}]
+
+\titleformat{\subsection}
+  {\large\bfseries\color{PrimaryColor}}
+  {\thesubsection}{0.8em}{}
+  
+\titleformat{\subsubsection}
+  {\normalsize\bfseries\color{TextColor}}
+  {\thesubsubsection}{0.5em}{}
+
+% =============================================================================
+% SPACING CONFIGURATION
+% =============================================================================
+\setlength{\parskip}{\ParagraphSpacing}
+\onehalfspacing
+
+\titlespacing*{\section}{0pt}{\SectionSpacing}{\SectionSpacing}
+\titlespacing*{\subsection}{0pt}{0.8em}{0.4em}
+\titlespacing*{\subsubsection}{0pt}{0.6em}{0.3em}
+
+% =============================================================================
+% HEADER AND FOOTER SETUP
+% =============================================================================
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\footnotesize\textcolor{PrimaryColor}{\CompanyName}}
+\fancyhead[RE,LO]{\footnotesize\textcolor{TextColor}{\leftmark}}
+\fancyfoot[LE,RO]{\footnotesize\textcolor{TextColor}{\thepage\ of \pageref{LastPage}}}
+\fancyfoot[RE,LO]{\footnotesize\textcolor{TextColor}{\DocumentVersion}}
+
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0.5pt}
+\renewcommand{\headrule}{\color{SecondaryColor}\hrule width\headwidth height\headrulewidth}
+\renewcommand{\footrule}{\color{SecondaryColor}\hrule width\headwidth height\footrulewidth}
+
+% =============================================================================
+% LIST FORMATTING
+% =============================================================================
+\setlist[itemize]{
+  leftmargin=*,
+  itemsep=0.2em,
+  parsep=0.1em,
+  topsep=0.3em,
+  partopsep=0.1em
+}
+
+\setlist[enumerate]{
+  leftmargin=*,
+  itemsep=0.2em,
+  parsep=0.1em,  
+  topsep=0.3em,
+  partopsep=0.1em
+}
+
+% =============================================================================
+% TABLE FORMATTING
+% =============================================================================
+\renewcommand{\arraystretch}{1.2}
+\newcommand{\tableheadcolor}{\rowcolor{LightGray}}
+\newcommand{\tablealternatecolor}{\rowcolor{LightGray!50}}
+
+% =============================================================================
+% CAPTION FORMATTING
+% =============================================================================
+\usepackage[font=small,labelfont=bf,textfont=it]{caption}
+\captionsetup{
+  format=plain,
+  justification=centering,
+  singlelinecheck=false,
+  labelsep=colon
+}
+
+% =============================================================================
+% HYPERLINK FORMATTING  
+% =============================================================================
+\hypersetup{
+  colorlinks=true,
+  linkcolor=PrimaryColor,
+  citecolor=AccentColor,
+  urlcolor=PrimaryColor,
+  filecolor=PrimaryColor,
+  menucolor=PrimaryColor,
+  bookmarks=true,
+  bookmarksnumbered=true,
+  pdfstartview=FitH,
+  pdfcreator={LaTeX with hyperref},
+  pdfproducer={pdflatex}
+}

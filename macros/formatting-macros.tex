@@ -1,0 +1,194 @@
+% Formatting Macros  
+% Reusable formatting commands for consistent document styling
+
+% =============================================================================
+% TABLE FORMATTING MACROS
+% =============================================================================
+
+% Financial summary table
+\newenvironment{financialtable}[1]{%
+  \begin{table}[htbp]
+    \centering
+    \caption{#1}
+    \begin{tabular}{lccc}
+      \toprule
+      \tableheadcolor
+      \textbf{Metric} & \textbf{Conservative} & \textbf{Base Case} & \textbf{Aggressive} \\
+      \midrule
+}{%
+      \bottomrule
+    \end{tabular}
+  \end{table}
+}
+
+% Revenue projection table environment
+\newenvironment{revenuetable}{%
+  \begin{longtable}{lrrrrr}
+    \caption{Five-Year Revenue Projections (\CurrencySymbol 000s)} \\
+    \toprule
+    \tableheadcolor
+    \textbf{Year} & \textbf{2025} & \textbf{2026} & \textbf{2027} & \textbf{2028} & \textbf{2029} \\
+    \midrule
+    \endfirsthead
+    \multicolumn{6}{c}{\textit{(Continued from previous page)}} \\
+    \toprule
+    \tableheadcolor
+    \textbf{Year} & \textbf{2025} & \textbf{2026} & \textbf{2027} & \textbf{2028} & \textbf{2029} \\
+    \midrule
+    \endhead
+    \midrule
+    \multicolumn{6}{r}{\textit{(Continued on next page)}} \\
+    \endfoot
+    \bottomrule
+    \endlastfoot
+}{%
+  \end{longtable}
+}
+
+% Key metrics dashboard
+\newenvironment{metricsdashboard}{%
+  \begin{table}[htbp]
+    \centering
+    \begin{tabular}{@{}ll@{}}
+      \toprule
+      \tableheadcolor
+      \textbf{Key Performance Indicator} & \textbf{Value} \\
+      \midrule
+}{%
+      \bottomrule
+    \end{tabular}
+  \end{table}
+}
+
+% =============================================================================
+% VISUAL EMPHASIS MACROS
+% =============================================================================
+
+% Highlighted number box
+\NewDocumentCommand{\highlightednumber}{m m}{%
+  \begin{center}
+    \fcolorbox{PrimaryColor}{LightGray}{%
+      \begin{minipage}{3cm}
+        \centering
+        \Large\textbf{\color{PrimaryColor}#1}\\
+        \small\color{TextColor}#2
+      \end{minipage}
+    }
+  \end{center}
+}
+
+% Metric card for dashboard display
+\NewDocumentCommand{\metriccard}{m m m}{%
+  \begin{minipage}[t]{0.3\textwidth}
+    \centering
+    \fcolorbox{SecondaryColor}{white}{%
+      \begin{minipage}{0.9\textwidth}
+        \centering
+        \vspace{0.5em}
+        \textbf{\Large\color{PrimaryColor}#1}\\[0.3em]
+        \textsc{\color{TextColor}#2}\\[0.2em]
+        \small\textit{\color{SecondaryColor}#3}
+        \vspace{0.5em}
+      \end{minipage}
+    }
+  \end{minipage}
+}
+
+% =============================================================================
+% CHART AND GRAPH PREPARATION
+% =============================================================================
+
+% Standard chart colors
+\definecolor{Chart1}{RGB}{0,51,102}
+\definecolor{Chart2}{RGB}{102,153,204}  
+\definecolor{Chart3}{RGB}{255,102,0}
+\definecolor{Chart4}{RGB}{51,51,51}
+\definecolor{Chart5}{RGB}{153,153,153}
+
+% Revenue growth chart setup
+\NewDocumentCommand{\revenuechart}{}{%
+  \begin{tikzpicture}
+    \begin{axis}[
+      width=12cm,
+      height=8cm,
+      xlabel={Year},
+      ylabel={Revenue (\CurrencySymbol M)},
+      legend pos=north west,
+      grid=major,
+      ymin=0,
+      xmin=2024.5,
+      xmax=2029.5,
+      xtick={2025,2026,2027,2028,2029},
+      line width=2pt
+    ]
+    \addplot[Chart1,mark=*] coordinates {
+      (2025,\fpeval{\RevenueYearOne/1000})
+      (2026,\fpeval{\RevenueYearTwo/1000})
+      (2027,\fpeval{\RevenueYearThree/1000})
+      (2028,\fpeval{\RevenueYearFour/1000})
+      (2029,\fpeval{\RevenueYearFive/1000})
+    };
+    \legend{Projected Revenue}
+    \end{axis}
+  \end{tikzpicture}
+}
+
+% Market size visualization
+\NewDocumentCommand{\marketsizechart}{}{%
+  \begin{tikzpicture}
+    \begin{axis}[
+      width=10cm,
+      height=6cm,
+      xlabel={Market Segment},
+      ylabel={Market Size (\CurrencySymbol B)},
+      ybar,
+      bar width=2cm,
+      symbolic x coords={TAM,SAM,SOM},
+      xtick=data,
+      ymin=0,
+      nodes near coords,
+      nodes near coords align={vertical},
+    ]
+    \addplot[Chart1,fill=Chart1!30] coordinates {
+      (TAM,\fpeval{\TotalAddressableMarket/1000000})
+      (SAM,\fpeval{\ServiceableAddressableMarket/1000000})  
+      (SOM,\fpeval{\ServiceableObtainableMarket/1000000})
+    };
+    \end{axis}
+  \end{tikzpicture}
+}
+
+% =============================================================================
+% LAYOUT AND SPACING HELPERS
+% =============================================================================
+
+% Section break with visual separator
+\NewDocumentCommand{\sectionbreak}{}{%
+  \vspace{1em}
+  \begin{center}
+    \color{SecondaryColor}\rule{0.5\textwidth}{0.5pt}
+  \end{center}
+  \vspace{1em}
+}
+
+% Page break with continuation notice
+\NewDocumentCommand{\continuationbreak}{m}{%
+  \vfill
+  \begin{center}
+    \textit{\color{SecondaryColor}Continued: #1}
+  \end{center}
+  \newpage
+}
+
+% Executive summary callout box
+\newenvironment{executivebox}{%
+  \begin{center}%
+    \fcolorbox{PrimaryColor}{LightGray}{%
+      \begin{minipage}{0.95\textwidth}%
+        \vspace{0.5em}%
+}{%
+        \vspace{0.5em}%
+      \end{minipage}%
+    }%
+  \end{center}%
+}

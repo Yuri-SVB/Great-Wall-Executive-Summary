@@ -1,0 +1,58 @@
+% Title Page
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    
+    % Company logo placeholder
+    \vspace{1cm}
+    
+    % Main title
+    {\Huge\textbf{\color{PrimaryColor}\DocumentTitle}}
+    
+    \vspace{0.5cm}
+    {\Large\color{SecondaryColor}\DocumentSubtitle}
+    
+    \vspace{2cm}
+    
+    % Key metrics dashboard on title page
+    \highlightednumber{\currency[M]{\RevenueYearFive}}{Year 5 Revenue Projection}
+    
+    \vspace{1cm}
+    
+    \begin{minipage}[t]{0.3\textwidth}
+        \metriccard{\currency[M]{\ServiceableObtainableMarket}}{Target Market}{Serviceable Obtainable Market}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.3\textwidth}
+        \metriccard{\percent{\GrossMarginYearFive}}{Gross Margin}{Year 5 Target}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.3\textwidth}
+        \metriccard{\fpeval{round(\ltvcac,1)}:1}{LTV:CAC}{Customer Economics}
+    \end{minipage}
+    
+    \vspace{3cm}
+    
+    % Author and date
+    {\large\textbf{\DocumentAuthor}}
+    
+    \vspace{0.5cm}
+    {\color{TextColor}\DocumentDate}
+    
+    \vspace{0.5cm}
+    {\small Version \DocumentVersion}
+    
+    \vfill
+    
+    % Confidentiality notice
+    \begin{center}
+        \small\color{AccentColor}
+        \textbf{CONFIDENTIAL AND PROPRIETARY}\\
+        This document contains confidential and proprietary information of \CompanyName.\\
+        Distribution is restricted to authorized recipients only.
+    \end{center}
+    
+\end{titlepage}
+
+\thispagestyle{empty}
+\newpage
