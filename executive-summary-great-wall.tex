@@ -21,6 +21,10 @@
 \pgfplotsset{compat=1.18}
 \usepackage[backend=bibtex,style=numeric,sorting=none]{biblatex}
 \addbibresource{executive-summary-great-wall.bib}
+\usepackage{fancyhdr} % For custom headers and footers
+\usepackage{lastpage} % For total page count
+\usepackage{totcount}
+
 
 % Centralized values
 \input{values.tex}
@@ -32,8 +36,18 @@
 \addbibresource{\jobname.bib}
 
 \begin{document}
-\title{Startup Valuation Report -- Enhanced Model}
-\author{Security-focused Bitcoin Multi-Revenue Model}
+
+% Set up footer
+\pagestyle{fancy}
+\fancyhf{} % Clear all header and footer fields
+\renewcommand{\headrulewidth}{0pt} % Remove header line
+\renewcommand{\footrulewidth}{0.4pt} % Add footer line
+\fancyfoot[L]{\href{https://linktr.ee/greatwallt3}{T3 Information Security}}% -- Great Wall Executive Summary} % Left footer
+\fancyfoot[C]{Page \thepage\ of 9} % Center footer with page numbers
+\fancyfoot[R]{Draft -- \today} % Right footer
+
+\title{Startup Valuation Report}
+\author{\href{https://linktr.ee/yurisvb}{Yuri S Villas Boas}}
 \date{\today}
 \maketitle
 
