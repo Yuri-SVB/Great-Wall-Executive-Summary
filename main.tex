@@ -1,0 +1,110 @@
+%!TEX TS-program = pdflatex
+%!TEX encoding = UTF-8 Unicode
+
+% Great Wall Protocol Executive Summary
+% Main document file following clean room paradigm principles
+% Optimized for readability, maintainability, and soft-coded quantification
+
+\documentclass[11pt,letterpaper,twoside]{article}
+
+% =============================================================================
+% PACKAGE IMPORTS - Organized by functionality
+% =============================================================================
+
+% Core document setup
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[english]{babel}
+\usepackage{microtype}
+
+% Page layout and geometry
+\usepackage[margin=1in,includeheadfoot]{geometry}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+% Typography and formatting
+\usepackage{titlesec}
+\usepackage{titletoc}
+\usepackage{parskip}
+\usepackage{enumitem}
+\usepackage{setspace}
+
+% Mathematical and financial elements
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{multicol}
+
+% Graphics and visualization
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% References and citations
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=red,urlcolor=blue]{hyperref}
+\usepackage{cleveref}
+\usepackage[backend=biber,style=authoryear-comp]{biblatex}
+
+% Custom packages for this document
+\usepackage{xparse}
+\usepackage{xstring}
+\usepackage{etoolbox}
+\usepackage{calc}
+\usepackage{fp}
+\usepackage{xfp}
+
+% =============================================================================
+% CONFIGURATION LOADING - Soft-coded parameters
+% =============================================================================
+\input{config/document-config}
+\input{config/financial-parameters}
+\input{config/formatting-config}
+
+% =============================================================================
+% CUSTOM MACROS AND COMMANDS - Clean room paradigm implementation
+% =============================================================================
+\input{macros/document-macros}
+\input{macros/financial-macros}
+\input{macros/formatting-macros}
+
+% =============================================================================
+% DOCUMENT METADATA
+% =============================================================================
+\title{\DocumentTitle}
+\author{\DocumentAuthor}
+\date{\DocumentDate}
+
+% Bibliography resource
+\addbibresource{references/bibliography.bib}
+
+% =============================================================================
+% DOCUMENT CONTENT
+% =============================================================================
+\begin{document}
+
+% Front matter
+\input{sections/titlepage}
+\input{sections/abstract}
+\input{sections/table-of-contents}
+
+% Main content - Executive Summary sections
+\input{sections/executive-summary}
+\input{sections/business-overview}
+\input{sections/market-analysis}
+\input{sections/financial-projections}
+\input{sections/valuation-analysis}
+\input{sections/risk-assessment}
+\input{sections/implementation-roadmap}
+\input{sections/conclusions}
+
+% Back matter
+\input{sections/appendices}
+\printbibliography
+
+\end{document}

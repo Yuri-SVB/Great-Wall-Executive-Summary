@@ -1,0 +1,90 @@
+% Financial Parameters Configuration
+% Soft-coded financial constants for easy scenario analysis
+% All monetary values in thousands unless otherwise specified
+
+% =============================================================================
+% MARKET SIZE AND OPPORTUNITY
+% =============================================================================
+\newcommand{\TotalAddressableMarket}{250000000}    % $250B TAM
+\newcommand{\ServiceableAddressableMarket}{75000000}   % $75B SAM
+\newcommand{\ServiceableObtainableMarket}{7500000}     % $7.5B SOM
+
+\newcommand{\MarketGrowthRateYearOne}{0.15}        % 15% CAGR
+\newcommand{\MarketGrowthRateYearTwo}{0.18}        % 18% CAGR
+\newcommand{\MarketGrowthRateYearThree}{0.20}      % 20% CAGR
+\newcommand{\MarketGrowthRateYearFour}{0.16}       % 16% CAGR
+\newcommand{\MarketGrowthRateYearFive}{0.12}       % 12% CAGR
+
+% =============================================================================
+% REVENUE PROJECTIONS (in thousands)
+% =============================================================================
+\newcommand{\RevenueYearOne}{2500}         % $2.5M
+\newcommand{\RevenueYearTwo}{8750}         % $8.75M  
+\newcommand{\RevenueYearThree}{24500}      % $24.5M
+\newcommand{\RevenueYearFour}{58800}       % $58.8M
+\newcommand{\RevenueYearFive}{117600}      % $117.6M
+
+% Revenue growth rates
+\newcommand{\RevenueGrowthYearTwo}{2.5}    % 250%
+\newcommand{\RevenueGrowthYearThree}{1.8}  % 180%
+\newcommand{\RevenueGrowthYearFour}{1.4}   % 140%
+\newcommand{\RevenueGrowthYearFive}{1.0}   % 100%
+
+% =============================================================================
+% COST STRUCTURE AND MARGINS
+% =============================================================================
+\newcommand{\GrossMarginYearOne}{0.65}     % 65%
+\newcommand{\GrossMarginYearTwo}{0.72}     % 72%
+\newcommand{\GrossMarginYearThree}{0.78}   % 78%
+\newcommand{\GrossMarginYearFour}{0.82}    % 82%
+\newcommand{\GrossMarginYearFive}{0.85}    % 85%
+
+\newcommand{\OperatingMarginTarget}{0.25}   % 25% target
+\newcommand{\EBITDAMarginTarget}{0.30}      % 30% target
+
+% =============================================================================
+% OPERATIONAL METRICS
+% =============================================================================
+\newcommand{\CustomerAcquisitionCost}{2500}        % $2.5K CAC
+\newcommand{\LifetimeValue}{35000}                  % $35K LTV
+\newcommand{\LTVtoCACRatio}{14}                     % 14:1 ratio
+\newcommand{\MonthlyChurnRate}{0.02}                % 2% monthly churn
+\newcommand{\AnnualRetentionRate}{0.78}             % 78% annual retention
+
+% =============================================================================
+% FUNDING AND CAPITAL REQUIREMENTS
+% =============================================================================
+\newcommand{\SeedRoundAmount}{5000}         % $5M seed
+\newcommand{\SeriesARoundAmount}{15000}     % $15M Series A
+\newcommand{\SeriesBRoundAmount}{40000}     % $40M Series B
+
+\newcommand{\TotalCapitalRequired}{60000}   % $60M total
+\newcommand{\CashBurnRateMonthly}{750}      % $750K monthly
+\newcommand{\RunwayMonths}{36}              % 36 months
+
+% =============================================================================
+% VALUATION PARAMETERS
+% =============================================================================
+\newcommand{\RevenueMultipleLow}{8}         % 8x revenue multiple (conservative)
+\newcommand{\RevenueMultipleHigh}{15}       % 15x revenue multiple (aggressive)
+\newcommand{\RevenueMultipleBase}{12}       % 12x revenue multiple (base case)
+
+\newcommand{\DiscountRate}{0.12}            % 12% discount rate
+\newcommand{\TerminalGrowthRate}{0.03}      % 3% terminal growth
+\newcommand{\RiskAdjustmentFactor}{0.15}    % 15% risk adjustment
+
+% =============================================================================
+% COMPETITIVE AND MARKET POSITION
+% =============================================================================
+\newcommand{\MarketShareYearFive}{0.015}    % 1.5% market share
+\newcommand{\CompetitiveAdvantageScore}{85}  % Out of 100
+\newcommand{\TechnologyMoatScore}{90}        % Out of 100
+\newcommand{\ExecutionRiskScore}{25}        % Out of 100 (lower is better)
+
+% =============================================================================
+% KEY FINANCIAL RATIOS AND METRICS
+% =============================================================================
+\newcommand{\DebtToEquityRatio}{0.15}       % 15% debt-to-equity
+\newcommand{\CurrentRatioTarget}{2.5}       % 2.5:1 current ratio
+\newcommand{\ReturnOnEquityTarget}{0.35}    % 35% ROE target
+\newcommand{\AssetTurnoverRatio}{1.2}       % 1.2x asset turnover
