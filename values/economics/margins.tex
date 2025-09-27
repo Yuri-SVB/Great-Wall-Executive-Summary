@@ -1,0 +1,63 @@
+% margins.tex - Platform fees, gross margins, and profitability metrics
+
+%% ================= Platform Economics =================
+% Mark's platform fee percentage (of Charlie's payment).
+\newcommand{\markPlatformFeePercent}{28}
+
+% Subscription gross margin (%).
+% Mark keeps 100% of the platform fee as gross margin since Mark has minimal direct costs
+\newcommand{\subGrossMargin}{95}
+
+%% ================= Hardware Margins =================
+% Hardware gross margin by SKU (%).
+\newcommand{\hwEntryMargin}{40}
+\newcommand{\hwProfMargin}{45}
+\newcommand{\hwPremiumMargin}{50}
+
+% Hardware weighted average margin (%)
+\newcommand{\hwWeightedAvgMargin}{\fpeval{\hwWeightedAvgGP / \hwWeightedAvgPrice * 100}}
+
+%% ================= Subscription Tier Mix =================
+% Distribution of subscribers across tiers (%)
+\newcommand{\subBasicMix}{35}
+\newcommand{\subMediumMix}{40}
+\newcommand{\subProfessionalMix}{15}
+\newcommand{\subGoldenMix}{9}
+\newcommand{\subPlatinumMix}{1}
+
+%% ================= Hardware Customer Mix =================
+% Distribution of hardware buyers across SKUs (%)
+\newcommand{\hwEntryMix}{60}
+\newcommand{\hwProfMix}{30}
+\newcommand{\hwPremiumMix}{10}
+
+%% ================= Derived Profitability Metrics =================
+% Patrick's profit margin per tier (USD/month)
+\newcommand{\patrickProfitBasic}{\fpeval{\patrickGrossBasic - \patrickCostBasic}}
+\newcommand{\patrickProfitMedium}{\fpeval{\patrickGrossMedium - \patrickCostMedium}}
+\newcommand{\patrickProfitProfessional}{\fpeval{\patrickGrossProfessional - \patrickCostProfessional}}
+\newcommand{\patrickProfitGolden}{\fpeval{\patrickGrossGolden - \patrickCostGolden}}
+\newcommand{\patrickProfitPlatinum}{\fpeval{\patrickGrossPlatinum - \patrickCostPlatinum}}
+
+% Mark's revenue per tier (platform fee, USD/month)
+\newcommand{\markRevenueBasic}{\fpeval{\subBasicPrice * \markPlatformFeePercent / 100}}
+\newcommand{\markRevenueMedium}{\fpeval{\subMediumPrice * \markPlatformFeePercent / 100}}
+\newcommand{\markRevenueProfessional}{\fpeval{\subProfessionalPrice * \markPlatformFeePercent / 100}}
+\newcommand{\markRevenueGolden}{\fpeval{\subGoldenPrice * \markPlatformFeePercent / 100}}
+\newcommand{\markRevenuePlatinum}{\fpeval{\subPlatinumPrice * \markPlatformFeePercent / 100}}
+
+% Total markup per tier (Charlie price / Patrick cost)
+\newcommand{\totalMarkupBasic}{\fpeval{\subBasicPrice / \patrickCostBasic}}
+\newcommand{\totalMarkupMedium}{\fpeval{\subMediumPrice / \patrickCostMedium}}
+\newcommand{\totalMarkupProfessional}{\fpeval{\subProfessionalPrice / \patrickCostProfessional}}
+\newcommand{\totalMarkupGolden}{\fpeval{\subGoldenPrice / \patrickCostGolden}}
+\newcommand{\totalMarkupPlatinum}{\fpeval{\subPlatinumPrice / \patrickCostPlatinum}}
+
+% Mark's weighted average monthly revenue per user
+\newcommand{\markWeightedAvgMonthly}{\fpeval{\markRevenueBasic * \subBasicMix / 100 + \markRevenueMedium * \subMediumMix / 100 + \markRevenueProfessional * \subProfessionalMix / 100 + \markRevenueGolden * \subGoldenMix / 100 + \markRevenuePlatinum * \subPlatinumMix / 100}}
+
+% Mark's weighted average annual revenue per user
+\newcommand{\markWeightedAvgAnnual}{\fpeval{\markWeightedAvgMonthly * 12}}
+
+% Hardware weighted average gross profit per unit
+\newcommand{\hwWeightedAvgGP}{\fpeval{(\hwEntryPrice * \hwEntryMargin / 100) * \hwEntryMix / 100 + (\hwProfPrice * \hwProfMargin / 100) * \hwProfMix / 100 + (\hwPremiumPrice * \hwPremiumMargin / 100) * \hwPremiumMix / 100}}

@@ -1,0 +1,44 @@
+% computation.tex - Core computation economics and provider costs
+% This file defines the fundamental economics of the computation marketplace
+
+%% ================= Electricity & Power Economics =================
+% Electricity cost per kWh (USD).
+\newcommand{\electricityCostPerKwh}{0.12}
+
+% Average power consumption during computation (watts).
+\newcommand{\computePowerWatts}{350}
+
+% Number of weekly job runs per month.
+\newcommand{\weeklyRunsPerMonth}{4.28}
+
+%% ================= Computation Job Durations =================
+% Job duration in hours for each tier
+\newcommand{\computeHoursBasic}{2}
+\newcommand{\computeHoursMedium}{24}
+\newcommand{\computeHoursProfessional}{48}
+\newcommand{\computeHoursGolden}{168}
+\newcommand{\computeHoursPlatinum}{336}
+
+%% ================= Patrick's Markup Structure =================
+% Progressive markup multipliers by tier
+% Higher markups for longer commitments reflect provider scarcity
+\newcommand{\patrickMarkupBasic}{2.5}
+\newcommand{\patrickMarkupMedium}{3.0}
+\newcommand{\patrickMarkupProfessional}{3.5}  % Premium for 48hr commitment
+\newcommand{\patrickMarkupGolden}{5.0}
+\newcommand{\patrickMarkupPlatinum}{10.0}
+
+%% ================= Patrick's Cost Calculations =================
+% Patrick's monthly electricity cost per tier (USD).
+\newcommand{\patrickCostBasic}{\fpeval{\computeHoursBasic * \computePowerWatts / 1000 * \electricityCostPerKwh * \weeklyRunsPerMonth}}
+\newcommand{\patrickCostMedium}{\fpeval{\computeHoursMedium * \computePowerWatts / 1000 * \electricityCostPerKwh * \weeklyRunsPerMonth}}
+\newcommand{\patrickCostProfessional}{\fpeval{\computeHoursProfessional * \computePowerWatts / 1000 * \electricityCostPerKwh * \weeklyRunsPerMonth}}
+\newcommand{\patrickCostGolden}{\fpeval{\computeHoursGolden * \computePowerWatts / 1000 * \electricityCostPerKwh * \weeklyRunsPerMonth}}
+\newcommand{\patrickCostPlatinum}{\fpeval{\computeHoursPlatinum * \computePowerWatts / 1000 * \electricityCostPerKwh * \weeklyRunsPerMonth}}
+
+% Patrick's gross revenue per tier (what Patrick receives from Mark, USD/month).
+\newcommand{\patrickGrossBasic}{\fpeval{\patrickCostBasic * \patrickMarkupBasic}}
+\newcommand{\patrickGrossMedium}{\fpeval{\patrickCostMedium * \patrickMarkupMedium}}
+\newcommand{\patrickGrossProfessional}{\fpeval{\patrickCostProfessional * \patrickMarkupProfessional}}
+\newcommand{\patrickGrossGolden}{\fpeval{\patrickCostGolden * \patrickMarkupGolden}}
+\newcommand{\patrickGrossPlatinum}{\fpeval{\patrickCostPlatinum * \patrickMarkupPlatinum}}

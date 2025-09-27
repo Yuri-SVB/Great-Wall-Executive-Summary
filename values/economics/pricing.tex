@@ -1,0 +1,37 @@
+% pricing.tex - Subscription and hardware pricing structures
+% Prices are derived from computation costs and marketplace economics
+
+%% ================= Subscription Tier Pricing =================
+% Subscription tier monthly price (USD) - Charlie's payment
+% Calculated: Patrick receives (cost × markup), Mark adds platform fee
+
+% Basic: 2-hour computation jobs @ 4.28/month
+\newcommand{\subBasicPrice}{\fpeval{round(\patrickGrossBasic / (1 - \markPlatformFeePercent/100), 0)}}
+
+% Medium: 24-hour computation jobs @ 4.28/month
+\newcommand{\subMediumPrice}{\fpeval{round(\patrickGrossMedium / (1 - \markPlatformFeePercent/100), 0)}}
+
+% Professional: 48-hour computation jobs @ 4.28/month
+\newcommand{\subProfessionalPrice}{\fpeval{round(\patrickGrossProfessional / (1 - \markPlatformFeePercent/100), 0)}}
+
+% Golden: 168-hour (1 week) computation jobs @ 4.28/month
+\newcommand{\subGoldenPrice}{\fpeval{round(\patrickGrossGolden / (1 - \markPlatformFeePercent/100), 0)}}
+
+% Platinum: 336-hour (2 week) computation jobs @ 4.28/month
+\newcommand{\subPlatinumPrice}{\fpeval{round(\patrickGrossPlatinum / (1 - \markPlatformFeePercent/100), 0)}}
+
+%% ================= Hardware Pricing =================
+% Hardware SKU prices (USD)
+\newcommand{\hwEntryPrice}{500}
+\newcommand{\hwProfPrice}{1000}
+\newcommand{\hwPremiumPrice}{2000}
+
+%% ================= Weighted Average Calculations =================
+% Subscription weighted average monthly revenue per user (Charlie's payment)
+\newcommand{\subWeightedAvgMonthly}{\fpeval{\subBasicPrice * \subBasicMix / 100 + \subMediumPrice * \subMediumMix / 100 + \subProfessionalPrice * \subProfessionalMix / 100 + \subGoldenPrice * \subGoldenMix / 100 + \subPlatinumPrice * \subPlatinumMix / 100}}
+
+% Subscription weighted average annual revenue per user (Charlie's payment)
+\newcommand{\subWeightedAvgAnnual}{\fpeval{\subWeightedAvgMonthly * 12}}
+
+% Hardware weighted average price per unit
+\newcommand{\hwWeightedAvgPrice}{\fpeval{\hwEntryPrice * \hwEntryMix / 100 + \hwProfPrice * \hwProfMix / 100 + \hwPremiumPrice * \hwPremiumMix / 100}}
