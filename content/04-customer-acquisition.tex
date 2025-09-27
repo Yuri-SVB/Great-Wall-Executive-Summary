@@ -1,0 +1,53 @@
+% 04-customer-acquisition.tex - Customer acquisition strategy and viral effects
+
+\section{Multi-Channel Customer Acquisition}
+
+\subsection{Annual Marketing Budget Allocation}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\linewidth}{l Y Y Y Y}
+\toprule
+Year & Budget & Base CAC & Paid Customers & Cost per Customer \\\midrule
+Year 1 & \$\numint{\marketingBudgetYearOne} & \$\num{\cacDigital} & \numint{\baseNewSubsYearOne} & \$\numint{\cacDigital} \\
+Year 2 & \$\numint{\marketingBudgetYearTwo} & \$\num{\cacDigital} & \numint{\baseNewSubsYearTwo} & \$\numint{\cacDigital} \\
+Year 3 & \$\numint{\marketingBudgetYearThree} & \$\num{\cacDigital} & \numint{\baseNewSubsYearThree} & \$\numint{\cacDigital} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+\textit{Note: Shows customers acquired through paid channels before viral effects}
+
+\subsection{Traditional Acquisition Channels}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\linewidth}{l Y Y Y Y}
+\toprule
+Channel & Budget (USD) & Gross CAC\cite{authoranalysis2024} & Merch Offset* & Net CAC \\\midrule
+Digital (Subs) & \numint{\budgetDigital} & \num{\cacDigital} & \numfpeval{\merchOffsetSubsCalc} & \numfpeval{\cacDigital - \merchOffsetSubsCalc} \\
+Content/SEO (Subs) & \numint{\budgetContent} & \num{\cacContent} & \numfpeval{\merchOffsetSubsCalc} & \numfpeval{\cacContent - \merchOffsetSubsCalc} \\
+Events (Hardware Y2+) & \numint{\budgetEvents} & \num{\cacEvents} & \numfpeval{\merchOffsetHwCalc} & \numfpeval{\cacEvents - \merchOffsetHwCalc} \\\midrule
+\textbf{Total} & \textbf{\numint{100000}} &  &  &  \\
+\bottomrule
+\end{tabularx}
+\end{table}
+\textit{*Merchandise offset: Subs @ \num{\merchAttachRate}\% × \$\numfpeval{\merchAvgProfit} = \$\numfpeval{\merchOffsetSubsCalc}, Hardware @ \num{\hwMerchAttachRate}\% × \$\numfpeval{\merchAvgProfit} = \$\numfpeval{\merchOffsetHwCalc}}
+
+\subsection{Viral Marketing Effects from Provider Incentives}
+Providers (Patrick) are directly incentivized to attract clients (Charlie) as more demand means more computation jobs. Since providers can operate publicly while maintaining client anonymity, this creates a powerful viral marketing dynamic\cite{hbs2016,parker2016}:
+\begin{itemize}
+  \item Each provider attracts ~\num{\providerViralCoeff} new clients through word-of-mouth\cite{kumar2018}
+  \item Providers actively promote the platform to monetize their idle capacity
+  \item Network effect compounds with \num{\viralGrowthFactor}x annual growth factor\cite{nfx2018}
+\end{itemize}
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\linewidth}{l Y Y Y}
+\toprule
+Year & Base CAC & Viral Reduction\cite{cbinsights2021} & Effective CAC \\\midrule
+Year 1 & \$\num{\cacDigital} & \num{\cacViralReductionYearOne}\% & \$\numfpeval{\effectiveCACYearOne} \\
+Year 2 & \$\num{\cacDigital} & \num{\cacViralReductionYearTwo}\% & \$\numfpeval{\effectiveCACYearTwo} \\
+Year 3 & \$\num{\cacDigital} & \num{\cacViralReductionYearThree}\% & \$\numfpeval{\effectiveCACYearThree} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+\textit{Note: Effective CAC after merchandise offset: Y1 \$\numfpeval{\effectiveCACYearOne - \merchOffsetSubsCalc}, Y2 \$\numfpeval{\effectiveCACYearTwo - \merchOffsetSubsCalc}, Y3 \$\numfpeval{\effectiveCACYearThree - \merchOffsetSubsCalc}}

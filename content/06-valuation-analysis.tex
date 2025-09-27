@@ -1,0 +1,39 @@
+% 06-valuation-analysis.tex - Valuation methodology and projections
+
+\section{Valuation Analysis}
+
+\subsection{Multiple-Based Valuation}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\linewidth}{l Y Y Y Y}
+\toprule
+Component & Multiple\cite{highalpha2024,openview2023} & Y1 Value & Y2 Value & Y3 Value \\\midrule
+Subscription Exit ARR & \num{\arrMultiple}x & \numint{\subARRYearOne * \arrMultiple} & \numint{\subARRYearTwo * \arrMultiple} & \numint{\subARRYearThree * \arrMultiple} \\
+Hardware Gross Profit & \num{\hwMultiple}x & \num{0} & \numint{\hwWeightedAvgGP * \hwCustomersYearTwo * \hwMultiple} & \numint{\hwWeightedAvgGP * \hwCustomersYearThree * \hwMultiple} \\\midrule
+\textbf{Total Valuation} &  & \textbf{\numint{\subARRYearOne * \arrMultiple}} & \textbf{\numint{\subARRYearTwo * \arrMultiple + \hwWeightedAvgGP * \hwCustomersYearTwo * \hwMultiple}} & \textbf{\numint{\subARRYearThree * \arrMultiple + \hwWeightedAvgGP * \hwCustomersYearThree * \hwMultiple}} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Investment Timeline and Valuation Progression}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\linewidth}{l Y Y Y Y}
+\toprule
+Stage & Timing & Funding & Valuation & Basis \\\midrule
+\textbf{Seed} & Month 0 & \$\numint{round(\seedAmount/1000,0)}K & \$\numfpeval{round(\seedValuation/1000000,1)}M & Market comparables* \\
+\textbf{Series A} & Month 12 & \$\numint{\seriesAAmount/1000}K & \$\numfpeval{\seriesAValuation/1000000}M & \$\numfpeval{round(\subARRYearOne/1000000,1)}M ARR × \num{\seriesAARRMultiple}x \\
+\textbf{Target} & Year 3 & -- & \$\num{\targetValLow}--\num{\targetValHigh}M & \$\numfpeval{round(\subARRYearThree/1000000,1)}M ARR × \numfpeval{\targetARRMultiple}--\num{\arrMultiple}x \\
+\textbf{Optimistic} & Year 3 & -- & \$\num{\optimisticValLow}--\num{\optimisticValHigh}M & Premium multiples \\
+\bottomrule
+\end{tabularx}
+\end{table}
+\textit{*Pre-revenue valuation based on team, TAM, and marketplace model - not formulaic}
+
+\subsection{Growth Metrics Supporting Valuation}
+\begin{itemize}
+    \item \textbf{ARR Growth Rate Y1-Y2:} \numfpeval{round(\growthRateYearOneTwo, 1)}\%
+    \item \textbf{ARR Growth Rate Y2-Y3:} \numfpeval{round(\growthRateYearTwoThree, 1)}\%
+    \item \textbf{Rule of 40 Score:} \numfpeval{round(\ruleOfFortyScore, 1)} (Growth + Gross Margin)
+    \item \textbf{LTV:CAC Efficiency:} Improving from \numint{\subLTV/(\effectiveCACYearOne - \merchOffsetSubsCalc)}:1 to \numint{\subLTV/(\effectiveCACYearThree - \merchOffsetSubsCalc)}:1
+\end{itemize}

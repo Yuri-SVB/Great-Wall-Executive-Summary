@@ -1,0 +1,49 @@
+% 05-financial-projections.tex - Three-year financial projections
+
+\section{Three-Year Financial Projections}
+
+\subsection{Revenue Projections (Moderate Scenario)}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\linewidth}{l Y Y Y}
+\toprule
+Revenue Stream & Year 1 (USD) & Year 2 (USD) & Year 3 (USD) \\\midrule
+Subscriptions & \numint{\subRevenueYearOne} & \numint{\subRevenueYearTwo} & \numint{\subRevenueYearThree} \\
+Hardware & \num{0} & \numint{\hwWeightedAvgGP * \hwCustomersYearTwo} & \numint{\hwWeightedAvgGP * \hwCustomersYearThree} \\\midrule
+\textbf{Total Revenue} & \textbf{\numint{\subRevenueYearOne}} & \textbf{\numint{\subRevenueYearTwo + \hwWeightedAvgGP * \hwCustomersYearTwo}} & \textbf{\numint{\subRevenueYearThree + \hwWeightedAvgGP * \hwCustomersYearThree}} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{ARR vs Revenue Clarification}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\linewidth}{l Y Y Y}
+\toprule
+Metric & Year 1 & Year 2 & Year 3 \\\midrule
+Subscription Revenue (actual) & \numint{\subRevenueYearOne} & \numint{\subRevenueYearTwo} & \numint{\subRevenueYearThree} \\
+Exit ARR (MRR $\times$ 12) & \numint{\subARRYearOne} & \numint{\subARRYearTwo} & \numint{\subARRYearThree} \\
+Active Subscribers (year-end) & \numint{\totalSubsYearOne} & \numint{\totalSubsYearTwo} & \numint{\totalSubsYearThree} \\
+Mark's Monthly Rev/User & \numfpeval{\markWeightedAvgMonthly} & \numfpeval{\markWeightedAvgMonthly} & \numfpeval{\markWeightedAvgMonthly} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+\textit{Note: Revenue shown is Mark's platform fee revenue (\num{\markPlatformFeePercent}\% of Charlie payments). ARR = Annual Recurring Revenue based on exit monthly run rate.}
+
+\subsection{Customer Metrics with Churn}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\linewidth}{l Y Y Y}
+\toprule
+Metric & Year 1 & Year 2 & Year 3 \\\midrule
+Base New Subs (Paid) & \numint{\baseNewSubsYearOne} & \numint{\baseNewSubsYearTwo} & \numint{\baseNewSubsYearThree} \\
+Viral Multiplier & \numfpeval{\viralMultiplierYearOne}x & \numfpeval{\viralMultiplierYearTwo}x & \numfpeval{\viralMultiplierYearThree}x \\
+Total New Subscribers & \numint{\newSubsYearOne} & \numint{\newSubsYearTwo} & \numint{\newSubsYearThree} \\
+Cumulative Subs (w/churn) & \numint{\totalSubsYearOne} & \numint{\totalSubsYearTwo} & \numint{\totalSubsYearThree} \\
+Hardware Customers & \num{0} & \numint{\hwCustomersYearTwo} & \numint{\hwCustomersYearThree} \\
+Annual Churn Rate\cite{recurly2024} & \num{\churnYearOne}\% & \num{\churnYearTwo}\% & \num{\churnYearThree}\% \\
+Effective CAC (viral + merch) & \$\numint{\effectiveCACYearOne - \merchOffsetSubsCalc} & \$\numint{\effectiveCACYearTwo - \merchOffsetSubsCalc} & \$\numint{\effectiveCACYearThree - \merchOffsetSubsCalc} \\
+LTV:CAC Ratio & \numint{\subLTV/(\effectiveCACYearOne - \merchOffsetSubsCalc)}:\numint{1} & \numint{\subLTV/(\effectiveCACYearTwo - \merchOffsetSubsCalc)}:\numint{1} & \numint{\subLTV/(\effectiveCACYearThree - \merchOffsetSubsCalc)}:\numint{1} \\
+\bottomrule
+\end{tabularx}
+\end{table}

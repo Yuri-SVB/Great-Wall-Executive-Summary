@@ -1,0 +1,36 @@
+% 07-unit-economics.tex - Unit economics summary
+
+\section{Unit Economics Summary}
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\linewidth}{l Y Y}
+\toprule
+Metric & Subscriptions & Hardware \\\midrule
+Average Revenue (Mark) & \$\numint{\markWeightedAvgAnnual}/year & \$\numint{\hwWeightedAvgPrice}/unit \\
+Gross Margin\cite{openview2023} & \num{\subGrossMargin}\% & \num{\hwWeightedAvgMargin}\% \\
+Gross CAC & \$\num{\cacDigital} & \$\num{\cacEvents} \\
+Merchandise Offset & \$\numfpeval{\merchOffsetSubsCalc} & \$\numfpeval{\merchOffsetHwCalc} \\
+Net CAC & \$\numint{\cacDigital - \merchOffsetSubsCalc} & \$\numint{\cacEvents - \merchOffsetHwCalc} \\
+LTV or Profit/Unit & \$\numint{\subLTV} & \$\numint{\hwWeightedAvgGP} \\
+LTV:CAC Ratio & \numint{\subLTV/(\cacDigital - \merchOffsetSubsCalc)}:\numint{1} & \numint{\hwWeightedAvgGP/(\cacEvents - \merchOffsetHwCalc)}:\numint{1} \\
+Payback Period & $<$\num{1} month & Immediate \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Key Economic Insights}
+\begin{itemize}
+    \item \textbf{Subscription Economics:} High gross margins (\num{\subGrossMargin}\%) due to minimal direct costs for matchmaking platform
+    \item \textbf{Hardware Economics:} Weighted average margin of \num{\hwWeightedAvgMargin}\% across three SKUs provides healthy unit economics
+    \item \textbf{Merchandise Impact:} Reduces effective CAC by \num{\cacReductionPercent}\%, dramatically improving unit economics
+    \item \textbf{Viral Effects:} Provider incentives reduce CAC by up to \num{\cacViralReductionYearThree}\% by Year 3
+    \item \textbf{Platform Take Rate:} \num{\markPlatformFeePercent}\% platform fee balances provider incentives with platform sustainability
+\end{itemize}
+
+\subsection{Cohort Economics}
+\begin{itemize}
+    \item \textbf{Customer Lifetime:} Average \numfpeval{round(\ltvYearsUsed, 1)} years (capped at \num{\ltvCapYears} years)
+    \item \textbf{Churn Improvement:} From \num{\churnYearOne}\% to \num{\churnYearThree}\% annually
+    \item \textbf{Revenue Retention:} Strong unit retention with growing revenue per user through tier upgrades
+\end{itemize}
