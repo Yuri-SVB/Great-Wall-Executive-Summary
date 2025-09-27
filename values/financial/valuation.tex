@@ -1,0 +1,44 @@
+% valuation.tex - Valuation multiples and target valuations
+
+%% ================= Valuation Multiples =================
+% Base valuation multiples by asset type
+\newcommand{\arrMultiple}{3}
+\newcommand{\hwMultiple}{1.5}
+
+% Conservative revenue multiple for Year 2 valuation
+\newcommand{\yearTwoRevMultiple}{2.5}
+
+%% ================= Series-Specific Multiples =================
+% Series A ARR multiple (typical: 2.5-3x for growing marketplaces)
+\newcommand{\seriesAARRMultiple}{2.8}
+
+% Conservative ARR multiple for Year 3 target (typical: 2.5-3x)
+\newcommand{\targetARRMultiple}{2.5}
+
+% Premium ARR multiple for Year 3 optimistic (typical: 3.5-4.5x for high growth)
+\newcommand{\optimisticARRMultiple}{4.0}
+
+%% ================= Pre-Revenue Valuation =================
+% Pre-revenue valuation factors (not formula-based)
+% Based on: Team (2 devs), TAM ($5M), Business model (marketplace 28% take)
+% Comparable: Pre-revenue marketplace seeds typically $2-8M
+% Reality: This is negotiated, not calculated
+\newcommand{\seedPreMoneyNegotiated}{5500000}
+
+%% ================= Target Valuations (USD Millions) =================
+% Year 3 target valuation low - Conservative multiple on Year 3 ARR
+\newcommand{\targetValLow}{\fpeval{round(\subARRYearThree * \targetARRMultiple / 1000000, 0)}}
+
+% Year 3 target valuation high - Standard multiple on Year 3 ARR
+\newcommand{\targetValHigh}{\fpeval{round(\subARRYearThree * \arrMultiple / 1000000, 0)}}
+
+% Year 3 optimistic valuation low - Premium multiple on Year 3 ARR
+\newcommand{\optimisticValLow}{\fpeval{round(\subARRYearThree * 3.5 / 1000000, 0)}}
+
+% Year 3 optimistic valuation high - High premium multiple on Year 3 ARR
+\newcommand{\optimisticValHigh}{\fpeval{round(\subARRYearThree * \optimisticARRMultiple / 1000000, 0)}}
+
+%% ================= Hardware Business Valuation =================
+% Hardware business valuation calculations
+\newcommand{\hwValuationYearTwo}{\fpeval{\hwWeightedAvgGP * \hwCustomersYearTwo * \hwMultiple}}
+\newcommand{\hwValuationYearThree}{\fpeval{\hwWeightedAvgGP * \hwCustomersYearThree * \hwMultiple}}
