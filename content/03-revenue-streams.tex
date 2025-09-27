@@ -1,0 +1,68 @@
+% 03-revenue-streams.tex - Detailed revenue model with CAC optimization
+
+\section{Enhanced Business Model with CAC Optimization}
+
+\subsection{Subscription Pricing (Based on Computation Economics)}
+\begin{table}[H]
+\centering
+\caption{Anonymous Computation Marketplace Economics}
+\resizebox{\textwidth}{!}{%
+\begin{tabularx}{1.2\linewidth}{l Y Y Y Y Y Y Y Y}
+\toprule
+Tier & Hours & Charlie Price & Mix & Patrick Cost & Patrick GP & Mark Rev & Total Markup & Monthly Rev/User \\\midrule
+Basic   & \numint{\computeHoursBasic} & \num{\subBasicPrice}  & \num{\subBasicMix}\% & \numfpeval{\patrickCostBasic} & \numfpeval{\patrickProfitBasic} & \numfpeval{\markRevenueBasic} & \numfpeval{\totalMarkupBasic}x & \numfpeval{\subBasicPrice * \subBasicMix / 100} \\
+Medium  & \numint{\computeHoursMedium} & \num{\subMediumPrice} & \num{\subMediumMix}\% & \numfpeval{\patrickCostMedium} & \numfpeval{\patrickProfitMedium} & \numfpeval{\markRevenueMedium} & \numfpeval{\totalMarkupMedium}x & \numfpeval{\subMediumPrice * \subMediumMix / 100} \\
+Professional & \numint{\computeHoursProfessional} & \num{\subProfessionalPrice} & \num{\subProfessionalMix}\% & \numfpeval{\patrickCostProfessional} & \numfpeval{\patrickProfitProfessional} & \numfpeval{\markRevenueProfessional} & \numfpeval{\totalMarkupProfessional}x & \numfpeval{\subProfessionalPrice * \subProfessionalMix / 100} \\
+Golden  & \numint{\computeHoursGolden} & \num{\subGoldenPrice} & \num{\subGoldenMix}\% & \numfpeval{\patrickCostGolden} & \numfpeval{\patrickProfitGolden} & \numfpeval{\markRevenueGolden} & \numfpeval{\totalMarkupGolden}x & \numfpeval{\subGoldenPrice * \subGoldenMix / 100} \\
+Platinum & \numint{\computeHoursPlatinum} & \num{\subPlatinumPrice} & \num{\subPlatinumMix}\% & \numfpeval{\patrickCostPlatinum} & \numfpeval{\patrickProfitPlatinum} & \numfpeval{\markRevenuePlatinum} & \numfpeval{\totalMarkupPlatinum}x & \numfpeval{\subPlatinumPrice * \subPlatinumMix / 100} \\\midrule
+\textbf{Weighted Avg} &  &  & \textbf{\num{100}}\% &  &  &  &  & \textbf{\numfpeval{\subWeightedAvgMonthly}} \\
+\bottomrule
+\end{tabularx}
+}
+\end{table}
+\textit{Note: Patrick's costs based on \numint{\computePowerWatts}W @ \$\num{\electricityCostPerKwh}/kWh, \numfpeval{\weeklyRunsPerMonth} runs/month. All values in USD/month.}
+
+\subsection{Marketplace Economics Justification}
+The pricing structure reflects a progressive markup model:
+\begin{itemize}
+  \item \textbf{Patrick's Progressive Markup (\numfpeval{\patrickMarkupBasic}--\numfpeval{\patrickMarkupPlatinum}x):} 
+  \begin{itemize}
+    \item Basic (\numfpeval{\patrickMarkupBasic}x): Lower margin for short jobs to encourage provider participation
+    \item Professional (\numfpeval{\patrickMarkupProfessional}x): Premium for 48-hour commitment reflecting provider scarcity
+    \item Higher tiers (\numfpeval{\patrickMarkupGolden}--\numfpeval{\patrickMarkupPlatinum}x): Balanced markup for long-duration jobs
+  \end{itemize}
+  \item \textbf{Mark's Platform Fee (\num{\markPlatformFeePercent}\% of Charlie's payment):} Funds anonymous matchmaking infrastructure, reputation system maintenance, dispute resolution, and first-mover advantage consolidation
+  \item \textbf{Economic Balance:} Progressive markups ensure provider incentives align with job commitment requirements while maintaining platform sustainability
+\end{itemize}
+
+\subsection{Hardware Portfolio}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\linewidth}{l Y Y Y Y}
+\toprule
+Device & Retail (USD) & Margin (\%)\cite{industrybenchmark2024} & Mix (\%) & GP/unit \\\midrule
+Entry        & \numint{\hwEntryPrice}  & \num{\hwEntryMargin} & \num{\hwEntryMix} & \numint{\hwEntryPrice * \hwEntryMargin / 100} \\
+Professional & \numint{\hwProfPrice} & \num{\hwProfMargin} & \num{\hwProfMix} & \numint{\hwProfPrice * \hwProfMargin / 100} \\
+Premium      & \numint{\hwPremiumPrice} & \num{\hwPremiumMargin} & \num{\hwPremiumMix} & \numint{\hwPremiumPrice * \hwPremiumMargin / 100} \\\midrule
+\textbf{Weighted Avg GP} &  &  &  & \textbf{\numint{\hwWeightedAvgGP}} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Merchandise Economics (CAC Offset Strategy)}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\linewidth}{l Y Y Y}
+\toprule
+Product Category & Price (USD) & Margin (\%)\cite{printful2023} & Profit/Unit \\\midrule
+T-shirts & \num{\merchTshirtPrice} & \num{\merchTshirtMargin} & \numfpeval{\merchTshirtPrice * \merchTshirtMargin / 100} \\
+Caps/Hats & \num{\merchCapPrice} & \num{\merchCapMargin} & \numfpeval{\merchCapPrice * \merchCapMargin / 100} \\
+Mugs & \num{\merchMugPrice} & \num{\merchMugMargin} & \numfpeval{\merchMugPrice * \merchMugMargin / 100} \\
+Stickers/Decals & \num{\merchStickerPrice} & \num{\merchStickerMargin} & \numfpeval{\merchStickerPrice * \merchStickerMargin / 100} \\
+Hoodies/Coats & \num{\merchHoodiePrice} & \num{\merchHoodieMargin} & \numfpeval{\merchHoodiePrice * \merchHoodieMargin / 100} \\
+Backpacks & \num{\merchBackpackPrice} & \num{\merchBackpackMargin} & \numfpeval{\merchBackpackPrice * \merchBackpackMargin / 100} \\\midrule
+\textbf{Average basket} & \textbf{\num{\merchAvgPrice}} & \textbf{\num{\merchAvgMargin}} & \textbf{\numfpeval{\merchAvgProfit}} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+\textit{\num{\merchAttachRate}\% of subscription customers purchase merchandise, reducing effective CAC by \$\numfpeval{\merchOffsetSubsCalc}}\cite{shopify2024}

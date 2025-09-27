@@ -1,0 +1,42 @@
+% 02-business-model.tex - Business model clarification and overview
+
+\section{Business Model: Two Revenue Streams + CAC Optimization}
+
+\subsection{Revenue Stream Segmentation}
+\begin{itemize}
+  \item \textbf{Subscriptions:} Anonymous marketplace for recurring memory-intensive computation services
+  \item \textbf{Hardware:} One-time purchase for technical users wanting self-sovereign security tools
+  \item \textbf{Merchandise (CAC Offset):} Branded items (t-shirts, caps, mugs) sold at profitable margins to reduce customer acquisition costs
+\end{itemize}
+
+\subsection{Subscription Service: Anonymous Computation Marketplace}
+The subscription service operates as a computation matchmaking marketplace connecting:
+\begin{itemize}
+  \item \textbf{Charlie (Clients):} Users needing recurring memory-intensive computation without owning adequate hardware - anonymity critical for privacy
+  \item \textbf{Patrick (Providers):} PC owners monetizing idle computational capacity - can operate publicly to attract clients
+  \item \textbf{Mark (Marketplace):} Platform providing anonymous client matching, reputation system, and dispute arbitration
+\end{itemize}
+
+Key marketplace dynamics:
+\begin{itemize}
+  \item Computation jobs are simple but memory-intensive, recurring weekly
+  \item Anonymity is critical for Charlie, while Patrick can promote services openly
+  \item Provider incentives drive viral growth as they recruit clients to increase revenue\cite{parker2016}
+  \item First-mover advantage critical to build reputable user base before competitors
+  \item Tiers differentiate by computation duration: \numint{\computeHoursBasic}, \numint{\computeHoursMedium}, \numint{\computeHoursProfessional}, \numint{\computeHoursGolden}, and \numint{\computeHoursPlatinum} hours
+\end{itemize}
+
+\begin{table}[H]
+\centering
+\caption{Customer Segment Characteristics}
+\begin{tabularx}{\linewidth}{l X X}
+\toprule
+Attribute & Subscription Users & Hardware Users \\\midrule
+Technical Level & Low-Medium & High \\
+Purchase Preference & Recurring & One-time \\
+Price Sensitivity & Medium & Low \\
+SAM Size & \numint{\samSubs}\cite{chainalysis2024,triple2023} & \numint{\samHw}\cite{chainalysis2024,triple2023} \\
+Merchandise Attach Rate & \num{\merchAttachRate}\%\cite{shopify2024} & \num{\hwMerchAttachRate}\%\cite{shopify2024} \\
+\bottomrule
+\end{tabularx}
+\end{table}
