@@ -1,0 +1,62 @@
+% acquisition.tex - Customer acquisition costs and marketing budgets
+
+%% ================= Annual Marketing Budgets =================
+% Year 1 marketing budget (from seed round)
+\newcommand{\marketingBudgetYearOne}{80000}
+
+% Year 2 marketing budget (seed remainder + Series A portion)
+\newcommand{\marketingBudgetYearTwo}{120000}
+
+% Year 3 marketing budget (Series A remainder + revenue reinvestment)
+\newcommand{\marketingBudgetYearThree}{150000}
+
+%% ================= Customer Acquisition Costs (CAC) =================
+% Base CAC by acquisition channel (USD per acquired customer)
+\newcommand{\cacContent}{18}
+\newcommand{\cacDigital}{20}
+\newcommand{\cacEvents}{60}
+
+%% ================= Channel Budget Allocation =================
+% Annual budget allocation by channel (USD)
+\newcommand{\budgetContent}{25000}
+\newcommand{\budgetDigital}{60000}
+\newcommand{\budgetEvents}{15000}
+
+%% ================= LTV Calculation Parameters =================
+% Theoretical customer lifetime in years (1/churn_rate)
+\newcommand{\theoreticalLifetimeYears}{\fpeval{1 / \avgAnnualChurn}}
+
+% Conservative LTV cap in years (industry standard)
+\newcommand{\ltvCapYears}{7}
+
+% Actual LTV calculation years (minimum of theoretical and cap)
+\newcommand{\ltvYearsUsed}{\fpeval{min(\theoreticalLifetimeYears, \ltvCapYears)}}
+
+% Annual gross profit per subscriber (for Mark's business)
+\newcommand{\subAnnualGrossProfit}{\fpeval{\markWeightedAvgAnnual * \subGrossMargin / 100}}
+
+% Final LTV calculation (for Mark's business)
+\newcommand{\subLTV}{\fpeval{\subAnnualGrossProfit * \ltvYearsUsed}}
+
+% Monthly gross profit (for payback calculation - Mark's business)
+\newcommand{\subMonthlyGrossProfit}{\fpeval{\markWeightedAvgMonthly * \subGrossMargin / 100}}
+
+%% ================= Revenue Calculations =================
+% Subscription annual revenue based on corrected subscriber counts
+% This is MARK's revenue (platform fees only), not total Charlie payments
+\newcommand{\subRevenueYearOne}{\fpeval{\markWeightedAvgAnnual * \totalSubsYearOne}}
+\newcommand{\subRevenueYearTwo}{\fpeval{\markWeightedAvgAnnual * \totalSubsYearTwo}}
+\newcommand{\subRevenueYearThree}{\fpeval{\markWeightedAvgAnnual * \totalSubsYearThree}}
+
+% ARR calculations - based on exit MRR × 12
+% ARR = Active subscribers at year-end × Mark's average monthly revenue × 12
+\newcommand{\subARRYearOne}{\fpeval{\totalSubsYearOne * \markWeightedAvgMonthly * 12}}
+\newcommand{\subARRYearTwo}{\fpeval{\totalSubsYearTwo * \markWeightedAvgMonthly * 12}}
+\newcommand{\subARRYearThree}{\fpeval{\totalSubsYearThree * \markWeightedAvgMonthly * 12}}
+
+% Growth rate calculations
+\newcommand{\growthRateYearOneTwo}{\fpeval{(\subARRYearTwo / \subARRYearOne - 1) * 100}}
+\newcommand{\growthRateYearTwoThree}{\fpeval{(\subARRYearThree / \subARRYearTwo - 1) * 100}}
+
+% Rule of 40 score (Growth Rate + Profit Margin)
+\newcommand{\ruleOfFortyScore}{\fpeval{\growthRateYearTwoThree + \subGrossMargin}}

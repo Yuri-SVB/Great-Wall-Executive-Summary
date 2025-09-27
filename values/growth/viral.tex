@@ -1,0 +1,36 @@
+% viral.tex - Viral marketing coefficients and network effects
+
+%% ================= Viral Marketing Fundamentals =================
+% Provider referral coefficient (providers incentivized to bring clients)
+% Higher coefficient since providers aren't anonymous and can publicly promote
+% Based on Airbnb host referral data (HBS 2016): 0.2-0.3 range
+\newcommand{\providerViralCoeff}{0.25}
+
+% Annual viral growth factor (compounds as network grows)
+% Conservative based on NFX (2018) marketplace research
+\newcommand{\viralGrowthFactor}{1.10}
+
+%% ================= Viral Customer Growth Multipliers =================
+% Viral multiplier per year (1 + viral coefficient × existing base × adoption rate)
+% Year 1: Limited viral effect as network builds
+\newcommand{\viralMultiplierYearOne}{\fpeval{1 + \providerViralCoeff * 0.2}}
+
+% Year 2: Growing viral effect with proven providers
+\newcommand{\viralMultiplierYearTwo}{\fpeval{1 + \providerViralCoeff * 0.5}}
+
+% Year 3: Strong viral effect with established network
+\newcommand{\viralMultiplierYearThree}{\fpeval{1 + \providerViralCoeff * 0.8}}
+
+%% ================= CAC Reduction from Viral Effects =================
+% CAC reduction from viral effects by year (%)
+% Based on CB Insights (2021) marketplace platform studies
+% Conservative estimates aligned with Kumar et al. (2007) WoM research
+\newcommand{\cacViralReductionYearOne}{8}
+\newcommand{\cacViralReductionYearTwo}{18}
+\newcommand{\cacViralReductionYearThree}{30}
+
+%% ================= Effective CAC with Viral Effects =================
+% Effective CAC after viral reduction
+\newcommand{\effectiveCACYearOne}{\fpeval{\cacDigital * (1 - \cacViralReductionYearOne/100)}}
+\newcommand{\effectiveCACYearTwo}{\fpeval{\cacDigital * (1 - \cacViralReductionYearTwo/100)}}
+\newcommand{\effectiveCACYearThree}{\fpeval{\cacDigital * (1 - \cacViralReductionYearThree/100)}}

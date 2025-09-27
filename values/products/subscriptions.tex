@@ -1,0 +1,37 @@
+% subscriptions.tex - Subscription product definitions and tier structure
+% This file consolidates all subscription-related values
+
+%% ================= Subscription Tiers Overview =================
+% COMPUTATION MARKETPLACE TIERS:
+% Tiers represent different computation job durations (hours):
+% Basic = 2 hours, Medium = 24 hours, Professional = 48 hours,
+% Golden = 168 hours, Platinum = 336 hours
+% All jobs recur weekly (4.28 times per month)
+
+%% ================= Subscription Product Mix =================
+% Note: Mix percentages defined in values/economics/margins.tex
+% Basic:        35% - Entry level users
+% Medium:       40% - Core user base
+% Professional: 15% - Power users
+% Golden:        9% - Enterprise users
+% Platinum:      1% - Premium enterprise
+
+%% ================= Market Size - Subscriptions =================
+% Total Addressable Market (count)
+\newcommand{\tamSubsGlobal}{5000000}
+
+% Serviceable Available Market (count)
+\newcommand{\samSubs}{500000}
+
+% Target penetration of SAM (%)
+\newcommand{\targetShareSubs}{10}
+
+% Target customer count for subscriptions (thousands)
+\newcommand{\targetSubsCountk}{50}
+
+%% ================= Operational Metrics =================
+% CAC reduction percentage from merchandise
+\newcommand{\cacReductionPercent}{40}
+
+% Combined TAM in thousands
+\newcommand{\combinedTAMk}{700}

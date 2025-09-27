@@ -1,0 +1,70 @@
+% merchandise.tex - Merchandise portfolio for CAC offset strategy
+
+%% ================= Merchandise Strategy =================
+% Merchandise serves dual purpose:
+% 1. Brand loyalty and community building
+% 2. CAC offset through profitable sales
+% Industry benchmark: 15-25% attach rate typical (Shopify 2024)
+% Our projections: 60% (subscriptions), 65% (hardware)
+
+%% ================= Merchandise Attach Rates =================
+% Merchandise attach rate for subscription customers (%)
+% 60% - optimistic but justified by:
+% 1. Security-focused community has strong identity/tribal aspects
+% 2. Bitcoin users historically show high brand loyalty
+% 3. Physical security tools create natural cross-sell opportunity
+% 4. "Not your keys, not your coins" culture drives physical product affinity
+% 5. Anonymous marketplace users value privacy-respecting branded gear
+\newcommand{\merchAttachRate}{60}
+
+% Merchandise attach rate for hardware customers (%)
+% Higher than subscription due to:
+% 1. Hardware buyers already demonstrated willingness to purchase physical goods
+% 2. Natural bundling opportunity at point of hardware purchase
+% 3. Security-conscious users value branded accessories for their devices
+\newcommand{\hwMerchAttachRate}{65}
+
+%% ================= Merchandise Portfolio & Pricing =================
+% Average basket contains 1.2 items @ $23 each = $28 total
+
+% T-shirts: Core product
+\newcommand{\merchTshirtPrice}{25}
+\newcommand{\merchTshirtMargin}{50}
+
+% Caps/Hats: Popular accessory
+\newcommand{\merchCapPrice}{20}
+\newcommand{\merchCapMargin}{45}
+
+% Mugs: Office/home use
+\newcommand{\merchMugPrice}{15}
+\newcommand{\merchMugMargin}{55}
+
+% Stickers/Decals: Low-price entry
+\newcommand{\merchStickerPrice}{5}
+\newcommand{\merchStickerMargin}{70}
+
+% Hoodies/Coats: Premium apparel
+\newcommand{\merchHoodiePrice}{45}
+\newcommand{\merchHoodieMargin}{40}
+
+% Backpacks: Functional accessory
+\newcommand{\merchBackpackPrice}{35}
+\newcommand{\merchBackpackMargin}{45}
+
+%% ================= Merchandise Economics =================
+% Average basket price (USD)
+\newcommand{\merchAvgPrice}{28}
+
+% Merchandise gross margin (%)
+% Based on print-on-demand industry standards (Printful 2023):
+% Weighted average across product mix
+\newcommand{\merchAvgMargin}{48}
+
+% Merchandise average profit per unit (USD)
+\newcommand{\merchAvgProfit}{\fpeval{\merchAvgPrice * \merchAvgMargin / 100}}
+
+% Merchandise offset for subscription customers (USD)
+\newcommand{\merchOffsetSubsCalc}{\fpeval{\merchAttachRate / 100 * \merchAvgProfit}}
+
+% Merchandise offset for hardware customers (USD)
+\newcommand{\merchOffsetHwCalc}{\fpeval{\hwMerchAttachRate / 100 * \merchAvgProfit}}
