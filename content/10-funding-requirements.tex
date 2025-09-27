@@ -1,0 +1,75 @@
+% 10-funding-requirements.tex - Funding rounds and use of proceeds
+
+\section{Funding Requirements and Use of Proceeds}
+
+\subsection{Seed Round (Current)}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\linewidth}{l Y Y}
+\toprule
+Category & Amount (USD) & Purpose \\\midrule
+Subscription Platform & \numint{\seedUseSubPlatform} & Anonymous matchmaking, reputation system \\
+Marketing \& Sales & \numint{\seedUseMarketing} & Customer acquisition for subscriptions \\
+Working Capital & \numint{\seedUseWorkingCap} & Initial merchandise inventory \\
+Operations & \numint{\seedUseOperations} & Team (\num{\seedTeamSize} devs), infrastructure, compliance \\
+\textbf{Total Seed Round} & \textbf{\numint{\seedAmount}} & \textbf{\num{\seedRunway}-month runway} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Series A Requirements (Year 1)}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\linewidth}{l Y Y}
+\toprule
+Category & Amount (USD) & Purpose \\\midrule
+Hardware Development\cite{ycombinator2022} & \numint{\seriesAUseHwDev} & Design, prototype, certifications \\
+Manufacturing Setup & \numint{\seriesAUseMfg} & Initial production run, QA \\
+Marketing Expansion & \numint{\seriesAUseMarketing} & Hardware launch campaign \\
+Team Growth & \numint{\seriesAUseTeam} & Engineers, support, sales \\
+\textbf{Total Series A} & \textbf{\numint{\seriesAAmount}} & \textbf{Hardware launch} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Detailed Timeline}
+
+\textbf{Year 0 (Months 0-12): Subscription Focus}
+\begin{itemize}
+  \item Month 0: Raise \$\numint{round(\seedAmount/1000,0)}K seed (\num{\seedEquity}\% equity), \$\numfpeval{round(\seedValuation/1000000,1)}M post-money valuation
+  \item Months \num{\marketplaceBuildStartMonth}--\num{\marketplaceBuildEndMonth}: Build anonymous matchmaking infrastructure and reputation system
+  \item Months \num{\betaLaunchStartMonth}--\num{\betaLaunchEndMonth}: Launch beta, acquire first \numint{\betaUsers} users
+  \item Months \num{\marketplaceScaleStartMonth}--\num{\marketplaceScaleEndMonth}: Scale marketplace, prove unit economics
+  \item Month 13: Series A \$\numint{round(\seriesAAmount/1000,0)}K (\num{\seriesAEquity}\% equity), \$\numfpeval{\seriesAValuation/1000000}M post-money valuation
+  \item Valuation: \$\num{\targetValLow}--\num{\targetValHigh}M (conservative \num{\yearTwoRevMultiple}x ARR)
+  \item Exit valuation: \$\num{\targetValLow}--\num{\optimisticValHigh}M depending on growth rate and market conditions
+\end{itemize}
+
+\textbf{Year 1 (Months 13-24): Hardware Development}
+\begin{itemize}
+  \item Month 13: Series A \$\numint{\seriesAAmount/1000}K (\num{\seriesAEquity}\% equity), \$\numint{\seriesAValuation/1000000}M post-money valuation
+  \item Months \num{\hwDesignStartMonth}--\num{\hwDesignEndMonth}: Hardware design and prototyping
+  \item Months \num{\hwCertStartMonth}--\num{\hwCertEndMonth}: Security certifications and testing
+  \item Month 20: Manufacturing setup, initial production
+  \item Month 21: Hardware launch, begin sales
+  \item Months 21-24: Scale hardware sales to \numint{\hwCustomersYearTwo} units, \numint{\totalSubsYearTwo} total subscribers
+  \item Exit ARR: \$\numfpeval{round(\subARRYearTwo/1000000,1)}M
+\end{itemize}
+
+\textbf{Year 2 (Months 25-36): Dual Revenue Growth}
+\begin{itemize}
+  \item Revenue: \$\numfpeval{round((\subRevenueYearTwo + \hwWeightedAvgGP * \hwCustomersYearTwo)/1000000,1)}M (subs + hardware)
+  \item Exit ARR: \$\numfpeval{round(\subARRYearTwo/1000000,1)}M
+  \item \numint{\hwCustomersYearTwo} hardware units sold
+  \item \numint{\totalSubsYearTwo} total subscribers
+  \item Valuation: \$30--35M (conservative \num{2.5}x ARR)
+\end{itemize}
+
+\textbf{Year 3+: Scale and Potential Exit}
+\begin{itemize}
+  \item Revenue: \$\numfpeval{round((\subRevenueYearThree + \hwWeightedAvgGP * \hwCustomersYearThree)/1000000,1)}M+ across all channels
+  \item Exit ARR: \$\numfpeval{round(\subARRYearThree/1000000,1)}M
+  \item \numint{\hwCustomersYearThree}+ hardware units annually
+  \item \numint{\totalSubsYearThree}+ subscribers
+  \item Exit valuation: \$35--60M depending on growth rate and market conditions
+\end{itemize}
