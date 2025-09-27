@@ -1,0 +1,31 @@
+% revenue-projections.tex - Multi-year revenue and ARR projections
+
+%% Three-Year Revenue Projection Table
+\begin{table}[H]
+\centering
+\caption{Three-Year Revenue Projections (Moderate Scenario)}
+\begin{tabularx}{\linewidth}{l Y Y Y}
+\toprule
+Revenue Stream & Year 1 (USD) & Year 2 (USD) & Year 3 (USD) \\\midrule
+Subscriptions & \numint{\subRevenueYearOne} & \numint{\subRevenueYearTwo} & \numint{\subRevenueYearThree} \\
+Hardware & \num{0} & \numint{\hwWeightedAvgGP * \hwCustomersYearTwo} & \numint{\hwWeightedAvgGP * \hwCustomersYearThree} \\\midrule
+\textbf{Total Revenue} & \textbf{\numint{\subRevenueYearOne}} & \textbf{\numint{\subRevenueYearTwo + \hwWeightedAvgGP * \hwCustomersYearTwo}} & \textbf{\numint{\subRevenueYearThree + \hwWeightedAvgGP * \hwCustomersYearThree}} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+%% ARR vs Revenue Clarification Table
+\begin{table}[H]
+\centering
+\caption{ARR vs Revenue Clarification}
+\begin{tabularx}{\linewidth}{l Y Y Y}
+\toprule
+Metric & Year 1 & Year 2 & Year 3 \\\midrule
+Subscription Revenue (actual) & \numint{\subRevenueYearOne} & \numint{\subRevenueYearTwo} & \numint{\subRevenueYearThree} \\
+Exit ARR (MRR $\times$ 12) & \numint{\subARRYearOne} & \numint{\subARRYearTwo} & \numint{\subARRYearThree} \\
+Active Subscribers (year-end) & \numint{\totalSubsYearOne} & \numint{\totalSubsYearTwo} & \numint{\totalSubsYearThree} \\
+Mark's Monthly Rev/User & \numfpeval{\markWeightedAvgMonthly} & \numfpeval{\markWeightedAvgMonthly} & \numfpeval{\markWeightedAvgMonthly} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+\textit{Note: Revenue shown is Mark's platform fee revenue (\num{\markPlatformFeePercent}\% of Charlie payments). ARR = Annual Recurring Revenue based on exit monthly run rate.}

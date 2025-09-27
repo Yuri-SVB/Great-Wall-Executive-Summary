@@ -1,0 +1,50 @@
+% valuation-summary.tex - Valuation progression and analysis tables
+
+%% Multiple-Based Valuation Table
+\begin{table}[H]
+\centering
+\caption{Multiple-Based Valuation}
+\begin{tabularx}{\linewidth}{l Y Y Y Y}
+\toprule
+Component & Multiple\cite{highalpha2024,openview2023} & Y1 Value & Y2 Value & Y3 Value \\\midrule
+Subscription Exit ARR & \num{\arrMultiple}x & \numint{\subARRYearOne * \arrMultiple} & \numint{\subARRYearTwo * \arrMultiple} & \numint{\subARRYearThree * \arrMultiple} \\
+Hardware Gross Profit & \num{\hwMultiple}x & \num{0} & \numint{\hwWeightedAvgGP * \hwCustomersYearTwo * \hwMultiple} & \numint{\hwWeightedAvgGP * \hwCustomersYearThree * \hwMultiple} \\\midrule
+\textbf{Total Valuation} &  & \textbf{\numint{\subARRYearOne * \arrMultiple}} & \textbf{\numint{\subARRYearTwo * \arrMultiple + \hwWeightedAvgGP * \hwCustomersYearTwo * \hwMultiple}} & \textbf{\numint{\subARRYearThree * \arrMultiple + \hwWeightedAvgGP * \hwCustomersYearThree * \hwMultiple}} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+%% Investment Timeline Table
+\begin{table}[H]
+\centering
+\caption{Investment Timeline and Valuation Progression}
+\begin{tabularx}{\linewidth}{l Y Y Y Y}
+\toprule
+Stage & Timing & Funding & Valuation & Basis \\\midrule
+\textbf{Seed} & Month 0 & \$\numint{round(\seedAmount/1000,0)}K & \$\numfpeval{round(\seedValuation/1000000,1)}M & Market comparables* \\
+\textbf{Series A} & Month 12 & \$\numint{\seriesAAmount/1000}K & \$\numfpeval{\seriesAValuation/1000000}M & \$\numfpeval{round(\subARRYearOne/1000000,1)}M ARR × \num{\seriesAARRMultiple}x \\
+\textbf{Target} & Year 3 & -- & \$\num{\targetValLow}--\num{\targetValHigh}M & \$\numfpeval{round(\subARRYearThree/1000000,1)}M ARR × \numfpeval{\targetARRMultiple}--\num{\arrMultiple}x \\
+\textbf{Optimistic} & Year 3 & -- & \$\num{\optimisticValLow}--\num{\optimisticValHigh}M & Premium multiples \\
+\bottomrule
+\end{tabularx}
+\end{table}
+\textit{*Pre-revenue valuation based on team, TAM, and marketplace model - not formulaic}
+
+%% Unit Economics Summary Table
+\begin{table}[H]
+\centering
+\caption{Unit Economics Summary}
+\begin{tabularx}{\linewidth}{l Y Y}
+\toprule
+Metric & Subscriptions & Hardware \\\midrule
+Average Revenue (Mark) & \$\numint{\markWeightedAvgAnnual}/year & \$\numint{\hwWeightedAvgPrice}/unit \\
+Gross Margin\cite{openview2023} & \num{\subGrossMargin}\% & \num{\hwWeightedAvgMargin}\% \\
+Gross CAC & \$\num{\cacDigital} & \$\num{\cacEvents} \\
+Merchandise Offset & \$\numfpeval{\merchOffsetSubsCalc} & \$\numfpeval{\merchOffsetHwCalc} \\
+Net CAC & \$\numint{\cacDigital - \merchOffsetSubsCalc} & \$\numint{\cacEvents - \merchOffsetHwCalc} \\
+LTV or Profit/Unit & \$\numint{\subLTV} & \$\numint{\hwWeightedAvgGP} \\
+LTV:CAC Ratio & \numint{\subLTV/(\cacDigital - \merchOffsetSubsCalc)}:\numint{1} & \numint{\hwWeightedAvgGP/(\cacEvents - \merchOffsetHwCalc)}:\numint{1} \\
+Payback Period & $<$\num{1} month & Immediate \\
+\bottomrule
+\end{tabularx}
+\end{table}

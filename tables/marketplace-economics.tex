@@ -1,0 +1,20 @@
+% marketplace-economics.tex - Core marketplace economics table
+
+\begin{table}[H]
+\centering
+\caption{Anonymous Computation Marketplace Economics}
+\resizebox{\textwidth}{!}{%
+\begin{tabularx}{1.2\linewidth}{l Y Y Y Y Y Y Y Y}
+\toprule
+Tier & Hours & Charlie Price & Mix & Patrick Cost & Patrick GP & Mark Rev & Total Markup & Monthly Rev/User \\\midrule
+Basic   & \numint{\computeHoursBasic} & \num{\subBasicPrice}  & \num{\subBasicMix}\% & \numfpeval{\patrickCostBasic} & \numfpeval{\patrickProfitBasic} & \numfpeval{\markRevenueBasic} & \numfpeval{\totalMarkupBasic}x & \numfpeval{\subBasicPrice * \subBasicMix / 100} \\
+Medium  & \numint{\computeHoursMedium} & \num{\subMediumPrice} & \num{\subMediumMix}\% & \numfpeval{\patrickCostMedium} & \numfpeval{\patrickProfitMedium} & \numfpeval{\markRevenueMedium} & \numfpeval{\totalMarkupMedium}x & \numfpeval{\subMediumPrice * \subMediumMix / 100} \\
+Professional & \numint{\computeHoursProfessional} & \num{\subProfessionalPrice} & \num{\subProfessionalMix}\% & \numfpeval{\patrickCostProfessional} & \numfpeval{\patrickProfitProfessional} & \numfpeval{\markRevenueProfessional} & \numfpeval{\totalMarkupProfessional}x & \numfpeval{\subProfessionalPrice * \subProfessionalMix / 100} \\
+Golden  & \numint{\computeHoursGolden} & \num{\subGoldenPrice} & \num{\subGoldenMix}\% & \numfpeval{\patrickCostGolden} & \numfpeval{\patrickProfitGolden} & \numfpeval{\markRevenueGolden} & \numfpeval{\totalMarkupGolden}x & \numfpeval{\subGoldenPrice * \subGoldenMix / 100} \\
+Platinum & \numint{\computeHoursPlatinum} & \num{\subPlatinumPrice} & \num{\subPlatinumMix}\% & \numfpeval{\patrickCostPlatinum} & \numfpeval{\patrickProfitPlatinum} & \numfpeval{\markRevenuePlatinum} & \numfpeval{\totalMarkupPlatinum}x & \numfpeval{\subPlatinumPrice * \subPlatinumMix / 100} \\\midrule
+\textbf{Weighted Avg} &  &  & \textbf{\num{100}}\% &  &  &  &  & \textbf{\numfpeval{\subWeightedAvgMonthly}} \\
+\bottomrule
+\end{tabularx}
+}
+\end{table}
+\textit{Note: Patrick's costs based on \numint{\computePowerWatts}W @ \$\num{\electricityCostPerKwh}/kWh, \numfpeval{\weeklyRunsPerMonth} runs/month. All values in USD/month.}

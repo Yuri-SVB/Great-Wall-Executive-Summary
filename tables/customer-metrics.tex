@@ -1,0 +1,66 @@
+% customer-metrics.tex - Customer acquisition and growth tables
+
+%% Customer Growth Metrics Table
+\begin{table}[H]
+\centering
+\caption{Customer Metrics with Churn}
+\begin{tabularx}{\linewidth}{l Y Y Y}
+\toprule
+Metric & Year 1 & Year 2 & Year 3 \\\midrule
+Base New Subs (Paid) & \numint{\baseNewSubsYearOne} & \numint{\baseNewSubsYearTwo} & \numint{\baseNewSubsYearThree} \\
+Viral Multiplier & \numfpeval{\viralMultiplierYearOne}x & \numfpeval{\viralMultiplierYearTwo}x & \numfpeval{\viralMultiplierYearThree}x \\
+Total New Subscribers & \numint{\newSubsYearOne} & \numint{\newSubsYearTwo} & \numint{\newSubsYearThree} \\
+Cumulative Subs (w/churn) & \numint{\totalSubsYearOne} & \numint{\totalSubsYearTwo} & \numint{\totalSubsYearThree} \\
+Hardware Customers & \num{0} & \numint{\hwCustomersYearTwo} & \numint{\hwCustomersYearThree} \\
+Annual Churn Rate\cite{recurly2024} & \num{\churnYearOne}\% & \num{\churnYearTwo}\% & \num{\churnYearThree}\% \\
+Effective CAC (viral + merch) & \$\numint{\effectiveCACYearOne - \merchOffsetSubsCalc} & \$\numint{\effectiveCACYearTwo - \merchOffsetSubsCalc} & \$\numint{\effectiveCACYearThree - \merchOffsetSubsCalc} \\
+LTV:CAC Ratio & \numint{\subLTV/(\effectiveCACYearOne - \merchOffsetSubsCalc)}:\numint{1} & \numint{\subLTV/(\effectiveCACYearTwo - \merchOffsetSubsCalc)}:\numint{1} & \numint{\subLTV/(\effectiveCACYearThree - \merchOffsetSubsCalc)}:\numint{1} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+%% Marketing Budget Allocation Table
+\begin{table}[H]
+\centering
+\caption{Annual Marketing Budget Allocation}
+\begin{tabularx}{\linewidth}{l Y Y Y Y}
+\toprule
+Year & Budget & Base CAC & Paid Customers & Cost per Customer \\\midrule
+Year 1 & \$\numint{\marketingBudgetYearOne} & \$\num{\cacDigital} & \numint{\baseNewSubsYearOne} & \$\numint{\cacDigital} \\
+Year 2 & \$\numint{\marketingBudgetYearTwo} & \$\num{\cacDigital} & \numint{\baseNewSubsYearTwo} & \$\numint{\cacDigital} \\
+Year 3 & \$\numint{\marketingBudgetYearThree} & \$\num{\cacDigital} & \numint{\baseNewSubsYearThree} & \$\numint{\cacDigital} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+\textit{Note: Shows customers acquired through paid channels before viral effects}
+
+%% CAC by Channel Table
+\begin{table}[H]
+\centering
+\caption{Traditional Acquisition Channels}
+\begin{tabularx}{\linewidth}{l Y Y Y Y}
+\toprule
+Channel & Budget (USD) & Gross CAC\cite{authoranalysis2024} & Merch Offset* & Net CAC \\\midrule
+Digital (Subs) & \numint{\budgetDigital} & \num{\cacDigital} & \numfpeval{\merchOffsetSubsCalc} & \numfpeval{\cacDigital - \merchOffsetSubsCalc} \\
+Content/SEO (Subs) & \numint{\budgetContent} & \num{\cacContent} & \numfpeval{\merchOffsetSubsCalc} & \numfpeval{\cacContent - \merchOffsetSubsCalc} \\
+Events (Hardware Y2+) & \numint{\budgetEvents} & \num{\cacEvents} & \numfpeval{\merchOffsetHwCalc} & \numfpeval{\cacEvents - \merchOffsetHwCalc} \\\midrule
+\textbf{Total} & \textbf{\numint{100000}} &  &  &  \\
+\bottomrule
+\end{tabularx}
+\end{table}
+\textit{*Merchandise offset: Subs @ \num{\merchAttachRate}\% × \$\numfpeval{\merchAvgProfit} = \$\numfpeval{\merchOffsetSubsCalc}, Hardware @ \num{\hwMerchAttachRate}\% × \$\numfpeval{\merchAvgProfit} = \$\numfpeval{\merchOffsetHwCalc}}
+
+%% Viral CAC Reduction Table
+\begin{table}[H]
+\centering
+\caption{Viral Marketing CAC Reduction}
+\begin{tabularx}{\linewidth}{l Y Y Y}
+\toprule
+Year & Base CAC & Viral Reduction\cite{cbinsights2021} & Effective CAC \\\midrule
+Year 1 & \$\num{\cacDigital} & \num{\cacViralReductionYearOne}\% & \$\numfpeval{\effectiveCACYearOne} \\
+Year 2 & \$\num{\cacDigital} & \num{\cacViralReductionYearTwo}\% & \$\numfpeval{\effectiveCACYearTwo} \\
+Year 3 & \$\num{\cacDigital} & \num{\cacViralReductionYearThree}\% & \$\numfpeval{\effectiveCACYearThree} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+\textit{Note: Effective CAC after merchandise offset: Y1 \$\numfpeval{\effectiveCACYearOne - \merchOffsetSubsCalc}, Y2 \$\numfpeval{\effectiveCACYearTwo - \merchOffsetSubsCalc}, Y3 \$\numfpeval{\effectiveCACYearThree - \merchOffsetSubsCalc}}
