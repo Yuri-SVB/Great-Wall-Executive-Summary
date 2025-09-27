@@ -1,0 +1,19 @@
+% formatting.tex - Custom formatting commands and definitions
+
+% Helper commands for formatted computations
+\newcommand{\numfpeval}[1]{\num{\fpeval{#1}}}
+
+% Helper for integer formatting (no decimals)
+\newcommand{\numint}[1]{\num[round-precision=0]{\fpeval{#1}}}
+
+% Custom column type for right-aligned flexible width columns
+\newcolumntype{Y}{>{\raggedleft\arraybackslash}X}
+
+% Page style configuration
+\pagestyle{fancy}
+\fancyhf{} % Clear all header and footer fields
+\renewcommand{\headrulewidth}{0pt} % Remove header line
+\renewcommand{\footrulewidth}{0.4pt} % Add footer line
+
+% Table formatting helpers (can add more as needed)
+% Example: \newcommand{\tablehead}[1]{\textbf{#1}}
