@@ -9,25 +9,25 @@
 % Average annual churn rate across 3 years
 \newcommand{\avgAnnualChurn}{\fpeval{(\churnYearOne + \churnYearTwo + \churnYearThree) / 3 / 100}}
 
-%% ================= Base Customer Acquisition (before viral) =================
-% Base new customers from paid acquisition (marketing budget / CAC)
+%% ================= Customer Acquisition (Direct Paid Only) =================
+% New customers from paid acquisition (marketing budget / CAC)
 \newcommand{\baseNewSubsYearOne}{\fpeval{round(\marketingBudgetYearOne / \cacDigital, 0)}}
 \newcommand{\baseNewSubsYearTwo}{\fpeval{round(\marketingBudgetYearTwo / \cacDigital, 0)}}
 \newcommand{\baseNewSubsYearThree}{\fpeval{round(\marketingBudgetYearThree / \cacDigital, 0)}}
 
-% Base hardware customers from paid acquisition
+% Hardware customers from paid acquisition
 \newcommand{\baseHwCustomersYearTwo}{800}
 \newcommand{\baseHwCustomersYearThree}{1500}
 
-%% ================= Total New Customers (includes viral growth) =================
-% New subscribers in given year (includes viral growth)
-\newcommand{\newSubsYearOne}{\fpeval{round(\baseNewSubsYearOne * \viralMultiplierYearOne, 0)}}
-\newcommand{\newSubsYearTwo}{\fpeval{round(\baseNewSubsYearTwo * \viralMultiplierYearTwo, 0)}}
-\newcommand{\newSubsYearThree}{\fpeval{round(\baseNewSubsYearThree * \viralMultiplierYearThree, 0)}}
+%% ================= Total New Customers (Direct Acquisition Only) =================
+% New subscribers in given year
+\newcommand{\newSubsYearOne}{\baseNewSubsYearOne}
+\newcommand{\newSubsYearTwo}{\baseNewSubsYearTwo}
+\newcommand{\newSubsYearThree}{\baseNewSubsYearThree}
 
-% Hardware customers in given year (includes viral growth)
-\newcommand{\hwCustomersYearTwo}{\fpeval{round(\baseHwCustomersYearTwo * \viralMultiplierYearTwo, 0)}}
-\newcommand{\hwCustomersYearThree}{\fpeval{round(\baseHwCustomersYearThree * \viralMultiplierYearThree, 0)}}
+% Hardware customers in given year
+\newcommand{\hwCustomersYearTwo}{\baseHwCustomersYearTwo}
+\newcommand{\hwCustomersYearThree}{\baseHwCustomersYearThree}
 
 %% ================= Cumulative Active Subscribers =================
 % Total active subscribers at end of year (after churn)
@@ -41,10 +41,10 @@
 \newcommand{\totalSubsYearThree}{\fpeval{round(\totalSubsYearTwo * (1 - \churnYearTwo/100) + \newSubsYearThree, 0)}}
 
 %% ================= Customer Acquisition Efficiency =================
-% Customers acquired per $1000 marketing spend (improves with scale)
-\newcommand{\custPerThousandYearOne}{100}
-\newcommand{\custPerThousandYearTwo}{75}  % Decreases as early adopters exhausted
-\newcommand{\custPerThousandYearThree}{60}
+% Customers acquired per $1000 marketing spend
+\newcommand{\custPerThousandYearOne}{50}
+\newcommand{\custPerThousandYearTwo}{50}
+\newcommand{\custPerThousandYearThree}{50}
 
 %% ================= Beta Launch Metrics =================
 % Beta launch target users

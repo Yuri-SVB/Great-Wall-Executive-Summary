@@ -36,14 +36,12 @@ Mark's Monthly Rev/User & \numfpeval{\markWeightedAvgMonthly} & \numfpeval{\mark
 \begin{tabularx}{\linewidth}{l Y Y Y}
 \toprule
 Metric & Year 1 & Year 2 & Year 3 \\\midrule
-Base New Subs (Paid) & \numint{\baseNewSubsYearOne} & \numint{\baseNewSubsYearTwo} & \numint{\baseNewSubsYearThree} \\
-Viral Multiplier & \numfpeval{\viralMultiplierYearOne}x & \numfpeval{\viralMultiplierYearTwo}x & \numfpeval{\viralMultiplierYearThree}x \\
-Total New Subscribers & \numint{\newSubsYearOne} & \numint{\newSubsYearTwo} & \numint{\newSubsYearThree} \\
+New Subscribers (Paid) & \numint{\newSubsYearOne} & \numint{\newSubsYearTwo} & \numint{\newSubsYearThree} \\
 Cumulative Subs (w/churn) & \numint{\totalSubsYearOne} & \numint{\totalSubsYearTwo} & \numint{\totalSubsYearThree} \\
 Hardware Customers & \num{0} & \numint{\hwCustomersYearTwo} & \numint{\hwCustomersYearThree} \\
 Annual Churn Rate\cite{recurly2024} & \num{\churnYearOne}\% & \num{\churnYearTwo}\% & \num{\churnYearThree}\% \\
-Effective CAC (viral + merch) & \$\numint{\effectiveCACYearOne - \merchOffsetSubsCalc} & \$\numint{\effectiveCACYearTwo - \merchOffsetSubsCalc} & \$\numint{\effectiveCACYearThree - \merchOffsetSubsCalc} \\
-LTV:CAC Ratio & \numint{\subLTV/(\effectiveCACYearOne - \merchOffsetSubsCalc)}:\numint{1} & \numint{\subLTV/(\effectiveCACYearTwo - \merchOffsetSubsCalc)}:\numint{1} & \numint{\subLTV/(\effectiveCACYearThree - \merchOffsetSubsCalc)}:\numint{1} \\
+Effective CAC (after merch) & \$\numint{\cacDigital - \merchOffsetSubsCalc} & \$\numint{\cacDigital - \merchOffsetSubsCalc} & \$\numint{\cacDigital - \merchOffsetSubsCalc} \\
+LTV:CAC Ratio & \numint{\subLTV/(\cacDigital - \merchOffsetSubsCalc)}:\numint{1} & \numint{\subLTV/(\cacDigital - \merchOffsetSubsCalc)}:\numint{1} & \numint{\subLTV/(\cacDigital - \merchOffsetSubsCalc)}:\numint{1} \\
 \bottomrule
 \end{tabularx}
 \end{table}

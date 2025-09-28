@@ -1,4 +1,4 @@
-% 04-customer-acquisition.tex - Customer acquisition strategy and viral effects
+% 04-customer-acquisition.tex - Customer acquisition strategy
 
 \section{Multi-Channel Customer Acquisition}
 
@@ -14,7 +14,6 @@ Year 3 & \$\numint{\marketingBudgetYearThree} & \$\num{\cacDigital} & \numint{\b
 \bottomrule
 \end{tabularx}
 \end{table}
-\textit{Note: Shows customers acquired through paid channels before viral effects}
 
 \subsection{Traditional Acquisition Channels}
 \begin{table}[H]
@@ -31,23 +30,15 @@ Events (Hardware Y2+) & \numint{\budgetEvents} & \num{\cacEvents} & \numfpeval{\
 \end{table}
 \textit{*Merchandise offset: Subs @ \num{\merchAttachRate}\% × \$\numfpeval{\merchAvgProfit} = \$\numfpeval{\merchOffsetSubsCalc}, Hardware @ \num{\hwMerchAttachRate}\% × \$\numfpeval{\merchAvgProfit} = \$\numfpeval{\merchOffsetHwCalc}}
 
-\subsection{Viral Marketing Effects from Provider Incentives}
-Providers (Patrick) are directly incentivized to attract clients (Charlie) as more demand means more computation jobs. Since providers can operate publicly while maintaining client anonymity, this creates a powerful viral marketing dynamic\cite{hbs2016,parker2016}:
-\begin{itemize}
-  \item Each provider attracts ~\num{\providerViralCoeff} new clients through word-of-mouth\cite{kumar2018}
-  \item Providers actively promote the platform to monetize their idle capacity
-  \item Network effect compounds with \num{\viralGrowthFactor}x annual growth factor\cite{nfx2018}
-\end{itemize}
-
+\subsection{Customer Acquisition Economics}
 \begin{table}[H]
 \centering
-\begin{tabularx}{\linewidth}{l Y Y Y}
+\begin{tabularx}{\linewidth}{l Y Y}
 \toprule
-Year & Base CAC & Viral Reduction\cite{cbinsights2021} & Effective CAC \\\midrule
-Year 1 & \$\num{\cacDigital} & \num{\cacViralReductionYearOne}\% & \$\numfpeval{\effectiveCACYearOne} \\
-Year 2 & \$\num{\cacDigital} & \num{\cacViralReductionYearTwo}\% & \$\numfpeval{\effectiveCACYearTwo} \\
-Year 3 & \$\num{\cacDigital} & \num{\cacViralReductionYearThree}\% & \$\numfpeval{\effectiveCACYearThree} \\
+Year & Base CAC & Effective CAC (after merch) \\\midrule
+Year 1 & \$\num{\cacDigital} & \$\numfpeval{\cacDigital - \merchOffsetSubsCalc} \\
+Year 2 & \$\num{\cacDigital} & \$\numfpeval{\cacDigital - \merchOffsetSubsCalc} \\
+Year 3 & \$\num{\cacDigital} & \$\numfpeval{\cacDigital - \merchOffsetSubsCalc} \\
 \bottomrule
 \end{tabularx}
 \end{table}
-\textit{Note: Effective CAC after merchandise offset: Y1 \$\numfpeval{\effectiveCACYearOne - \merchOffsetSubsCalc}, Y2 \$\numfpeval{\effectiveCACYearTwo - \merchOffsetSubsCalc}, Y3 \$\numfpeval{\effectiveCACYearThree - \merchOffsetSubsCalc}}
