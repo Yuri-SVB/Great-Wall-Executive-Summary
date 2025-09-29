@@ -17,22 +17,32 @@
 % Platinum:      1% - Premium enterprise
 
 %% ================= Market Size - Subscriptions =================
-% Total Addressable Market (count)
-% Includes Bitcoin users, password manager users, private security customers, physical vault users
-\newcommand{\tamSubsGlobal}{9000000}
+% TAM Components (estimated user counts)
+\newcommand{\tamBitcoinUsers}{3000000}      % Bitcoin security-conscious users
+\newcommand{\tamPasswordMgrUsers}{4000000}   % Password manager users seeking stronger security
+\newcommand{\tamPrivateSecUsers}{1500000}    % Private security/insurance customers
+\newcommand{\tamPhysicalVaultUsers}{500000}  % Physical vault users transitioning to digital
 
-% Serviceable Available Market (count)
-\newcommand{\samSubs}{500000}
+% Total Addressable Market (count) - sum of all segments
+\newcommand{\tamSubsGlobal}{\fpeval{\tamBitcoinUsers + \tamPasswordMgrUsers + \tamPrivateSecUsers + \tamPhysicalVaultUsers}}
+
+% SAM as percentage of TAM
+\newcommand{\samPercentOfTam}{15}  % 15% of TAM is serviceable
+
+% Serviceable Available Market (calculated from TAM)
+\newcommand{\samSubs}{\fpeval{round(\tamSubsGlobal * \samPercentOfTam / 100, -5)}}
 
 % Target penetration of SAM (%)
-\newcommand{\targetShareSubs}{10}
+\newcommand{\targetShareSubs}{15}  % 3.5% of SAM
 
 % Target customer count for subscriptions (thousands)
-\newcommand{\targetSubsCountk}{50}
+\newcommand{\targetSubsCountk}{\fpeval{round(\samSubs * \targetShareSubs / 100 / 1000, 0)}}
 
 %% ================= Operational Metrics =================
 % CAC reduction percentage from merchandise
-\newcommand{\cacReductionPercent}{40}
+% Formula: (merchAttachRate * merchAvgPrice * merchAvgMargin / 100) / cacDigital * 100
+% Using values from merchandise.tex and acquisition.tex
+\newcommand{\cacReductionPercent}{\fpeval{round(\merchAttachRate * \merchAvgPrice * \merchAvgMargin / 100 / \cacDigital * 100, 1)}}
 
-% Combined TAM in thousands
-\newcommand{\combinedTAMk}{1250}
+% Combined TAM in thousands (subscriptions + hardware)
+\newcommand{\combinedTAMk}{\fpeval{round((\tamSubsGlobal + \tamHwGlobal) / 1000, 0)}}

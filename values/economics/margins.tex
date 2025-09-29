@@ -1,8 +1,15 @@
 % margins.tex - Platform fees, gross margins, and profitability metrics
 
 %% ================= Platform Economics =================
-% Mark's platform fee percentage (of Charlie's payment).
-\newcommand{\markPlatformFeePercent}{28}
+% Mark's base platform fee percentage (marketplace take rate)
+\newcommand{\markBasePlatformFeePercent}{28}
+
+% Virtual marketing budget percentage (provider marketing value)
+\newcommand{\virtualMarketingBudget}{20}
+
+% Effective platform fee including virtual marketing budget
+\newcommand{\markPlatformFeePercent}{\fpeval{\markBasePlatformFeePercent + \virtualMarketingBudget}}
+
 
 % Subscription gross margin (%).
 % Mark keeps 100% of the platform fee as gross margin since Mark has minimal direct costs

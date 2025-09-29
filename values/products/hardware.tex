@@ -7,27 +7,64 @@
 % Premium:      For enterprises and high-security applications
 
 %% ================= Hardware Pricing & Margins =================
-% Note: Prices defined in values/economics/pricing.tex
-% Entry:        $500  @ 40% margin
-% Professional: $1000 @ 45% margin  
-% Premium:      $2000 @ 50% margin
+% Hardware SKU prices (USD)
+\newcommand{\hwEntryPrice}{500}
+\newcommand{\hwProfPrice}{1000}
+\newcommand{\hwPremiumPrice}{2000}
+
+% Hardware gross margins by SKU (%)
+\newcommand{\hwEntryMargin}{35}
+\newcommand{\hwProfMargin}{42}
+\newcommand{\hwPremiumMargin}{48}
 
 %% ================= Hardware Customer Mix =================
-% Note: Mix percentages defined in values/economics/margins.tex
-% Entry:        60% - Mass market
-% Professional: 30% - Serious users
-% Premium:      10% - Enterprise/whale customers
+% Distribution of hardware buyers across SKUs (%)
+\newcommand{\hwEntryMix}{50}       % Mass market
+\newcommand{\hwProfMix}{35}        % Serious users  
+\newcommand{\hwPremiumMix}{15}     % Enterprise/whale customers
+
+%% ================= Calculated Hardware Metrics =================
+% Gross profit per unit by SKU
+\newcommand{\hwEntryGP}{\fpeval{round(\hwEntryPrice * \hwEntryMargin / 100, 0)}}
+\newcommand{\hwProfGP}{\fpeval{round(\hwProfPrice * \hwProfMargin / 100, 0)}}
+\newcommand{\hwPremiumGP}{\fpeval{round(\hwPremiumPrice * \hwPremiumMargin / 100, 0)}}
+
+% Weighted average hardware price
+\newcommand{\hwWeightedAvgPrice}{\fpeval{round(
+  \hwEntryPrice * \hwEntryMix / 100 + 
+  \hwProfPrice * \hwProfMix / 100 + 
+  \hwPremiumPrice * \hwPremiumMix / 100, 0)}}
+
+% Weighted average hardware margin
+\newcommand{\hwWeightedAvgMargin}{\fpeval{round(
+  \hwEntryMargin * \hwEntryMix / 100 + 
+  \hwProfMargin * \hwProfMix / 100 + 
+  \hwPremiumMargin * \hwPremiumMix / 100, 1)}}
+
+% Weighted average hardware gross profit
+\newcommand{\hwWeightedAvgGP}{\fpeval{round(
+  \hwEntryGP * \hwEntryMix / 100 + 
+  \hwProfGP * \hwProfMix / 100 + 
+  \hwPremiumGP * \hwPremiumMix / 100, 0)}}
 
 %% ================= Market Size - Hardware =================
-% Total Addressable Market (count)
-% Includes Bitcoin users, password manager users, private security customers, physical vault users
-\newcommand{\tamHwGlobal}{3500000}
+% TAM Components for hardware (estimated user counts)
+\newcommand{\tamHwBitcoinPower}{1500000}     % Bitcoin power users wanting self-sovereign hardware
+\newcommand{\tamHwPasswordMgrUpgrade}{800000} % Password mgr users seeking hardware upgrade
+\newcommand{\tamHwPrivateSec}{600000}        % Private security customers wanting physical device
+\newcommand{\tamHwPhysicalVault}{600000}     % Physical vault users (direct replacement market)
 
-% Serviceable Available Market (count)
-\newcommand{\samHw}{200000}
+% Total Addressable Market (count) - sum of all segments
+\newcommand{\tamHwGlobal}{\fpeval{\tamHwBitcoinPower + \tamHwPasswordMgrUpgrade + \tamHwPrivateSec + \tamHwPhysicalVault}}
+
+% SAM as percentage of hardware TAM
+\newcommand{\samHwPercentOfTam}{10}  % 10% - hardware has lower SAM % due to higher friction
+
+% Serviceable Available Market (calculated from TAM)
+\newcommand{\samHw}{\fpeval{round(\tamHwGlobal * \samHwPercentOfTam / 100, -4)}}
 
 % Target penetration of SAM (%)
-\newcommand{\targetShareHw}{5}
+\newcommand{\targetShareHw}{15}  % 5% of SAM - original business plan target
 
 % Target customer count for hardware (thousands)
-\newcommand{\targetHwCountk}{10}
+\newcommand{\targetHwCountk}{\fpeval{round(\samHw * \targetShareHw / 100 / 1000, 0)}}
