@@ -54,10 +54,12 @@
 % Solving: subsPerMonth * monthlyRevPerSub * M * (M+1) / 2 = monthlyBurn * M
 % Simplifies to: M = (2 * monthlyBurn) / (subsPerMonth * monthlyRevPerSub) - 1
 
-\newcommand{\breakevenMonthActual}{\fpeval{round((2 * \monthlyBurnYearOne) / (\subsPerMonth * \monthlyRevPerSub) - 1, 0)}}
+% Calculate the raw breakeven month
+\newcommand{\breakevenMonthRaw}{\fpeval{(2 * \monthlyBurnYearOne) / (\subsPerMonth * \monthlyRevPerSub) - 1}}
 
-% If result is negative or too high, set a reasonable cap
-\newcommand{\breakevenMonth}{\fpeval{min(max(\breakevenMonthActual, 12), 36)}}
+% Round and cap the result
+\newcommand{\breakevenMonth}{\fpeval{round(min(max(\breakevenMonthRaw, 12), 36), 0)}}
 
-% Subscribers at breakeven (using actual month)
-\newcommand{\breakevenSubscribers}{\fpeval{round(\breakevenMonth * \subsPerMonth, -10)}}
+% Calculate subscribers at breakeven - ensure not zero
+\newcommand{\breakevenSubscribersRaw}{\fpeval{\breakevenMonth * \subsPerMonth}}
+\newcommand{\breakevenSubscribers}{\fpeval{round(\breakevenSubscribersRaw, -1)}}

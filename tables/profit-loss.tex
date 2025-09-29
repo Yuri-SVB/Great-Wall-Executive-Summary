@@ -1,4 +1,5 @@
-% profit-loss-summary.tex - Summary P&L table
+% profit-loss-summary.tex - Summary P&L table with actual revenue
+% Location: tables/profit-loss-summary.tex
 
 \begin{table}[H]
 \centering
@@ -7,9 +8,9 @@
 \toprule
 \textbf{(USD)} & \textbf{Year 1} & \textbf{Year 2} & \textbf{Year 3} \\\midrule
 \multicolumn{4}{l}{\textbf{Revenue}} \\
-Subscription Revenue & \numint{\subRevenueYearOne} & \numint{\subRevenueYearTwo} & \numint{\subRevenueYearThree} \\
-Hardware Revenue & \num{0} & \numint{\hwWeightedAvgGP * \hwCustomersYearTwo} & \numint{\hwWeightedAvgGP * \hwCustomersYearThree} \\
-\textbf{Total Revenue} & \textbf{\numint{\subRevenueYearOne}} & \textbf{\numint{\subRevenueYearTwo + \hwWeightedAvgGP * \hwCustomersYearTwo}} & \textbf{\numint{\subRevenueYearThree + \hwWeightedAvgGP * \hwCustomersYearThree}} \\\midrule
+Subscription Revenue & \numint{\actualSubRevenueYearOne} & \numint{\actualSubRevenueYearTwo} & \numint{\actualSubRevenueYearThree} \\
+Hardware Revenue & \num{0} & \numint{\actualHwRevenueYearTwo} & \numint{\actualHwRevenueYearThree} \\
+\textbf{Total Revenue} & \textbf{\numint{\totalActualRevenueYearOne}} & \textbf{\numint{\totalActualRevenueYearTwo}} & \textbf{\numint{\totalActualRevenueYearThree}} \\\midrule
 \multicolumn{4}{l}{\textbf{Operating Expenses}} \\
 Team Salaries & \numint{\teamSalariesYearOne} & \numint{\teamSalariesYearTwo} & \numint{\teamSalariesYearThree} \\
 Marketing & \numint{\marketingBudgetYearOne} & \numint{\marketingBudgetYearTwo} & \numint{\marketingBudgetYearThree} \\
@@ -17,7 +18,7 @@ Infrastructure & \numint{\infrastructureYearOne} & \numint{\infrastructureYearTw
 Payment Processing & \numint{\paymentCostsYearOne} & \numint{\paymentCostsYearTwo} & \numint{\paymentCostsYearThree} \\
 Legal/Compliance & \numint{\legalComplianceYearOne} & \numint{\legalComplianceYearTwo} & \numint{\legalComplianceYearThree} \\
 \textbf{Total OpEx} & \textbf{\numint{\totalOpexYearOne + \marketingBudgetYearOne}} & \textbf{\numint{\totalOpexYearTwo + \marketingBudgetYearTwo}} & \textbf{\numint{\totalOpexYearThree + \marketingBudgetYearThree}} \\\midrule
-\textbf{Net Income (Loss)} & \textbf{\numint{\subRevenueYearOne - \totalOpexYearOne - \marketingBudgetYearOne}} & \textbf{\numint{\subRevenueYearTwo + \hwWeightedAvgGP * \hwCustomersYearTwo - \totalOpexYearTwo - \marketingBudgetYearTwo}} & \textbf{\numint{\subRevenueYearThree + \hwWeightedAvgGP * \hwCustomersYearThree - \totalOpexYearThree - \marketingBudgetYearThree}} \\
+\textbf{Net Income (Loss)} & \textbf{(\numint{\totalActualRevenueYearOne - \totalOpexYearOne - \marketingBudgetYearOne})} & \textbf{\numint{\totalActualRevenueYearTwo - \totalOpexYearTwo - \marketingBudgetYearTwo}} & \textbf{\numint{\totalActualRevenueYearThree - \totalOpexYearThree - \marketingBudgetYearThree}} \\
 \bottomrule
 \end{tabularx}
 \end{table}
