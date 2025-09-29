@@ -8,44 +8,44 @@
 
 %% ================= Hardware Pricing & Margins =================
 % Hardware SKU prices (USD)
-\newcommand{\hwEntryPrice}{500}
-\newcommand{\hwProfPrice}{1000}
-\newcommand{\hwPremiumPrice}{2000}
+% \newcommand{\hwEntryPrice}{500}
+% \newcommand{\hwProfPrice}{1000}
+% \newcommand{\hwPremiumPrice}{2000}
 
 % Hardware gross margins by SKU (%)
-\newcommand{\hwEntryMargin}{35}
-\newcommand{\hwProfMargin}{42}
-\newcommand{\hwPremiumMargin}{48}
+% \newcommand{\hwEntryMargin}{35}
+% \newcommand{\hwProfMargin}{42}
+% \newcommand{\hwPremiumMargin}{48}
 
 %% ================= Hardware Customer Mix =================
 % Distribution of hardware buyers across SKUs (%)
-\newcommand{\hwEntryMix}{50}       % Mass market
-\newcommand{\hwProfMix}{35}        % Serious users  
-\newcommand{\hwPremiumMix}{15}     % Enterprise/whale customers
+% \newcommand{\hwEntryMix}{50}       % Mass market
+% \newcommand{\hwProfMix}{35}        % Serious users  
+% \newcommand{\hwPremiumMix}{15}     % Enterprise/whale customers
 
 %% ================= Calculated Hardware Metrics =================
 % Gross profit per unit by SKU
-\newcommand{\hwEntryGP}{\fpeval{round(\hwEntryPrice * \hwEntryMargin / 100, 0)}}
-\newcommand{\hwProfGP}{\fpeval{round(\hwProfPrice * \hwProfMargin / 100, 0)}}
-\newcommand{\hwPremiumGP}{\fpeval{round(\hwPremiumPrice * \hwPremiumMargin / 100, 0)}}
+% \newcommand{\hwEntryGP}{\fpeval{round(\hwEntryPrice * \hwEntryMargin / 100, 0)}}
+% \newcommand{\hwProfGP}{\fpeval{round(\hwProfPrice * \hwProfMargin / 100, 0)}}
+% \newcommand{\hwPremiumGP}{\fpeval{round(\hwPremiumPrice * \hwPremiumMargin / 100, 0)}}
 
 % Weighted average hardware price
-\newcommand{\hwWeightedAvgPrice}{\fpeval{round(
-  \hwEntryPrice * \hwEntryMix / 100 + 
-  \hwProfPrice * \hwProfMix / 100 + 
-  \hwPremiumPrice * \hwPremiumMix / 100, 0)}}
+% \newcommand{\hwWeightedAvgPrice}{\fpeval{round(
+%   \hwEntryPrice * \hwEntryMix / 100 + 
+%   \hwProfPrice * \hwProfMix / 100 + 
+%   \hwPremiumPrice * \hwPremiumMix / 100, 0)}}
 
 % Weighted average hardware margin
-\newcommand{\hwWeightedAvgMargin}{\fpeval{round(
-  \hwEntryMargin * \hwEntryMix / 100 + 
-  \hwProfMargin * \hwProfMix / 100 + 
-  \hwPremiumMargin * \hwPremiumMix / 100, 1)}}
+% \newcommand{\hwWeightedAvgMargin}{\fpeval{round(
+%   \hwEntryMargin * \hwEntryMix / 100 + 
+%   \hwProfMargin * \hwProfMix / 100 + 
+%   \hwPremiumMargin * \hwPremiumMix / 100, 1)}}
 
 % Weighted average hardware gross profit
-\newcommand{\hwWeightedAvgGP}{\fpeval{round(
-  \hwEntryGP * \hwEntryMix / 100 + 
-  \hwProfGP * \hwProfMix / 100 + 
-  \hwPremiumGP * \hwPremiumMix / 100, 0)}}
+% \newcommand{\hwWeightedAvgGP}{\fpeval{round(
+%   \hwEntryGP * \hwEntryMix / 100 + 
+%   \hwProfGP * \hwProfMix / 100 + 
+%   \hwPremiumGP * \hwPremiumMix / 100, 0)}}
 
 %% ================= Market Size - Hardware =================
 % TAM Components for hardware (estimated user counts)
@@ -63,8 +63,10 @@
 % Serviceable Available Market (calculated from TAM)
 \newcommand{\samHw}{\fpeval{round(\tamHwGlobal * \samHwPercentOfTam / 100, -4)}}
 
-% Target penetration of SAM (%)
-\newcommand{\targetShareHw}{15}  % 5% of SAM - original business plan target
+% Target penetration of SAM (%) - based on market benchmarks
+% YubiKey: 12% of hardware authentication, Ledger/Trezor: 20-25% of hardware wallets
+% Tile: 15% of Bluetooth trackers with retail partnerships
+\newcommand{\targetShareHw}{10}  % 10% of SAM with strategic partnership
 
 % Target customer count for hardware (thousands)
 \newcommand{\targetHwCountk}{\fpeval{round(\samHw * \targetShareHw / 100 / 1000, 0)}}

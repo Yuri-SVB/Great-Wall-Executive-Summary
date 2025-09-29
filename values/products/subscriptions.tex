@@ -32,8 +32,10 @@
 % Serviceable Available Market (calculated from TAM)
 \newcommand{\samSubs}{\fpeval{round(\tamSubsGlobal * \samPercentOfTam / 100, -5)}}
 
-% Target penetration of SAM (%)
-\newcommand{\targetShareSubs}{15}  % 3.5% of SAM
+% Target penetration of SAM (%) - based on market benchmarks
+% Coinbase: 15% of crypto exchange market, Stripe: 20% of online payments
+% LastPass/1Password: 10-15% of password management market
+\newcommand{\targetShareSubs}{15}  % 15% of SAM with strategic partnership
 
 % Target customer count for subscriptions (thousands)
 \newcommand{\targetSubsCountk}{\fpeval{round(\samSubs * \targetShareSubs / 100 / 1000, 0)}}
