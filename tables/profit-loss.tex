@@ -1,0 +1,24 @@
+% profit-loss-summary.tex - Summary P&L table
+
+\begin{table}[H]
+\centering
+\caption{Three-Year Profit \& Loss Summary}
+\begin{tabularx}{\linewidth}{l Y Y Y}
+\toprule
+\textbf{(USD)} & \textbf{Year 1} & \textbf{Year 2} & \textbf{Year 3} \\\midrule
+\multicolumn{4}{l}{\textbf{Revenue}} \\
+Subscription Revenue & \numint{\subRevenueYearOne} & \numint{\subRevenueYearTwo} & \numint{\subRevenueYearThree} \\
+Hardware Revenue & \num{0} & \numint{\hwWeightedAvgGP * \hwCustomersYearTwo} & \numint{\hwWeightedAvgGP * \hwCustomersYearThree} \\
+\textbf{Total Revenue} & \textbf{\numint{\subRevenueYearOne}} & \textbf{\numint{\subRevenueYearTwo + \hwWeightedAvgGP * \hwCustomersYearTwo}} & \textbf{\numint{\subRevenueYearThree + \hwWeightedAvgGP * \hwCustomersYearThree}} \\\midrule
+\multicolumn{4}{l}{\textbf{Operating Expenses}} \\
+Team Salaries & \numint{\teamSalariesYearOne} & \numint{\teamSalariesYearTwo} & \numint{\teamSalariesYearThree} \\
+Marketing & \numint{\marketingBudgetYearOne} & \numint{\marketingBudgetYearTwo} & \numint{\marketingBudgetYearThree} \\
+Infrastructure & \numint{\infrastructureYearOne} & \numint{\infrastructureYearTwo} & \numint{\infrastructureYearThree} \\
+Payment Processing & \numint{\paymentCostsYearOne} & \numint{\paymentCostsYearTwo} & \numint{\paymentCostsYearThree} \\
+Legal/Compliance & \numint{\legalComplianceYearOne} & \numint{\legalComplianceYearTwo} & \numint{\legalComplianceYearThree} \\
+\textbf{Total OpEx} & \textbf{\numint{\totalOpexYearOne + \marketingBudgetYearOne}} & \textbf{\numint{\totalOpexYearTwo + \marketingBudgetYearTwo}} & \textbf{\numint{\totalOpexYearThree + \marketingBudgetYearThree}} \\\midrule
+\textbf{Net Income (Loss)} & \textbf{\numint{\subRevenueYearOne - \totalOpexYearOne - \marketingBudgetYearOne}} & \textbf{\numint{\subRevenueYearTwo + \hwWeightedAvgGP * \hwCustomersYearTwo - \totalOpexYearTwo - \marketingBudgetYearTwo}} & \textbf{\numint{\subRevenueYearThree + \hwWeightedAvgGP * \hwCustomersYearThree - \totalOpexYearThree - \marketingBudgetYearThree}} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+\textit{Path to profitability: Cash flow positive in Month \numint{\breakevenMonth} at \numint{\breakevenSubscribers} active subscribers}

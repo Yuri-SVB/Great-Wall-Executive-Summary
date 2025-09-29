@@ -1,19 +1,82 @@
-% 05-financial-projections.tex - Three-year financial projections
+% 05-financial-projections.tex - Three-year financial projections with full P&L
 
 \section{Three-Year Financial Projections}
 
-\subsection{Revenue Projections (Moderate Scenario)}
+\subsection{Revenue Projections}
 \begin{table}[H]
 \centering
 \begin{tabularx}{\linewidth}{l Y Y Y}
 \toprule
 Revenue Stream & Year 1 (USD) & Year 2 (USD) & Year 3 (USD) \\\midrule
-Subscriptions & \numint{\subRevenueYearOne} & \numint{\subRevenueYearTwo} & \numint{\subRevenueYearThree} \\
-Hardware & \num{0} & \numint{\hwWeightedAvgGP * \hwCustomersYearTwo} & \numint{\hwWeightedAvgGP * \hwCustomersYearThree} \\\midrule
+Subscriptions (Mark's 28\%) & \numint{\subRevenueYearOne} & \numint{\subRevenueYearTwo} & \numint{\subRevenueYearThree} \\
+Hardware (Gross Profit) & \num{0} & \numint{\hwWeightedAvgGP * \hwCustomersYearTwo} & \numint{\hwWeightedAvgGP * \hwCustomersYearThree} \\\midrule
 \textbf{Total Revenue} & \textbf{\numint{\subRevenueYearOne}} & \textbf{\numint{\subRevenueYearTwo + \hwWeightedAvgGP * \hwCustomersYearTwo}} & \textbf{\numint{\subRevenueYearThree + \hwWeightedAvgGP * \hwCustomersYearThree}} \\
 \bottomrule
 \end{tabularx}
 \end{table}
+
+\subsection{Operating Expenses}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\linewidth}{l Y Y Y}
+\toprule
+Expense Category & Year 1 (USD) & Year 2 (USD) & Year 3 (USD) \\\midrule
+Team Salaries & \numint{\teamSalariesYearOne} & \numint{\teamSalariesYearTwo} & \numint{\teamSalariesYearThree} \\
+Infrastructure/Hosting & \numint{\infrastructureYearOne} & \numint{\infrastructureYearTwo} & \numint{\infrastructureYearThree} \\
+Payment Processing (2.9\%)* & \numint{\paymentCostsYearOne} & \numint{\paymentCostsYearTwo} & \numint{\paymentCostsYearThree} \\
+Legal/Compliance/Insurance & \numint{\legalComplianceYearOne} & \numint{\legalComplianceYearTwo} & \numint{\legalComplianceYearThree} \\
+Marketing & \numint{\marketingBudgetYearOne} & \numint{\marketingBudgetYearTwo} & \numint{\marketingBudgetYearThree} \\\midrule
+\textbf{Total OpEx} & \textbf{\numint{\totalOpexYearOne + \marketingBudgetYearOne}} & \textbf{\numint{\totalOpexYearTwo + \marketingBudgetYearTwo}} & \textbf{\numint{\totalOpexYearThree + \marketingBudgetYearThree}} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+\textit{*Payment processing calculated on gross transaction volume. Note: We plan to incentivize Lightning Network adoption to reduce these fees.}
+
+\subsection{Monthly Burn Rate Analysis}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\linewidth}{l Y Y Y Y}
+\toprule
+\multicolumn{2}{l}{\textbf{Monthly Burn Breakdown}} & Year 1 & Year 2 & Year 3 \\\midrule
+\multicolumn{2}{l}{Team Salaries} & \$\numint{\teamSalariesYearOne/12} & \$\numint{\teamSalariesYearTwo/12} & \$\numint{\teamSalariesYearThree/12} \\
+\multicolumn{2}{l}{Infrastructure} & \$\numint{\infrastructureYearOne/12} & \$\numint{\infrastructureYearTwo/12} & \$\numint{\infrastructureYearThree/12} \\
+\multicolumn{2}{l}{Payment Processing} & \$\numint{\paymentCostsYearOne/12} & \$\numint{\paymentCostsYearTwo/12} & \$\numint{\paymentCostsYearThree/12} \\
+\multicolumn{2}{l}{Legal/Compliance} & \$\numint{\legalComplianceYearOne/12} & \$\numint{\legalComplianceYearTwo/12} & \$\numint{\legalComplianceYearThree/12} \\
+\multicolumn{2}{l}{Marketing} & \$\numint{\marketingBudgetYearOne/12} & \$\numint{\marketingBudgetYearTwo/12} & \$\numint{\marketingBudgetYearThree/12} \\\midrule
+\multicolumn{2}{l}{\textbf{Total Monthly Burn}} & \textbf{\$\numint{\monthlyBurnYearOne}} & \textbf{\$\numint{\monthlyBurnYearTwo}} & \textbf{\$\numint{\monthlyBurnYearThree}} \\\midrule
+\multicolumn{2}{l}{\textbf{Runway Analysis}} &  &  &  \\
+\multicolumn{2}{l}{After Seed (\$200k)} & \numint{\seedRunwayMonths} months &  &  \\
+\multicolumn{2}{l}{After Series A (\$600k)} &  & \numint{\seriesARunwayMonths} months &  \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Path to Profitability}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\linewidth}{l l}
+\toprule
+Metric & Value \\\midrule
+Target Breakeven & Month \numint{\breakevenMonth} \\
+Required Subscribers & \numint{\breakevenSubscribers} \\
+Monthly Revenue at Breakeven & \$\numint{\breakevenSubscribers * \markWeightedAvgMonthly} \\
+Monthly Burn at Breakeven & \$\numint{\monthlyBurnYearThree} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{True Gross Margins}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\linewidth}{l Y Y}
+\toprule
+Business Line & Stated Margin & True Margin (after payment processing) \\\midrule
+Subscriptions & \num{\subGrossMargin}\% & \num{\subTrueGrossMargin}\% \\
+Hardware & \num{\hwWeightedAvgMargin}\% & \num{\hwTrueGrossMargin}\% \\
+\bottomrule
+\end{tabularx}
+\end{table}
+\textit{Note: Subscription margin reflects platform model. Payment processing reduces effective margin by \numfpeval{round(\paymentProcessingFee / \markPlatformFeePercent * 100, 1)}\% of revenue.}
 
 \subsection{ARR vs Revenue Clarification}
 \begin{table}[H]
@@ -24,13 +87,12 @@ Metric & Year 1 & Year 2 & Year 3 \\\midrule
 Subscription Revenue (actual) & \numint{\subRevenueYearOne} & \numint{\subRevenueYearTwo} & \numint{\subRevenueYearThree} \\
 Exit ARR (MRR $\times$ 12) & \numint{\subARRYearOne} & \numint{\subARRYearTwo} & \numint{\subARRYearThree} \\
 Active Subscribers (year-end) & \numint{\totalSubsYearOne} & \numint{\totalSubsYearTwo} & \numint{\totalSubsYearThree} \\
-Mark's Monthly Rev/User & \numfpeval{\markWeightedAvgMonthly} & \numfpeval{\markWeightedAvgMonthly} & \numfpeval{\markWeightedAvgMonthly} \\
+Mark's Monthly Rev/User & \$\numfpeval{\markWeightedAvgMonthly} & \$\numfpeval{\markWeightedAvgMonthly} & \$\numfpeval{\markWeightedAvgMonthly} \\
 \bottomrule
 \end{tabularx}
 \end{table}
-\textit{Note: Revenue shown is Mark's platform fee revenue (\num{\markPlatformFeePercent}\% of Charlie payments). ARR = Annual Recurring Revenue based on exit monthly run rate.}
 
-\subsection{Customer Metrics with Churn}
+\subsection{Customer Metrics}
 \begin{table}[H]
 \centering
 \begin{tabularx}{\linewidth}{l Y Y Y}
@@ -39,9 +101,11 @@ Metric & Year 1 & Year 2 & Year 3 \\\midrule
 New Subscribers (Paid) & \numint{\newSubsYearOne} & \numint{\newSubsYearTwo} & \numint{\newSubsYearThree} \\
 Cumulative Subs (w/churn) & \numint{\totalSubsYearOne} & \numint{\totalSubsYearTwo} & \numint{\totalSubsYearThree} \\
 Hardware Customers & \num{0} & \numint{\hwCustomersYearTwo} & \numint{\hwCustomersYearThree} \\
-Annual Churn Rate\cite{recurly2024} & \num{\churnYearOne}\% & \num{\churnYearTwo}\% & \num{\churnYearThree}\% \\
+Annual Churn Rate & \num{\churnYearOne}\% & \num{\churnYearTwo}\% & \num{\churnYearThree}\% \\
 Effective CAC (after merch) & \$\numint{\cacDigital - \merchOffsetSubsCalc} & \$\numint{\cacDigital - \merchOffsetSubsCalc} & \$\numint{\cacDigital - \merchOffsetSubsCalc} \\
 LTV:CAC Ratio & \numint{\subLTV/(\cacDigital - \merchOffsetSubsCalc)}:\numint{1} & \numint{\subLTV/(\cacDigital - \merchOffsetSubsCalc)}:\numint{1} & \numint{\subLTV/(\cacDigital - \merchOffsetSubsCalc)}:\numint{1} \\
 \bottomrule
 \end{tabularx}
 \end{table}
+
+\input{tables/profit-loss.tex}
