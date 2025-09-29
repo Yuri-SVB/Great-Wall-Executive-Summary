@@ -1,19 +1,25 @@
 % 05-financial-projections.tex - Three-year financial projections with full P&L
+% Location: content/05-financial-projections.tex
 
 \section{Three-Year Financial Projections}
 
-\subsection{Revenue Projections}
+\subsection{Revenue Projections - Exit ARR vs Actual Revenue}
 \begin{table}[H]
 \centering
 \begin{tabularx}{\linewidth}{l Y Y Y}
 \toprule
-Revenue Stream & Year 1 (USD) & Year 2 (USD) & Year 3 (USD) \\\midrule
-Subscriptions (Mark's 28\%) & \numint{\subRevenueYearOne} & \numint{\subRevenueYearTwo} & \numint{\subRevenueYearThree} \\
-Hardware (Gross Profit) & \num{0} & \numint{\hwWeightedAvgGP * \hwCustomersYearTwo} & \numint{\hwWeightedAvgGP * \hwCustomersYearThree} \\\midrule
-\textbf{Total Revenue} & \textbf{\numint{\subRevenueYearOne}} & \textbf{\numint{\subRevenueYearTwo + \hwWeightedAvgGP * \hwCustomersYearTwo}} & \textbf{\numint{\subRevenueYearThree + \hwWeightedAvgGP * \hwCustomersYearThree}} \\
+Revenue Metric & Year 1 (USD) & Year 2 (USD) & Year 3 (USD) \\\midrule
+\multicolumn{4}{l}{\textbf{Exit ARR (for valuation)}} \\
+Subscription Exit ARR & \numint{\subARRYearOne} & \numint{\subARRYearTwo} & \numint{\subARRYearThree} \\
+Active Subs (year-end) & \numint{\totalSubsYearOne} & \numint{\totalSubsYearTwo} & \numint{\totalSubsYearThree} \\\midrule
+\multicolumn{4}{l}{\textbf{Actual Revenue Collected}} \\
+Subscription Revenue* & \numint{\actualSubRevenueYearOne} & \numint{\actualSubRevenueYearTwo} & \numint{\actualSubRevenueYearThree} \\
+Hardware Revenue & \num{0} & \numint{\actualHwRevenueYearTwo} & \numint{\actualHwRevenueYearThree} \\
+\textbf{Total Actual Revenue} & \textbf{\numint{\totalActualRevenueYearOne}} & \textbf{\numint{\totalActualRevenueYearTwo}} & \textbf{\numint{\totalActualRevenueYearThree}} \\
 \bottomrule
 \end{tabularx}
 \end{table}
+\textit{*Actual revenue accounts for when subscribers join. New subscribers contribute average \num{\avgRevenueMonthsYearOne} months of revenue in their first year.}
 
 \subsection{Operating Expenses}
 \begin{table}[H]

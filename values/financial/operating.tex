@@ -1,0 +1,65 @@
+% operating.tex - Operating expenses and burn rate analysis
+% Location: values/financial/operating.tex
+
+%% ================= Team Expenses =================
+% Annual salaries by year (USD)
+\newcommand{\teamSalariesYearOne}{240000}  % 2 developers @ $120k
+\newcommand{\teamSalariesYearTwo}{360000}  % +1 ops/support
+\newcommand{\teamSalariesYearThree}{480000} % +1 sales/bizdev
+
+%% ================= Infrastructure Costs =================
+% Annual platform/hosting costs (USD)
+\newcommand{\infrastructureYearOne}{24000}   % $2k/month
+\newcommand{\infrastructureYearTwo}{60000}   % $5k/month  
+\newcommand{\infrastructureYearThree}{120000} % $10k/month
+
+%% ================= Payment Processing =================
+% Payment processor fee (% of gross transaction volume)
+\newcommand{\paymentProcessingFee}{2.9}
+
+% Calculate gross transaction volumes (Charlie's total payments)
+% Year 1: Actual volume based on timing - REQUIRES revenue-timing.tex
+\newcommand{\grossVolumeYearOne}{\fpeval{\actualSubRevenueYearOne / \markPlatformFeePercent * 100}}
+
+% Year 2-3: Actual volume based on timing
+\newcommand{\grossVolumeYearTwo}{\fpeval{\actualSubRevenueYearTwo / \markPlatformFeePercent * 100}}
+\newcommand{\grossVolumeYearThree}{\fpeval{\actualSubRevenueYearThree / \markPlatformFeePercent * 100}}
+
+% Payment processing costs (USD)
+\newcommand{\paymentCostsYearOne}{\fpeval{\grossVolumeYearOne * \paymentProcessingFee / 100}}
+\newcommand{\paymentCostsYearTwo}{\fpeval{(\grossVolumeYearTwo + \hwWeightedAvgPrice * \hwCustomersYearTwo) * \paymentProcessingFee / 100}}
+\newcommand{\paymentCostsYearThree}{\fpeval{(\grossVolumeYearThree + \hwWeightedAvgPrice * \hwCustomersYearThree) * \paymentProcessingFee / 100}}
+
+%% ================= Other Operating Expenses =================
+% Legal, compliance, insurance (USD/year)
+\newcommand{\legalComplianceYearOne}{20000}
+\newcommand{\legalComplianceYearTwo}{30000}
+\newcommand{\legalComplianceYearThree}{40000}
+
+%% ================= Total Operating Expenses =================
+% Total opex by year (excluding marketing)
+\newcommand{\totalOpexYearOne}{\fpeval{\teamSalariesYearOne + \infrastructureYearOne + \paymentCostsYearOne + \legalComplianceYearOne}}
+\newcommand{\totalOpexYearTwo}{\fpeval{\teamSalariesYearTwo + \infrastructureYearTwo + \paymentCostsYearTwo + \legalComplianceYearTwo}}
+\newcommand{\totalOpexYearThree}{\fpeval{\teamSalariesYearThree + \infrastructureYearThree + \paymentCostsYearThree + \legalComplianceYearThree}}
+
+%% ================= Monthly Burn Rate =================
+% Total monthly burn including marketing
+\newcommand{\monthlyBurnYearOne}{\fpeval{(\totalOpexYearOne + \marketingBudgetYearOne) / 12}}
+\newcommand{\monthlyBurnYearTwo}{\fpeval{(\totalOpexYearTwo + \marketingBudgetYearTwo) / 12}}
+\newcommand{\monthlyBurnYearThree}{\fpeval{(\totalOpexYearThree + \marketingBudgetYearThree) / 12}}
+
+%% ================= Runway Calculations =================
+% Cash position after raises
+\newcommand{\cashAfterSeed}{\seedAmount}
+\newcommand{\cashAfterSeriesA}{\seriesAAmount}
+
+% Runway in months
+\newcommand{\seedRunwayMonths}{\fpeval{round(\cashAfterSeed / \monthlyBurnYearOne, 0)}}
+\newcommand{\seriesARunwayMonths}{\fpeval{round(\cashAfterSeriesA / \monthlyBurnYearTwo, 0)}}
+
+%% ================= True Gross Margins =================
+% Subscription gross margin after payment processing
+\newcommand{\subTrueGrossMargin}{\fpeval{round(\subGrossMargin - \paymentProcessingFee / \markPlatformFeePercent * 100, 1)}}
+
+% Hardware gross margin after payment processing  
+\newcommand{\hwTrueGrossMargin}{\fpeval{round(\hwWeightedAvgMargin - \paymentProcessingFee, 1)}}

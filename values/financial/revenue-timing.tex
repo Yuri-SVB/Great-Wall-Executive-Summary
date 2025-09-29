@@ -1,0 +1,63 @@
+% revenue-timing.tex - Actual revenue calculations accounting for acquisition timing
+% Location: values/financial/revenue-timing.tex
+
+%% ================= Revenue Timing Fundamentals =================
+% For linear subscriber acquisition throughout the year:
+% Month 1 subs pay for 12 months, Month 2 for 11 months, etc.
+% Average months paid = (12+11+10+...+1)/12 = 6.5 months
+
+% Average revenue months for Year 1 (linear acquisition)
+\newcommand{\avgRevenueMonthsYearOne}{6.5}
+
+% For Year 2: Starting subs pay 12 months + new subs average 6.5 months
+% For Year 3: Same pattern
+
+%% ================= Actual Revenue Calculations =================
+% Year 1: All new subscribers, linear acquisition
+\newcommand{\actualSubRevenueYearOne}{\fpeval{round(\newSubsYearOne * \markWeightedAvgAnnual * \avgRevenueMonthsYearOne / 12, 0)}}
+
+% Year 2: Retained Y1 subs (full year) + new subs (partial year)
+\newcommand{\retainedSubsYearTwo}{\fpeval{round(\totalSubsYearOne * (1 - \churnYearOne/100), 0)}}
+\newcommand{\actualSubRevenueYearTwo}{\fpeval{round(\retainedSubsYearTwo * \markWeightedAvgAnnual + \newSubsYearTwo * \markWeightedAvgAnnual * \avgRevenueMonthsYearOne / 12, 0)}}
+
+% Year 3: Retained Y2 subs (full year) + new subs (partial year)
+\newcommand{\retainedSubsYearThree}{\fpeval{round(\totalSubsYearTwo * (1 - \churnYearTwo/100), 0)}}
+\newcommand{\actualSubRevenueYearThree}{\fpeval{round(\retainedSubsYearThree * \markWeightedAvgAnnual + \newSubsYearThree * \markWeightedAvgAnnual * \avgRevenueMonthsYearOne / 12, 0)}}
+
+%% ================= Hardware Revenue (unchanged - one-time sales) =================
+\newcommand{\actualHwRevenueYearTwo}{\fpeval{round(\hwWeightedAvgGP * \hwCustomersYearTwo, 0)}}
+\newcommand{\actualHwRevenueYearThree}{\fpeval{round(\hwWeightedAvgGP * \hwCustomersYearThree, 0)}}
+
+%% ================= Total Actual Revenue =================
+\newcommand{\totalActualRevenueYearOne}{\actualSubRevenueYearOne}
+\newcommand{\totalActualRevenueYearTwo}{\fpeval{\actualSubRevenueYearTwo + \actualHwRevenueYearTwo}}
+\newcommand{\totalActualRevenueYearThree}{\fpeval{\actualSubRevenueYearThree + \actualHwRevenueYearThree}}
+
+%% ================= Actual Net Income/Loss =================
+\newcommand{\actualNetIncomeYearOne}{\fpeval{round(\totalActualRevenueYearOne - \totalOpexYearOne - \marketingBudgetYearOne, 0)}}
+\newcommand{\actualNetIncomeYearTwo}{\fpeval{round(\totalActualRevenueYearTwo - \totalOpexYearTwo - \marketingBudgetYearTwo, 0)}}
+\newcommand{\actualNetIncomeYearThree}{\fpeval{round(\totalActualRevenueYearThree - \totalOpexYearThree - \marketingBudgetYearThree, 0)}}
+
+%% ================= Recalculated Breakeven =================
+% Monthly revenue per subscriber
+\newcommand{\monthlyRevPerSub}{\markWeightedAvgMonthly}
+
+% Calculate cumulative revenue vs cumulative costs month by month
+% Assuming linear acquisition: N subscribers per month
+\newcommand{\subsPerMonth}{\fpeval{\totalSubsYearOne / 12}}
+
+% Breakeven occurs when cumulative revenue = cumulative costs
+% Cumulative revenue at month M = sum(n * monthlyRev * (M-n+1)) for n=1 to M
+% This equals: subsPerMonth * monthlyRevPerSub * M * (M+1) / 2
+% Cumulative costs at month M = monthlyBurn * M
+
+% Solving: subsPerMonth * monthlyRevPerSub * M * (M+1) / 2 = monthlyBurn * M
+% Simplifies to: M = (2 * monthlyBurn) / (subsPerMonth * monthlyRevPerSub) - 1
+
+\newcommand{\breakevenMonthActual}{\fpeval{round((2 * \monthlyBurnYearOne) / (\subsPerMonth * \monthlyRevPerSub) - 1, 0)}}
+
+% If result is negative or too high, set a reasonable cap
+\newcommand{\breakevenMonth}{\fpeval{min(max(\breakevenMonthActual, 12), 36)}}
+
+% Subscribers at breakeven (using actual month)
+\newcommand{\breakevenSubscribers}{\fpeval{round(\breakevenMonth * \subsPerMonth, -10)}}
